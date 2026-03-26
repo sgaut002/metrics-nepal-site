@@ -28,13 +28,46 @@ export default function MetricsNepalHomepage() {
   const articleHashPath = `#${articlePath}`;
   const article = {
     title: 'Are private schools really “better”?',
-    paragraphs: [
-      'There’s a persistent narrative in Nepal that private schools are “better” than public or as we better know them, “government schools”. This is generally linked to visible educational outcomes - SEE pass rates, language proficiency, and standardized testing. But is this reflecting private schools or the students attending them?',
-      'When you see graphs like above - we reinforce our logic - private students make up a much higher portion of the highest achievers even though they’re a smaller portion of the total student pool. This leads many of us to conclude that the “level” of education in private schools is simply higher. Here is where our logic is flawed.',
-      'That logic would’ve stood if all students were randomized and divided into public and private school groups randomly. However, that’s not the case. We’ve repeatedly seen families with higher incomes, stronger educational backgrounds, and urban access enroll their children into private schools at a higher rate. These factors combined might independently affect student performance - outside of school choice.',
-      'This shows the observational gap largely reflects selection bias rather than school driven outcomes. Once we start digging a little bit deeper - we realize this isn’t binary either. There isn’t a single quality standard of a public or a private school. A private school in Achham won’t be the same as a private school in Pokhara, and a public school in Bajura won’t be the same as a public school in Kathmandu. The most visible examples are found in public school performances in dense urban centers compared to rural private schools.',
-      'This heterogeneity in schools, along with our previous understanding of student backgrounds leads us to fundamentally question assumptions we made at the beginning - the apparent “better” stature of private schools is now much less clear. When we make observational correlations, we overstate the value of any single factor, disregarding several other mechanisms.',
-      'The relevant question is not whether a school is public or private, but how much value it adds given the students it serves. Policies and decisions based solely on sectoral comparisons risk misidentifying the problem. Improving educational outcomes requires focusing on measurable quality and student-level progress, rather than broad institutional categories.',
+    content: [
+      {
+        type: "p",
+        text: 'There’s a persistent narrative in Nepal that private schools are “better” than public or as we better know them, “government schools”. This is generally linked to visible educational outcomes - SEE pass rates, language proficiency, and standardized testing. But is this reflecting private schools or the students attending them?',
+      },
+      {
+        type: "img",
+        src: "/insights-private-schools-1.png",
+        alt: "Private vs public school performance chart",
+      },
+      {
+        type: "p",
+        text: 'When you see graphs like above - we reinforce our logic - private students make up a much higher portion of the highest achievers even though they’re a smaller portion of the total student pool. This leads many of us to conclude that the “level” of education in private schools is simply higher. Here is where our logic is flawed.',
+      },
+      {
+        type: "p",
+        text: 'That logic would’ve stood if all students were randomized and divided into public and private school groups randomly. However, that’s not the case. We’ve repeatedly seen families with higher incomes, stronger educational backgrounds, and urban access enroll their children into private schools at a higher rate. These factors combined might independently affect student performance - outside of school choice.',
+      },
+      {
+        type: "img",
+        src: "/insights-private-schools-2.png",
+        alt: "Student background differences chart",
+      },
+      {
+        type: "p",
+        text: 'This shows the observational gap largely reflects selection bias rather than school driven outcomes. Once we start digging a little bit deeper - we realize this isn’t binary either. There isn’t a single quality standard of a public or a private school. A private school in Achham won’t be the same as a private school in Pokhara, and a public school in Bajura won’t be the same as a public school in Kathmandu. The most visible examples are found in public school performances in dense urban centers compared to rural private schools.',
+      },
+      {
+        type: "img",
+        src: "/insights-private-schools-3.png",
+        alt: "School quality variation chart",
+      },
+      {
+        type: "p",
+        text: 'This heterogeneity in schools, along with our previous understanding of student backgrounds leads us to fundamentally question assumptions we made at the beginning - the apparent “better” stature of private schools is now much less clear. When we make observational correlations, we overstate the value of any single factor, disregarding several other mechanisms.',
+      },
+      {
+        type: "p",
+        text: 'The relevant question is not whether a school is public or private, but how much value it adds given the students it serves. Policies and decisions based solely on sectoral comparisons risk misidentifying the problem. Improving educational outcomes requires focusing on measurable quality and student-level progress, rather than broad institutional categories.',
+      },
     ],
   };
   const isArticlePage =
@@ -86,18 +119,22 @@ export default function MetricsNepalHomepage() {
             <div className="text-center text-sm font-semibold uppercase tracking-[0.2em] text-red-700">
               Insights
             </div>
-            <h1 className="mt-4 text-center text-3xl font-semibold text-blue-900 sm:text-4xl">
+            <h1 className="mt-4 text-center text-3xl font-bold text-blue-900 sm:text-4xl">
               {article.title}
             </h1>
-            <img
-              src="/insights-private-schools.png"
-              alt={article.title}
-              className="mt-10 w-full rounded-2xl border border-blue-900/10 bg-white shadow-sm"
-            />
             <div className="mt-10 space-y-6 text-lg leading-8 text-slate-700">
-              {article.paragraphs.map((paragraph) => (
-                <p key={paragraph}>{paragraph}</p>
-              ))}
+              {article.content.map((block, index) =>
+                block.type === "img" ? (
+                  <img
+                    key={`${block.src}-${index}`}
+                    src={block.src}
+                    alt={block.alt}
+                    className="w-full rounded-2xl border border-blue-900/10 bg-white shadow-sm"
+                  />
+                ) : (
+                  <p key={`${block.text}-${index}`}>{block.text}</p>
+                )
+              )}
             </div>
           </section>
         </main>
@@ -199,7 +236,7 @@ export default function MetricsNepalHomepage() {
                 className="group rounded-xl border border-red-200 bg-white shadow-sm transition hover:-translate-y-1 hover:border-red-300 hover:shadow-md"
               >
                 <img
-                  src="/insights-private-schools.png"
+                  src="/insights-private-schools-1.png"
                   alt={article.title}
                   className="h-40 w-full rounded-t-xl object-cover"
                 />
