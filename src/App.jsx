@@ -59,6 +59,14 @@ export default function MetricsNepalHomepage() {
               <p className="mt-3 text-sm leading-7 text-slate-700">
                 We’re an econometric data analysis firm dedicated to providing data-driven solutions to current private and policy issues. We are committed to applying cutting-edge methods to deliver on Nepal's business and policy potential.
               </p>
+              <div className="mt-6">
+                <a
+                  href="mailto:contact@metricsnepal.com"
+                  className="inline-flex items-center justify-center rounded-xl bg-blue-900 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-blue-800"
+                >
+                  Contact us
+                </a>
+              </div>
               <div className="mt-4 h-20 w-full rounded-xl bg-gradient-to-r from-blue-100 to-red-100" />
             </div>
           </div>
