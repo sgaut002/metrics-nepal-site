@@ -5,7 +5,7 @@ export default function MetricsNepalHomepage() {
     { label: "Papers", href: "#papers" },
     { label: "Careers", href: "#careers" },
   ];
-  const articlePath = "/insights/private-schools-better";
+  const articlePath = "#/insights/private-schools-better";
   const article = {
     title: 'Are private schools really “better”?',
     paragraphs: [
@@ -18,7 +18,9 @@ export default function MetricsNepalHomepage() {
     ],
   };
   const isArticlePage =
-    typeof window !== "undefined" && window.location.pathname === articlePath;
+    typeof window !== "undefined" &&
+    (window.location.hash === articlePath ||
+      window.location.pathname === "/insights/private-schools-better");
 
   if (isArticlePage) {
     const articleNavItems = [
