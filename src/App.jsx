@@ -1,5 +1,10 @@
 export default function MetricsNepalHomepage() {
-  const navItems = ["About us", "Insights", "Papers", "Careers"];
+  const navItems = [
+    { label: "About us", href: "#about" },
+    { label: "Insights", href: "#insights" },
+    { label: "Papers", href: "#papers" },
+    { label: "Careers", href: "#careers" },
+  ];
 
   return (
     <div className="min-h-screen bg-white text-slate-900">
@@ -14,11 +19,11 @@ export default function MetricsNepalHomepage() {
           <nav className="hidden items-center gap-10 md:flex">
             {navItems.map((item) => (
               <a
-                key={item}
-                href="#"
+                key={item.label}
+                href={item.href}
                 className="text-sm font-medium text-blue-900 transition hover:text-red-600"
               >
-                {item}
+                {item.label}
               </a>
             ))}
           </nav>
