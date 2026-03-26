@@ -13,7 +13,9 @@ export default function MetricsNepalHomepage() {
         <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-10">
           <div className="flex items-center gap-3">
             {/* Make sure logo.png exists in public folder */}
-            <img src="/logo.png" alt="Metrics Nepal" className="h-24 w-auto" />
+            <a href="https://metricsnepal.com" className="flex items-center" aria-label="Metrics Nepal home">
+              <img src="/logo.png" alt="Metrics Nepal" className="h-24 w-auto sm:h-28 lg:h-32" />
+            </a>
           </div>
 
           <nav className="flex flex-wrap items-center gap-6 text-xs sm:text-sm">
