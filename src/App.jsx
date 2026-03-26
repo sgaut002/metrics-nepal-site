@@ -16,7 +16,7 @@ export default function MetricsNepalHomepage() {
             <img src="/logo.png" alt="Metrics Nepal" className="h-24 w-auto" />
           </div>
 
-          <nav className="hidden items-center gap-10 md:flex">
+          <nav className="flex flex-wrap items-center gap-6 text-xs sm:text-sm">
             {navItems.map((item) => (
               <a
                 key={item.label}
