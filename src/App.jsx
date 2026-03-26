@@ -113,7 +113,7 @@ export default function MetricsNepalHomepage() {
         {/* CAREERS */}
         <section id="careers" className="scroll-mt-28 bg-blue-900 text-white">
           <div className="mx-auto max-w-7xl scroll-mt-28 px-6 py-20 lg:px-10">
-            <div className="text-sm font-semibold uppercase tracking-[0.2em] text-blue-200">
+            <div className="text-center text-lg font-semibold uppercase tracking-[0.3em] text-blue-200">
               Careers
             </div>
             <div className="mt-6 flex items-center justify-center rounded-xl border border-white/15 bg-white/10 p-8 text-center text-lg text-blue-100">
