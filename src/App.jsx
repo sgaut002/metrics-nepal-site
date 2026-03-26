@@ -78,7 +78,7 @@ export default function MetricsNepalHomepage() {
 
         {/* ABOUT */}
         <section id="about" className="mx-auto max-w-7xl scroll-mt-28 px-6 py-20 lg:px-10">
-          <div className="text-sm font-semibold uppercase tracking-[0.2em] text-blue-900">
+          <div className="text-center text-lg font-semibold uppercase tracking-[0.3em] text-blue-900">
             About us
           </div>
           <div className="mt-6 flex items-center justify-center rounded-xl border border-blue-900/10 bg-blue-50 p-8 text-center text-lg text-slate-700">
