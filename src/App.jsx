@@ -5,6 +5,83 @@ export default function MetricsNepalHomepage() {
     { label: "Papers", href: "#papers" },
     { label: "Careers", href: "#careers" },
   ];
+  const articlePath = "/insights/private-schools-better";
+  const article = {
+    title: 'Are private schools really “better”?',
+    paragraphs: [
+      'There’s a persistent narrative in Nepal that private schools are “better” than public or as we better know them, “government schools”. This is generally linked to visible educational outcomes - SEE pass rates, language proficiency, and standardized testing. But is this reflecting private schools or the students attending them?',
+      'When you see graphs like above - we reinforce our logic - private students make up a much higher portion of the highest achievers even though they’re a smaller portion of the total student pool. This leads many of us to conclude that the “level” of education in private schools is simply higher. Here is where our logic is flawed.',
+      'That logic would’ve stood if all students were randomized and divided into public and private school groups randomly. However, that’s not the case. We’ve repeatedly seen families with higher incomes, stronger educational backgrounds, and urban access enroll their children into private schools at a higher rate. These factors combined might independently affect student performance - outside of school choice.',
+      'This shows the observational gap largely reflects selection bias rather than school driven outcomes. Once we start digging a little bit deeper - we realize this isn’t binary either. There isn’t a single quality standard of a public or a private school. A private school in Achham won’t be the same as a private school in Pokhara, and a public school in Bajura won’t be the same as a public school in Kathmandu. The most visible examples are found in public school performances in dense urban centers compared to rural private schools.',
+      'This heterogeneity in schools, along with our previous understanding of student backgrounds leads us to fundamentally question assumptions we made at the beginning - the apparent “better” stature of private schools is now much less clear. When we make observational correlations, we overstate the value of any single factor, disregarding several other mechanisms.',
+      'The relevant question is not whether a school is public or private, but how much value it adds given the students it serves. Policies and decisions based solely on sectoral comparisons risk misidentifying the problem. Improving educational outcomes requires focusing on measurable quality and student-level progress, rather than broad institutional categories.',
+    ],
+  };
+  const isArticlePage =
+    typeof window !== "undefined" && window.location.pathname === articlePath;
+
+  if (isArticlePage) {
+    const articleNavItems = [
+      { label: "Home", href: "/" },
+      { label: "Insights", href: "/#insights" },
+      { label: "Contact", href: "mailto:contact@metricsnepal.com" },
+    ];
+
+    return (
+      <div className="min-h-screen bg-white text-slate-900">
+        <header className="sticky top-0 z-50 border-b border-blue-900/10 bg-white">
+          <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-10">
+            <div className="flex items-center gap-3">
+              <a
+                href="https://metricsnepal.com"
+                className="flex items-center"
+                aria-label="Metrics Nepal home"
+              >
+                <img
+                  src="/logo.png"
+                  alt="Metrics Nepal"
+                  className="h-20 w-auto sm:h-24"
+                />
+              </a>
+            </div>
+
+            <nav className="flex flex-wrap items-center gap-6 text-xs sm:text-sm">
+              {articleNavItems.map((item) => (
+                <a
+                  key={item.label}
+                  href={item.href}
+                  className="text-sm font-medium text-blue-900 transition hover:text-red-600"
+                >
+                  {item.label}
+                </a>
+              ))}
+            </nav>
+          </div>
+        </header>
+
+        <main>
+          <section className="mx-auto max-w-4xl px-6 py-16 lg:px-10">
+            <div className="text-center text-sm font-semibold uppercase tracking-[0.2em] text-red-700">
+              Insights
+            </div>
+            <h1 className="mt-4 text-center text-3xl font-semibold text-blue-900 sm:text-4xl">
+              {article.title}
+            </h1>
+            <img
+              src="/insights-private-schools.png"
+              alt={article.title}
+              className="mt-10 w-full rounded-2xl border border-blue-900/10 bg-white shadow-sm"
+            />
+            <div className="mt-10 space-y-6 text-lg leading-8 text-slate-700">
+              {article.paragraphs.map((paragraph) => (
+                <p key={paragraph}>{paragraph}</p>
+              ))}
+            </div>
+          </section>
+        </main>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-white text-slate-900">
@@ -95,8 +172,29 @@ export default function MetricsNepalHomepage() {
               Insights
             </div>
             <div className="mt-6 grid gap-6 lg:grid-cols-3">
-              {[1, 2, 3].map((i) => (
-                <div key={i} className="h-40 rounded-xl border border-red-200 bg-white" />
+              <a
+                href={articlePath}
+                className="group rounded-xl border border-red-200 bg-white shadow-sm transition hover:-translate-y-1 hover:border-red-300 hover:shadow-md"
+              >
+                <img
+                  src="/insights-private-schools.png"
+                  alt={article.title}
+                  className="h-40 w-full rounded-t-xl object-cover"
+                />
+                <div className="p-4">
+                  <div className="text-xs font-semibold uppercase tracking-[0.2em] text-red-600">
+                    Insights
+                  </div>
+                  <h3 className="mt-2 text-base font-semibold text-blue-900">
+                    {article.title}
+                  </h3>
+                  <p className="mt-2 text-sm text-slate-600">
+                    Read the full analysis.
+                  </p>
+                </div>
+              </a>
+              {[2, 3].map((i) => (
+                <div key={i} className="h-72 rounded-xl border border-red-200 bg-white" />
               ))}
             </div>
           </div>
