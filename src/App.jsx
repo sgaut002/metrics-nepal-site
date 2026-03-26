@@ -116,7 +116,7 @@ export default function MetricsNepalHomepage() {
             <div className="text-sm font-semibold uppercase tracking-[0.2em] text-blue-200">
               Careers
             </div>
-            <div className="mt-6 rounded-xl border border-white/15 bg-white/10 p-6 text-sm text-blue-100">
+            <div className="mt-6 flex items-center justify-center rounded-xl border border-white/15 bg-white/10 p-8 text-center text-lg text-blue-100">
               No openings at this moment. We'll let you know if any opportunities open up!
             </div>
           </div>
