@@ -77,7 +77,7 @@ export default function MetricsNepalHomepage() {
         </section>
 
         {/* ABOUT */}
-        <section id="about" className="mx-auto max-w-7xl px-6 py-20 lg:px-10">
+        <section id="about" className="mx-auto max-w-7xl scroll-mt-28 px-6 py-20 lg:px-10">
           <div className="text-sm font-semibold uppercase tracking-[0.2em] text-blue-900">
             About us
           </div>
@@ -85,8 +85,8 @@ export default function MetricsNepalHomepage() {
         </section>
 
         {/* INSIGHTS */}
-        <section id="insights" className="border-y border-red-200 bg-red-50">
-          <div className="mx-auto max-w-7xl px-6 py-20 lg:px-10">
+        <section id="insights" className="scroll-mt-28 border-y border-red-200 bg-red-50">
+          <div className="mx-auto max-w-7xl scroll-mt-28 px-6 py-20 lg:px-10">
             <div className="text-sm font-semibold uppercase tracking-[0.2em] text-red-700">
               Insights
             </div>
@@ -99,7 +99,7 @@ export default function MetricsNepalHomepage() {
         </section>
 
         {/* PAPERS */}
-        <section id="papers" className="mx-auto max-w-7xl px-6 py-20 lg:px-10">
+        <section id="papers" className="mx-auto max-w-7xl scroll-mt-28 px-6 py-20 lg:px-10">
           <div className="text-sm font-semibold uppercase tracking-[0.2em] text-blue-900">
             Papers
           </div>
@@ -111,8 +111,8 @@ export default function MetricsNepalHomepage() {
         </section>
 
         {/* CAREERS */}
-        <section id="careers" className="bg-blue-900 text-white">
-          <div className="mx-auto max-w-7xl px-6 py-20 lg:px-10">
+        <section id="careers" className="scroll-mt-28 bg-blue-900 text-white">
+          <div className="mx-auto max-w-7xl scroll-mt-28 px-6 py-20 lg:px-10">
             <div className="text-sm font-semibold uppercase tracking-[0.2em] text-blue-200">
               Careers
             </div>
