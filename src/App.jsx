@@ -67,7 +67,6 @@ export default function MetricsNepalHomepage() {
                   Contact us
                 </a>
               </div>
-              <div className="mt-4 h-20 w-full rounded-xl bg-gradient-to-r from-blue-100 to-red-100" />
             </div>
           </div>
         </section>
