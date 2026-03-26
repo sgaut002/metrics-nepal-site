@@ -1,11 +1,31 @@
+import { useEffect, useState } from "react";
+
 export default function MetricsNepalHomepage() {
+  const [locationKey, setLocationKey] = useState(() =>
+    typeof window !== "undefined"
+      ? `${window.location.pathname}${window.location.hash}`
+      : ""
+  );
+
+  useEffect(() => {
+    if (typeof window === "undefined") return undefined;
+    const handleLocationChange = () =>
+      setLocationKey(`${window.location.pathname}${window.location.hash}`);
+    window.addEventListener("hashchange", handleLocationChange);
+    window.addEventListener("popstate", handleLocationChange);
+    return () => {
+      window.removeEventListener("hashchange", handleLocationChange);
+      window.removeEventListener("popstate", handleLocationChange);
+    };
+  }, []);
   const navItems = [
     { label: "About us", href: "#about" },
     { label: "Insights", href: "#insights" },
     { label: "Papers", href: "#papers" },
     { label: "Careers", href: "#careers" },
   ];
-  const articlePath = "#/insights/private-schools-better";
+  const articlePath = "/insights/private-schools-better";
+  const articleHashPath = `#${articlePath}`;
   const article = {
     title: 'Are private schools really “better”?',
     paragraphs: [
@@ -19,8 +39,8 @@ export default function MetricsNepalHomepage() {
   };
   const isArticlePage =
     typeof window !== "undefined" &&
-    (window.location.hash === articlePath ||
-      window.location.pathname === "/insights/private-schools-better");
+    (locationKey.includes(articleHashPath) ||
+      locationKey.startsWith(articlePath));
 
   if (isArticlePage) {
     const articleNavItems = [
@@ -175,7 +195,7 @@ export default function MetricsNepalHomepage() {
             </div>
             <div className="mt-6 grid gap-6 lg:grid-cols-3">
               <a
-                href={articlePath}
+                href={articleHashPath}
                 className="group rounded-xl border border-red-200 bg-white shadow-sm transition hover:-translate-y-1 hover:border-red-300 hover:shadow-md"
               >
                 <img
