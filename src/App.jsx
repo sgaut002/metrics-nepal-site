@@ -8,7 +8,7 @@ export default function MetricsNepalHomepage() {
         <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-10">
           <div className="flex items-center gap-3">
             {/* Make sure logo.png exists in public folder */}
-            <img src="/logo.png" alt="Metrics Nepal" className="h-12 w-auto" />
+            <img src="/logo.png" alt="Metrics Nepal" className="h-24 w-auto" />
           </div>
 
           <nav className="hidden items-center gap-10 md:flex">
@@ -31,8 +31,8 @@ export default function MetricsNepalHomepage() {
           <div className="mx-auto grid max-w-7xl gap-14 px-6 py-24 lg:grid-cols-[1.2fr_0.8fr] lg:px-10 lg:py-32">
             <div className="max-w-3xl">
               <h1 className="text-4xl font-semibold tracking-tight sm:text-5xl lg:text-6xl">
-                <span className="text-blue-900">Data-driven decisions</span>{" "}
-                <span className="text-red-600">for a more accountable Nepal.</span>
+                <span className="text-blue-900">Data-driven solutions</span>{" "}
+                <span className="text-red-600">for an efficient Nepal</span>
               </h1>
               <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-700">
                 Applying rigorous analysis to policy, markets, and public decision-making.
