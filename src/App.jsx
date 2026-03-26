@@ -81,7 +81,9 @@ export default function MetricsNepalHomepage() {
           <div className="text-sm font-semibold uppercase tracking-[0.2em] text-blue-900">
             About us
           </div>
-          <div className="mt-6 h-32 rounded-xl border border-blue-900/10 bg-blue-50" />
+          <div className="mt-6 flex items-center justify-center rounded-xl border border-blue-900/10 bg-blue-50 p-8 text-center text-lg text-slate-700">
+            Metrics Nepal is a research platform applying rigorous economic analysis to real-world policy and market decisions in Nepal. We combine data, analytical methods, and economic reasoning to move beyond intuition-led approaches. Our work delivers clear insights, practical evaluations, and structured reports that quantify impact, uncover key drivers, and support better decision-making across both public and private sectors.
+          </div>
         </section>
 
         {/* INSIGHTS */}
