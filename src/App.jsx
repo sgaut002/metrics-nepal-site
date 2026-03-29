@@ -21,7 +21,7 @@ export default function MetricsNepalHomepage() {
   const navItems = [
     { label: "About us", href: "#about" },
     { label: "Insights", href: "#insights" },
-    { label: "Papers", href: "#papers" },
+    { label: "Projects", href: "#papers" },
     { label: "Careers", href: "#careers" },
   ];
   const articlePath = "/insights/private-schools-better";
@@ -192,7 +192,7 @@ export default function MetricsNepalHomepage() {
                   href="#papers"
                   className="rounded-xl border border-blue-900 px-6 py-3 text-sm font-semibold text-blue-900 transition hover:bg-blue-50"
                 >
-                  Papers
+                  Projects
                 </a>
               </div>
             </div>
@@ -262,7 +262,7 @@ export default function MetricsNepalHomepage() {
         {/* PAPERS */}
         <section id="papers" className="mx-auto max-w-7xl scroll-mt-28 px-6 py-20 lg:px-10">
           <div className="text-sm font-semibold uppercase tracking-[0.2em] text-blue-900">
-            Papers
+            Projects
           </div>
           <div className="mt-6 space-y-4">
             {[1, 2, 3].map((i) => (
