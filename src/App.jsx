@@ -113,7 +113,7 @@ export default function MetricsNepalHomepage() {
                 <img
                   src="/logo.png"
                   alt="Metrics Nepal"
-                  className="h-20 w-auto sm:h-24"
+                  className="h-14 w-auto sm:h-24"
                 />
               </a>
             </div>
@@ -147,23 +147,44 @@ export default function MetricsNepalHomepage() {
           </div>
 
           {isMobileMenuOpen ? (
-            <nav
-              id="article-mobile-menu"
-              className="border-t border-blue-900/10 bg-white px-6 py-4 md:hidden"
-            >
-              <div className="mx-auto flex max-w-7xl flex-col gap-4">
-                {articleNavItems.map((item) => (
-                  <a
-                    key={item.label}
-                    href={item.href}
-                    className="text-sm font-medium text-blue-900 transition hover:text-red-600"
+            <div className="md:hidden">
+              <button
+                type="button"
+                className="fixed inset-0 z-40 bg-slate-900/35 backdrop-blur-[2px]"
+                aria-label="Close navigation menu"
+                onClick={() => setIsMobileMenuOpen(false)}
+              />
+              <nav
+                id="article-mobile-menu"
+                className="fixed right-0 top-0 z-50 flex h-full w-72 max-w-[85vw] flex-col border-l border-blue-900/10 bg-white px-6 py-6 shadow-2xl"
+              >
+                <div className="flex items-center justify-between">
+                  <div className="text-xs font-semibold uppercase tracking-[0.3em] text-blue-900">
+                    Menu
+                  </div>
+                  <button
+                    type="button"
+                    className="rounded-xl border border-blue-900/15 px-3 py-2 text-sm font-medium text-blue-900 transition hover:bg-blue-50"
+                    aria-label="Close navigation menu"
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
-                    {item.label}
-                  </a>
-                ))}
-              </div>
-            </nav>
+                    Close
+                  </button>
+                </div>
+                <div className="mt-8 flex flex-col gap-5">
+                  {articleNavItems.map((item) => (
+                    <a
+                      key={item.label}
+                      href={item.href}
+                      className="text-base font-medium text-blue-900 transition hover:text-red-600"
+                      onClick={() => setIsMobileMenuOpen(false)}
+                    >
+                      {item.label}
+                    </a>
+                  ))}
+                </div>
+              </nav>
+            </div>
           ) : null}
         </header>
 
@@ -203,7 +224,7 @@ export default function MetricsNepalHomepage() {
           <div className="flex items-center gap-3">
             {/* Make sure logo.png exists in public folder */}
             <a href="https://metricsnepal.com" className="flex items-center" aria-label="Metrics Nepal home">
-              <img src="/logo.png" alt="Metrics Nepal" className="h-24 w-auto sm:h-28 lg:h-32" />
+              <img src="/logo.png" alt="Metrics Nepal" className="h-16 w-auto sm:h-28 lg:h-32" />
             </a>
           </div>
 
@@ -236,23 +257,44 @@ export default function MetricsNepalHomepage() {
         </div>
 
         {isMobileMenuOpen ? (
-          <nav
-            id="mobile-menu"
-            className="border-t border-blue-900/10 bg-white px-6 py-4 md:hidden"
-          >
-            <div className="mx-auto flex max-w-7xl flex-col gap-4">
-              {navItems.map((item) => (
-                <a
-                  key={item.label}
-                  href={item.href}
-                  className="text-sm font-medium text-blue-900 transition hover:text-red-600"
+          <div className="md:hidden">
+            <button
+              type="button"
+              className="fixed inset-0 z-40 bg-slate-900/35 backdrop-blur-[2px]"
+              aria-label="Close navigation menu"
+              onClick={() => setIsMobileMenuOpen(false)}
+            />
+            <nav
+              id="mobile-menu"
+              className="fixed right-0 top-0 z-50 flex h-full w-72 max-w-[85vw] flex-col border-l border-blue-900/10 bg-white px-6 py-6 shadow-2xl"
+            >
+              <div className="flex items-center justify-between">
+                <div className="text-xs font-semibold uppercase tracking-[0.3em] text-blue-900">
+                  Menu
+                </div>
+                <button
+                  type="button"
+                  className="rounded-xl border border-blue-900/15 px-3 py-2 text-sm font-medium text-blue-900 transition hover:bg-blue-50"
+                  aria-label="Close navigation menu"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
-                  {item.label}
-                </a>
-              ))}
-            </div>
-          </nav>
+                  Close
+                </button>
+              </div>
+              <div className="mt-8 flex flex-col gap-5">
+                {navItems.map((item) => (
+                  <a
+                    key={item.label}
+                    href={item.href}
+                    className="text-base font-medium text-blue-900 transition hover:text-red-600"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    {item.label}
+                  </a>
+                ))}
+              </div>
+            </nav>
+          </div>
         ) : null}
       </header>
 
