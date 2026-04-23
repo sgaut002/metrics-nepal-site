@@ -6,6 +6,7 @@ export default function MetricsNepalHomepage() {
       ? `${window.location.pathname}${window.location.hash}`
       : ""
   );
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     if (typeof window === "undefined") return undefined;
@@ -17,6 +18,23 @@ export default function MetricsNepalHomepage() {
       window.removeEventListener("hashchange", handleLocationChange);
       window.removeEventListener("popstate", handleLocationChange);
     };
+  }, []);
+
+  useEffect(() => {
+    setIsMobileMenuOpen(false);
+  }, [locationKey]);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return undefined;
+
+    const handleResize = () => {
+      if (window.innerWidth >= 768) {
+        setIsMobileMenuOpen(false);
+      }
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
   const navItems = [
     { label: "About us", href: "#about" },
@@ -100,7 +118,22 @@ export default function MetricsNepalHomepage() {
               </a>
             </div>
 
-            <nav className="flex flex-wrap items-center gap-6 text-xs sm:text-sm">
+            <button
+              type="button"
+              className="inline-flex items-center justify-center rounded-xl border border-blue-900/15 p-3 text-blue-900 transition hover:bg-blue-50 md:hidden"
+              aria-expanded={isMobileMenuOpen}
+              aria-controls="article-mobile-menu"
+              aria-label="Toggle navigation menu"
+              onClick={() => setIsMobileMenuOpen((open) => !open)}
+            >
+              <span className="flex h-4 w-5 flex-col justify-between">
+                <span className="block h-0.5 w-full rounded-full bg-current" />
+                <span className="block h-0.5 w-full rounded-full bg-current" />
+                <span className="block h-0.5 w-full rounded-full bg-current" />
+              </span>
+            </button>
+
+            <nav className="hidden items-center gap-6 text-xs sm:text-sm md:flex">
               {articleNavItems.map((item) => (
                 <a
                   key={item.label}
@@ -112,6 +145,26 @@ export default function MetricsNepalHomepage() {
               ))}
             </nav>
           </div>
+
+          {isMobileMenuOpen ? (
+            <nav
+              id="article-mobile-menu"
+              className="border-t border-blue-900/10 bg-white px-6 py-4 md:hidden"
+            >
+              <div className="mx-auto flex max-w-7xl flex-col gap-4">
+                {articleNavItems.map((item) => (
+                  <a
+                    key={item.label}
+                    href={item.href}
+                    className="text-sm font-medium text-blue-900 transition hover:text-red-600"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    {item.label}
+                  </a>
+                ))}
+              </div>
+            </nav>
+          ) : null}
         </header>
 
         <main>
@@ -154,7 +207,22 @@ export default function MetricsNepalHomepage() {
             </a>
           </div>
 
-          <nav className="flex flex-wrap items-center gap-6 text-xs sm:text-sm">
+          <button
+            type="button"
+            className="inline-flex items-center justify-center rounded-xl border border-blue-900/15 p-3 text-blue-900 transition hover:bg-blue-50 md:hidden"
+            aria-expanded={isMobileMenuOpen}
+            aria-controls="mobile-menu"
+            aria-label="Toggle navigation menu"
+            onClick={() => setIsMobileMenuOpen((open) => !open)}
+          >
+            <span className="flex h-4 w-5 flex-col justify-between">
+              <span className="block h-0.5 w-full rounded-full bg-current" />
+              <span className="block h-0.5 w-full rounded-full bg-current" />
+              <span className="block h-0.5 w-full rounded-full bg-current" />
+            </span>
+          </button>
+
+          <nav className="hidden items-center gap-6 text-xs sm:text-sm md:flex">
             {navItems.map((item) => (
               <a
                 key={item.label}
@@ -166,6 +234,26 @@ export default function MetricsNepalHomepage() {
             ))}
           </nav>
         </div>
+
+        {isMobileMenuOpen ? (
+          <nav
+            id="mobile-menu"
+            className="border-t border-blue-900/10 bg-white px-6 py-4 md:hidden"
+          >
+            <div className="mx-auto flex max-w-7xl flex-col gap-4">
+              {navItems.map((item) => (
+                <a
+                  key={item.label}
+                  href={item.href}
+                  className="text-sm font-medium text-blue-900 transition hover:text-red-600"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  {item.label}
+                </a>
+              ))}
+            </div>
+          </nav>
+        ) : null}
       </header>
 
       <main>
