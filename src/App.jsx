@@ -87,69 +87,98 @@ const WHITE_PAPER_SUBTITLE =
 const WHITE_PAPER_TAB_ORDER = Object.keys(whitePaperCharts);
 const CHART_COLORS = ["#18356d", "#b04646", "#5f6b7a", "#d48657"];
 const RESPONSIVE_LABEL_MAP = {
-  "10-year average": "10yr avg",
+  "10-year average": "10-year average",
   "FY 2081/82": "FY 81/82",
-  "FY 2082/83 projection": "FY 82/83 proj.",
-  Agriculture: "Agri.",
+  "FY 2082/83 projection": "FY 82/83 projection",
+  Agriculture: "Agriculture",
   Industry: "Industry",
   Services: "Services",
-  "Employment share": "Jobs share",
+  "Employment share": "Employment share",
   "GDP share": "GDP share",
-  "New approvals, FY 2081/82": "New FY 81/82",
-  "Renewed approvals, FY 2081/82": "Renewed FY 81/82",
-  "Total, FY 2081/82": "Total FY 81/82",
-  "New approvals, current FY to Chaitra 12": "New YTD",
-  "Renewed approvals, current FY to Chaitra 12": "Renewed YTD",
-  "Total, current FY to Chaitra 12": "Total YTD",
-  "Nepali workers in West Asia": "Workers",
-  "Remittance share from West Asia": "Remit. share",
+  "New approvals, FY 2081/82": "New approvals (FY 81/82)",
+  "Renewed approvals, FY 2081/82": "Renewed approvals (FY 81/82)",
+  "Total, FY 2081/82": "Total approvals (FY 81/82)",
+  "New approvals, current FY to Chaitra 12": "New approvals (YTD)",
+  "Renewed approvals, current FY to Chaitra 12": "Renewed approvals (YTD)",
+  "Total, current FY to Chaitra 12": "Total approvals (YTD)",
+  "Nepali workers in West Asia": "Workers in West Asia",
+  "Remittance share from West Asia": "Remittance share",
   VAT: "VAT",
   "Income tax": "Income tax",
   Customs: "Customs",
   Excise: "Excise",
-  "Non-tax revenue": "Non-tax",
+  "Non-tax revenue": "Non-tax revenue",
   "FY 2072/73": "FY 72/73",
-  "Current expenditure": "Current",
-  "Capital expenditure": "Capital",
+  "Current expenditure": "Current spending",
+  "Capital expenditure": "Capital spending",
   Financing: "Financing",
-  "Share of federal expenditure": "Exp. share",
-  "Share of federal revenue": "Rev. share",
+  "Share of federal expenditure": "Expenditure share",
+  "Share of federal revenue": "Revenue share",
   "Gross domestic saving": "Domestic saving",
   "Total investment": "Investment",
-  "Saving-investment gap": "S-I gap",
+  "Saving-investment gap": "Saving-investment gap",
   "Gross national saving": "National saving",
   "Total consumption": "Consumption",
   "Total PAN": "Total PAN",
-  "Individual PAN": "Individual",
-  "Business PAN": "Business",
-  "VAT registered": "VAT reg.",
-  "Excise registered": "Excise reg.",
-  "Internal revenue from 100 large taxpayers": "Top 100 taxpayers",
-  "Informal economy estimate": "Informal econ.",
-  "Unregistered establishments": "Unregistered",
-  "Registered establishments keeping accounts": "Keep accounts",
+  "Individual PAN": "Individual PAN",
+  "Business PAN": "Business PAN",
+  "VAT registered": "VAT registered",
+  "Excise registered": "Excise registered",
+  "Internal revenue from 100 large taxpayers": "100 large taxpayers",
+  "Informal economy estimate": "Informal economy",
+  "Unregistered establishments": "Unregistered establishments",
+  "Registered establishments keeping accounts": "Registered establishments keeping accounts",
   Federal: "Federal",
   Province: "Province",
   Local: "Local",
-  "Province and local": "Subnational",
-  "Progress achieved by 2022": "2022 progress",
-  "Projected progress by 2030": "2030 proj.",
+  "Province and local": "Province and local",
+  "Progress achieved by 2022": "Progress by 2022",
+  "Projected progress by 2030": "Progress by 2030",
   Target: "Target",
   "CPI score": "CPI score",
-  "HDI score × 100": "HDI ×100",
+  "HDI score × 100": "HDI score × 100",
   "CPI rank": "CPI rank",
   "HDI rank": "HDI rank",
   "Up to Ashar 2068": "Ashar 2068",
   "Falgun 2082": "Falgun 2082",
-  "Foreign tourist arrivals, 2025": "Arrivals",
-  "Tourist-standard hotels": "Hotels",
-  "Daily bed capacity": "Beds/day",
+  "Foreign tourist arrivals, 2025": "Tourist arrivals (2025)",
+  "Tourist-standard hotels": "Tourist-standard hotels",
+  "Daily bed capacity": "Daily bed capacity",
 };
+
+const MOBILE_HORIZONTAL_CHART_IDS = new Set([
+  "pan-registration",
+  "saving-investment-gap",
+  "tax-base-stress",
+  "tourism-capacity",
+]);
 
 function getResponsiveLabel(fullLabel, isMobile) {
   if (typeof fullLabel !== "string") return fullLabel;
   if (!isMobile) return fullLabel;
   return RESPONSIVE_LABEL_MAP[fullLabel] ?? fullLabel;
+}
+
+function getChartLabelKey(chart) {
+  return chart.xKey;
+}
+
+function getChartLabels(chart) {
+  const labelKey = getChartLabelKey(chart);
+  if (!labelKey || !Array.isArray(chart.data)) return [];
+  return chart.data
+    .map((datum) => datum?.[labelKey])
+    .filter((value) => typeof value === "string");
+}
+
+function shouldUseMobileHorizontalLayout(chart, isMobile) {
+  if (!isMobile || chart.series) return false;
+  if (MOBILE_HORIZONTAL_CHART_IDS.has(chart.id)) return true;
+
+  const labels = getChartLabels(chart);
+  const longLabelCount = labels.filter((label) => getResponsiveLabel(label, true).length > 16).length;
+
+  return labels.length > 4 && longLabelCount > 0;
 }
 
 const analysisNotes = {
@@ -453,14 +482,21 @@ function WhitePaperChartGraphic({ chart }) {
     chart.data[0]?.[chart.xKey] ?? ""
   );
   const hasSeries = Boolean(chart.series);
-  const useVerticalBars = !hasSeries && !isCompactViewport;
+  const usesMobileHorizontalLayout = shouldUseMobileHorizontalLayout(chart, isCompactViewport);
+  const useVerticalBars = !hasSeries && (!isCompactViewport || usesMobileHorizontalLayout);
   const chartHeight = hasSeries
     ? isCompactViewport
       ? 360
       : 320
     : useVerticalBars
-      ? Math.max(300, chart.data.length * 62)
-      : Math.max(isCompactViewport ? 360 : 320, chart.data.length * (isCompactViewport ? 62 : 56));
+      ? Math.max(
+          isCompactViewport ? 420 : 300,
+          chart.data.length * (isCompactViewport ? 82 : 62)
+        )
+      : Math.max(
+          isCompactViewport ? 380 : 320,
+          chart.data.length * (isCompactViewport ? 68 : 56)
+        );
 
   useEffect(() => {
     if (typeof window === "undefined") return undefined;
@@ -626,7 +662,19 @@ function WhitePaperChartGraphic({ chart }) {
                     }
                   : { top: 16, right: 24, bottom: 16, left: 90 }
               }
-              barCategoryGap={hasSeries ? (isCompactViewport ? "28%" : "22%") : isCompactViewport ? "34%" : "28%"}
+              barCategoryGap={
+                hasSeries
+                  ? isCompactViewport
+                    ? "28%"
+                    : "22%"
+                  : useVerticalBars
+                    ? isCompactViewport
+                      ? "38%"
+                      : "28%"
+                    : isCompactViewport
+                      ? "40%"
+                      : "28%"
+              }
             >
               <CartesianGrid
                 stroke="#e2e8f0"
@@ -642,14 +690,9 @@ function WhitePaperChartGraphic({ chart }) {
                     tickLine={false}
                     angle={0}
                     textAnchor="middle"
-                    height={isCompactViewport ? 46 : 30}
+                    height={isCompactViewport ? 56 : 30}
                     interval={0}
-                    tickFormatter={(value) => {
-                      const responsiveLabel = getResponsiveLabel(value, isCompactViewport);
-                      return isCompactViewport
-                        ? compactLabel(responsiveLabel, hasSeries ? 14 : 12)
-                        : responsiveLabel;
-                    }}
+                    tickFormatter={(value) => getResponsiveLabel(value, isCompactViewport)}
                   />
                   <YAxis
                     type="number"
@@ -672,7 +715,7 @@ function WhitePaperChartGraphic({ chart }) {
                   <YAxis
                     type="category"
                     dataKey={chart.xKey}
-                    width={140}
+                    width={isCompactViewport ? 196 : 140}
                     tick={{ fill: "#475569", fontSize: 12 }}
                     tickFormatter={(value) => getResponsiveLabel(value, isCompactViewport)}
                     axisLine={false}
@@ -733,14 +776,14 @@ function WhitePaperChartGraphic({ chart }) {
                 <button
                   key={rawLabel}
                   type="button"
-                  className={`rounded-full border px-3 py-1.5 text-xs font-medium transition ${
+                  className={`rounded-2xl border px-3 py-2 text-left text-xs leading-4 font-medium transition ${
                     isActive
                       ? "border-blue-900 bg-blue-900 text-white"
                       : "border-slate-300 bg-white text-slate-700 hover:border-blue-300 hover:text-blue-900"
                   }`}
                   onClick={() => setActiveMobileLabel(rawLabel)}
                 >
-                  {compactLabel(getResponsiveLabel(rawLabel, true), 18)}
+                  {getResponsiveLabel(rawLabel, true)}
                 </button>
               );
             })}
