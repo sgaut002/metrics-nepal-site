@@ -293,22 +293,12 @@ function InsightArticlePage({ isMobileMenuOpen, onCloseMobileMenu, onToggleMobil
   );
 }
 
-function WhitePaperChartCard({ chart }) {
+function WhitePaperChartGraphic({ chart }) {
   const hasSeries = Boolean(chart.series);
   const chartHeight = hasSeries ? 320 : Math.max(300, chart.data.length * 62);
 
   return (
-    <article className="rounded-3xl border border-slate-200 bg-white p-6 shadow-[0_16px_40px_rgba(15,23,42,0.06)]">
-      <div className="flex flex-col gap-2">
-        <div className="text-xs font-semibold uppercase tracking-[0.22em] text-red-700">
-          Data Exhibit
-        </div>
-        <h3 className="text-xl font-semibold text-blue-950">{chart.title}</h3>
-        <p className="text-sm leading-6 text-slate-600">{chart.description}</p>
-      </div>
-
-      <div className="mt-6 h-px bg-slate-200" />
-
+    <>
       {chart.id === "west-asia-exposure" ? (
         <div className="mt-6 grid gap-4 sm:grid-cols-2">
           {chart.data.map((datum, index) => (
@@ -450,14 +440,33 @@ function WhitePaperChartCard({ chart }) {
           </ResponsiveContainer>
         </div>
       )}
+    </>
+  );
+}
 
-      {chart.note ? (
-        <p className="mt-4 text-sm leading-6 text-slate-500">{chart.note}</p>
-      ) : null}
+function ChartCard({ title, description, source, children, note }) {
+  return (
+    <article className="relative rounded-3xl border border-slate-200 bg-white p-6 shadow-[0_16px_40px_rgba(15,23,42,0.06)]">
+      <div className="flex flex-col gap-2">
+        <div className="text-xs font-semibold uppercase tracking-[0.22em] text-red-700">
+          Data Exhibit
+        </div>
+        <h3 className="text-xl font-semibold text-blue-950">{title}</h3>
+        <p className="text-sm leading-6 text-slate-600">{description}</p>
+      </div>
 
-      <div className="mt-6 flex flex-col gap-3 border-t border-slate-200 pt-4 text-xs leading-5 text-slate-500 sm:flex-row sm:items-end sm:justify-between">
-        <div>{whitePaperSource}</div>
-        <div className="font-medium text-slate-600">© Metrics Nepal</div>
+      <div className="mt-6 h-px bg-slate-200" />
+
+      {children}
+
+      {note ? <p className="mt-4 text-sm leading-6 text-slate-500">{note}</p> : null}
+
+      <div className="mt-6 border-t border-slate-200 pt-4 pr-28 text-xs leading-5 text-slate-500">
+        {source}
+      </div>
+
+      <div className="pointer-events-none absolute bottom-6 right-6 text-xs font-medium text-slate-500 opacity-65">
+        © Metrics Nepal
       </div>
     </article>
   );
@@ -578,17 +587,24 @@ function WhitePaperBriefPage({
 
               <div className="mt-8 grid gap-6 xl:grid-cols-2">
                 {activeSection.charts.map((chart) => (
-                  <WhitePaperChartCard key={chart.id} chart={chart} />
+                  <ChartCard
+                    key={chart.id}
+                    title={chart.title}
+                    description={chart.description}
+                    source={whitePaperSource}
+                    note={chart.note}
+                  >
+                    <WhitePaperChartGraphic chart={chart} />
+                  </ChartCard>
                 ))}
               </div>
 
-              <div className="mt-8 rounded-3xl border border-dashed border-slate-300 bg-slate-50 px-6 py-5">
-                <div className="text-sm font-semibold uppercase tracking-[0.2em] text-slate-600">
-                  Commentary Placeholder
-                </div>
-                <p className="mt-3 text-base leading-7 text-slate-600">
-                  {activeSection.placeholderText}
+              <div className="mt-6 rounded-xl border border-dashed border-slate-300 p-5 text-slate-500">
+                <p className="text-sm font-medium">Analysis placeholder</p>
+                <p className="mt-2 text-sm">
+                  Add interpretation here later. Keep this block visible in the code.
                 </p>
+                <p className="mt-3 text-sm leading-6">{activeSection.placeholderText}</p>
               </div>
             </div>
           </div>
