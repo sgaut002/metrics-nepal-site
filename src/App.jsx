@@ -320,9 +320,23 @@ function formatAxisTick(chart, value) {
   return formatPlainNumber(value);
 }
 
-function compactLabel(value, limit = 18) {
-  if (typeof value !== "string") return value;
-  return value.length > limit ? `${value.slice(0, limit - 1)}…` : value;
+function getTooltipLabel(chart, tooltipItem) {
+  if (!tooltipItem) return chart.title;
+
+  if (chart.series && tooltipItem.name) {
+    return tooltipItem.name;
+  }
+
+  const item = tooltipItem.payload;
+  if (item && chart.xKey && typeof item[chart.xKey] === "string") {
+    return item[chart.xKey];
+  }
+
+  if (tooltipItem.name && tooltipItem.name !== "value") {
+    return tooltipItem.name;
+  }
+
+  return chart.title;
 }
 
 function HamburgerButton({ controlsId, isOpen, onClick }) {
@@ -478,9 +492,6 @@ function WhitePaperChartGraphic({ chart }) {
   const [isCompactViewport, setIsCompactViewport] = useState(() =>
     typeof window !== "undefined" ? window.innerWidth < 768 : false
   );
-  const [activeMobileLabel, setActiveMobileLabel] = useState(() =>
-    chart.data[0]?.[chart.xKey] ?? ""
-  );
   const hasSeries = Boolean(chart.series);
   const usesMobileHorizontalLayout = shouldUseMobileHorizontalLayout(chart, isCompactViewport);
   const useVerticalBars = !hasSeries && (!isCompactViewport || usesMobileHorizontalLayout);
@@ -516,15 +527,6 @@ function WhitePaperChartGraphic({ chart }) {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  useEffect(() => {
-    setActiveMobileLabel(chart.data[0]?.[chart.xKey] ?? "");
-  }, [chart]);
-
-  const showsMobileLabelHelper =
-    isCompactViewport &&
-    Boolean(chart.xKey) &&
-    chart.id !== "west-asia-exposure" &&
-    chart.id !== "foreign-employment-approvals";
 
   return (
     <>
@@ -588,7 +590,10 @@ function WhitePaperChartGraphic({ chart }) {
                       cursor={{ fill: "rgba(15, 23, 42, 0.04)" }}
                       formatter={(value, _name, tooltipItem) => {
                         const item = tooltipItem.payload;
-                        return formatChartValue(chart, item, tooltipItem.dataKey);
+                        return [
+                          formatChartValue(chart, item, tooltipItem.dataKey),
+                          getTooltipLabel(chart, tooltipItem),
+                        ];
                       }}
                     />
                     <Bar
@@ -641,7 +646,7 @@ function WhitePaperChartGraphic({ chart }) {
                       cursor={{ fill: "rgba(15, 23, 42, 0.04)" }}
                       formatter={(value, _name, tooltipItem) => {
                         const item = tooltipItem.payload;
-                        return formatChartValue(chart, item);
+                        return [formatChartValue(chart, item), getTooltipLabel(chart, tooltipItem)];
                       }}
                     />
                     <Bar
@@ -749,7 +754,10 @@ function WhitePaperChartGraphic({ chart }) {
                 cursor={{ fill: "rgba(15, 23, 42, 0.04)" }}
                 formatter={(value, _name, tooltipItem) => {
                   const item = tooltipItem.payload;
-                  return formatChartValue(chart, item, tooltipItem.dataKey);
+                  return [
+                    formatChartValue(chart, item, tooltipItem.dataKey),
+                    getTooltipLabel(chart, tooltipItem),
+                  ];
                 }}
               />
               {hasSeries
@@ -784,37 +792,6 @@ function WhitePaperChartGraphic({ chart }) {
         </div>
       )}
 
-      {showsMobileLabelHelper ? (
-        <div className="mt-4 space-y-3 rounded-2xl border border-slate-200 bg-slate-50/70 p-4 sm:hidden">
-          <div className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">
-            Tap a label to view full text
-          </div>
-          <div className="flex flex-wrap gap-2">
-            {chart.data.map((datum) => {
-              const rawLabel = datum[chart.xKey];
-              const isActive = rawLabel === activeMobileLabel;
-
-              return (
-                <button
-                  key={rawLabel}
-                  type="button"
-                  className={`rounded-2xl border px-3 py-2 text-left text-xs leading-4 font-medium transition ${
-                    isActive
-                      ? "border-blue-900 bg-blue-900 text-white"
-                      : "border-slate-300 bg-white text-slate-700 hover:border-blue-300 hover:text-blue-900"
-                  }`}
-                  onClick={() => setActiveMobileLabel(rawLabel)}
-                >
-                  {getResponsiveLabel(rawLabel, true)}
-                </button>
-              );
-            })}
-          </div>
-          <div className="rounded-xl border border-slate-200 bg-white px-3 py-3 text-sm leading-6 text-slate-700">
-            {activeMobileLabel}
-          </div>
-        </div>
-      ) : null}
     </>
   );
 }
@@ -836,12 +813,12 @@ function ChartCard({ title, description, source, children, note }) {
 
       {note ? <p className="mt-4 text-sm leading-6 text-slate-500">{note}</p> : null}
 
-      <div className="mt-6 border-t border-slate-200 pt-4 pr-28 text-xs leading-5 text-slate-500">
-        {source}
+      <div className="mt-6 text-right text-xs font-medium text-slate-500 opacity-65">
+        © Metrics Nepal
       </div>
 
-      <div className="pointer-events-none absolute bottom-5 right-5 text-xs font-medium text-slate-500 opacity-65 sm:bottom-6 sm:right-6">
-        © Metrics Nepal
+      <div className="mt-3 border-t border-slate-200 pt-4 text-xs leading-5 text-slate-500">
+        {source}
       </div>
     </article>
   );
