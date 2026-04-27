@@ -755,7 +755,7 @@ function WhitePaperChartGraphic({ chart }) {
                     tickLine={false}
                     tickFormatter={(value) => formatAxisTick(chart, value)}
                   />
-                  <Legend wrapperStyle={{ paddingTop: "10px" }} />
+                  {hasSeries ? <Legend wrapperStyle={{ paddingTop: "10px" }} /> : null}
                 </>
               ) : (
                 <>
