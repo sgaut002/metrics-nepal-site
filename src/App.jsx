@@ -561,7 +561,7 @@ function WhitePaperBriefPage({
   const activeSection = whitePaperCharts[activeTab];
 
   return (
-    <div className="min-h-screen bg-white text-slate-900">
+    <div className="min-h-screen bg-[linear-gradient(180deg,#eef4ff_0%,#f9fbff_22%,#fff7f7_58%,#fefcfc_100%)] text-slate-900">
       <SiteHeader
         navItems={ARTICLE_NAV_ITEMS}
         isMobileMenuOpen={isMobileMenuOpen}
@@ -572,7 +572,7 @@ function WhitePaperBriefPage({
       />
 
       <main>
-        <section className="border-b border-slate-200 bg-[linear-gradient(180deg,#ffffff_0%,#f8fbff_58%,#ffffff_100%)]">
+        <section className="border-b border-slate-200/70 bg-[linear-gradient(135deg,rgba(238,244,255,0.94)_0%,rgba(248,251,255,0.96)_48%,rgba(255,245,245,0.94)_100%)]">
           <div className="mx-auto max-w-7xl px-6 py-16 lg:px-10 lg:py-20">
             <div className="max-w-4xl">
               <div className="text-sm font-semibold uppercase tracking-[0.28em] text-red-700">
@@ -589,7 +589,7 @@ function WhitePaperBriefPage({
         </section>
 
         <section className="mx-auto max-w-7xl px-6 py-10 lg:px-10">
-          <div className="rounded-3xl border border-slate-200 bg-slate-50 px-6 py-6 shadow-[0_12px_30px_rgba(15,23,42,0.05)]">
+          <div className="rounded-3xl border border-slate-200/80 bg-white/75 px-6 py-6 shadow-[0_12px_30px_rgba(15,23,42,0.05)] backdrop-blur-sm">
             <div className="grid gap-6 lg:grid-cols-[1.1fr_1.4fr]">
               <div>
                 <div className="text-sm font-semibold uppercase tracking-[0.2em] text-blue-900">
@@ -616,7 +616,7 @@ function WhitePaperBriefPage({
             {whitePaperHeadlineMetrics.map((metric) => (
               <article
                 key={metric.label}
-                className="rounded-3xl border border-slate-200 bg-white p-5 shadow-[0_12px_30px_rgba(15,23,42,0.05)]"
+                className="rounded-3xl border border-slate-200/80 bg-white/82 p-5 shadow-[0_12px_30px_rgba(15,23,42,0.05)] backdrop-blur-sm"
               >
                 <div className="text-sm font-medium text-slate-500">{metric.label}</div>
                 <div className="mt-3 text-3xl font-semibold tracking-tight text-blue-950">
@@ -628,7 +628,7 @@ function WhitePaperBriefPage({
           </div>
         </section>
 
-        <section className="border-t border-slate-200 bg-slate-50/70">
+        <section className="border-t border-slate-200/70 bg-[linear-gradient(180deg,rgba(241,245,255,0.78)_0%,rgba(255,247,247,0.62)_100%)]">
           <div className="mx-auto max-w-7xl px-6 py-12 lg:px-10">
             <div className="text-sm font-semibold uppercase tracking-[0.2em] text-red-700">
               Tabbed Sections
@@ -677,7 +677,7 @@ function WhitePaperBriefPage({
               })}
             </div>
 
-            <div className="mt-8 rounded-[2rem] border border-slate-200 bg-white p-6 shadow-[0_16px_40px_rgba(15,23,42,0.06)]">
+            <div className="mt-8 rounded-[2rem] border border-slate-200/80 bg-white/86 p-6 shadow-[0_16px_40px_rgba(15,23,42,0.06)] backdrop-blur-sm">
               <div className="max-w-3xl">
                 <div className="text-sm font-semibold uppercase tracking-[0.22em] text-blue-900">
                   Active Section
@@ -712,9 +712,9 @@ function WhitePaperBriefPage({
           </div>
         </section>
 
-        <footer className="border-t border-slate-200 bg-white">
+        <footer className="border-t border-slate-200/70 bg-transparent">
           <div className="mx-auto max-w-7xl px-6 py-8 lg:px-10">
-            <div className="rounded-3xl border border-slate-200 bg-slate-50 px-6 py-5 text-sm leading-6 text-slate-600">
+            <div className="rounded-3xl border border-slate-200/80 bg-white/78 px-6 py-5 text-sm leading-6 text-slate-600 backdrop-blur-sm">
               {whitePaperSource}
             </div>
           </div>
