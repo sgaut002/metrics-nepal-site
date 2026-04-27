@@ -320,19 +320,23 @@ function formatAxisTick(chart, value) {
   return formatPlainNumber(value);
 }
 
-function getTooltipLabel(chart, tooltipItem) {
-  if (!tooltipItem) return chart.title;
+function getTooltipLabel(chart, tooltipItem, fallbackLabel) {
+  if (tooltipItem?.payload && chart.xKey) {
+    const payloadLabel = tooltipItem.payload[chart.xKey];
+    if (typeof payloadLabel === "string") {
+      return payloadLabel;
+    }
+  }
 
-  if (chart.series && tooltipItem.name) {
+  if (chart.series && tooltipItem?.name) {
     return tooltipItem.name;
   }
 
-  const item = tooltipItem.payload;
-  if (item && chart.xKey && typeof item[chart.xKey] === "string") {
-    return item[chart.xKey];
+  if (typeof fallbackLabel === "string" && fallbackLabel.trim() !== "") {
+    return fallbackLabel;
   }
 
-  if (tooltipItem.name && tooltipItem.name !== "value") {
+  if (tooltipItem?.name && tooltipItem.name !== "value") {
     return tooltipItem.name;
   }
 
@@ -592,7 +596,7 @@ function WhitePaperChartGraphic({ chart }) {
                         const item = tooltipItem.payload;
                         return [
                           formatChartValue(chart, item, tooltipItem.dataKey),
-                          getTooltipLabel(chart, tooltipItem),
+                          getTooltipLabel(chart, tooltipItem, tooltipItem.label),
                         ];
                       }}
                     />
@@ -646,7 +650,10 @@ function WhitePaperChartGraphic({ chart }) {
                       cursor={{ fill: "rgba(15, 23, 42, 0.04)" }}
                       formatter={(value, _name, tooltipItem) => {
                         const item = tooltipItem.payload;
-                        return [formatChartValue(chart, item), getTooltipLabel(chart, tooltipItem)];
+                        return [
+                          formatChartValue(chart, item),
+                          getTooltipLabel(chart, tooltipItem, tooltipItem.label),
+                        ];
                       }}
                     />
                     <Bar
@@ -756,7 +763,7 @@ function WhitePaperChartGraphic({ chart }) {
                   const item = tooltipItem.payload;
                   return [
                     formatChartValue(chart, item, tooltipItem.dataKey),
-                    getTooltipLabel(chart, tooltipItem),
+                    getTooltipLabel(chart, tooltipItem, tooltipItem.label),
                   ];
                 }}
               />
