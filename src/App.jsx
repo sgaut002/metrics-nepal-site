@@ -100,11 +100,50 @@ function formatPlainNumber(value) {
   }).format(value);
 }
 
-function formatChartValue(chart, datum) {
-  const value = datum[chart.yKey] ?? datum.value;
+function resolveChartValue(chart, datumOrValue, valueKey) {
+  if (typeof datumOrValue === "number") return datumOrValue;
+
+  if (
+    typeof datumOrValue === "string" &&
+    datumOrValue.trim() !== "" &&
+    !Number.isNaN(Number(datumOrValue))
+  ) {
+    return Number(datumOrValue);
+  }
+
+  if (!datumOrValue || typeof datumOrValue !== "object") return null;
+
+  const candidateKeys = [valueKey, chart.yKey, "value"].filter(Boolean);
+
+  for (const key of candidateKeys) {
+    const candidate = datumOrValue[key];
+    if (typeof candidate === "number") return candidate;
+    if (
+      typeof candidate === "string" &&
+      candidate.trim() !== "" &&
+      !Number.isNaN(Number(candidate))
+    ) {
+      return Number(candidate);
+    }
+  }
+
+  return null;
+}
+
+function formatChartValue(chart, datumOrValue, valueKey) {
+  const value = resolveChartValue(chart, datumOrValue, valueKey);
+
+  if (value === null) {
+    return "N/A";
+  }
 
   if (chart.id === "west-asia-exposure") {
-    return datum.label.includes("Remittance")
+    const label =
+      typeof datumOrValue === "object" && datumOrValue !== null
+        ? datumOrValue.label
+        : "";
+
+    return typeof label === "string" && label.includes("Remittance")
       ? `${formatPlainNumber(value)}%`
       : formatCompactNumber(value);
   }
@@ -449,11 +488,7 @@ function WhitePaperChartGraphic({ chart }) {
                 cursor={{ fill: "rgba(15, 23, 42, 0.04)" }}
                 formatter={(value, _name, tooltipItem) => {
                   const item = tooltipItem.payload;
-                  const payload =
-                    chart.yKey && !chart.series
-                      ? { ...item, [chart.yKey]: value }
-                      : item;
-                  return formatChartValue(chart, payload);
+                  return formatChartValue(chart, item, tooltipItem.dataKey);
                 }}
               />
               {hasSeries
@@ -476,8 +511,7 @@ function WhitePaperChartGraphic({ chart }) {
                         dataKey={chart.yKey}
                         position={useVerticalBars ? "right" : "top"}
                         formatter={(value) => {
-                          const payload = { [chart.yKey]: value };
-                          return formatChartValue(chart, payload);
+                          return formatChartValue(chart, value, chart.yKey);
                         }}
                         style={{ fill: "#0f172a", fontSize: 12, fontWeight: 600 }}
                       />
