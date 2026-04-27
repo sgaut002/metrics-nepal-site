@@ -144,6 +144,11 @@ function formatAxisTick(chart, value) {
   return formatPlainNumber(value);
 }
 
+function compactLabel(value, limit = 18) {
+  if (typeof value !== "string") return value;
+  return value.length > limit ? `${value.slice(0, limit - 1)}…` : value;
+}
+
 function HamburgerButton({ controlsId, isOpen, onClick }) {
   return (
     <button
@@ -294,8 +299,27 @@ function InsightArticlePage({ isMobileMenuOpen, onCloseMobileMenu, onToggleMobil
 }
 
 function WhitePaperChartGraphic({ chart }) {
+  const [isCompactViewport, setIsCompactViewport] = useState(() =>
+    typeof window !== "undefined" ? window.innerWidth < 640 : false
+  );
   const hasSeries = Boolean(chart.series);
-  const chartHeight = hasSeries ? 320 : Math.max(300, chart.data.length * 62);
+  const useVerticalBars = !hasSeries && !isCompactViewport;
+  const chartHeight = hasSeries
+    ? 320
+    : useVerticalBars
+      ? Math.max(300, chart.data.length * 62)
+      : Math.max(320, chart.data.length * 56);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return undefined;
+
+    const handleResize = () => {
+      setIsCompactViewport(window.innerWidth < 640);
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   return (
     <>
@@ -349,10 +373,15 @@ function WhitePaperChartGraphic({ chart }) {
           <ResponsiveContainer width="100%" height="100%">
             <BarChart
               data={chart.data}
-              layout={hasSeries ? "horizontal" : "vertical"}
+              layout={hasSeries || !useVerticalBars ? "horizontal" : "vertical"}
               margin={
-                hasSeries
-                  ? { top: 16, right: 16, bottom: 24, left: 0 }
+                hasSeries || !useVerticalBars
+                  ? {
+                      top: 16,
+                      right: 16,
+                      bottom: isCompactViewport ? 56 : 24,
+                      left: 0,
+                    }
                   : { top: 16, right: 24, bottom: 16, left: 90 }
               }
               barCategoryGap={hasSeries ? "22%" : "28%"}
@@ -362,15 +391,23 @@ function WhitePaperChartGraphic({ chart }) {
                 strokeDasharray="3 3"
                 vertical={false}
               />
-              {hasSeries ? (
+              {hasSeries || !useVerticalBars ? (
                 <>
                   <XAxis
-                    dataKey={chart.xKey}
+                    dataKey={hasSeries ? chart.xKey : chart.xKey}
                     tick={{ fill: "#475569", fontSize: 12 }}
                     axisLine={false}
                     tickLine={false}
+                    angle={isCompactViewport ? -18 : 0}
+                    textAnchor={isCompactViewport ? "end" : "middle"}
+                    height={isCompactViewport ? 72 : 30}
+                    interval={0}
+                    tickFormatter={(value) =>
+                      isCompactViewport ? compactLabel(value, hasSeries ? 14 : 16) : value
+                    }
                   />
                   <YAxis
+                    type="number"
                     tick={{ fill: "#475569", fontSize: 12 }}
                     axisLine={false}
                     tickLine={false}
@@ -423,11 +460,11 @@ function WhitePaperChartGraphic({ chart }) {
                     <Bar
                       dataKey={chart.yKey}
                       fill={CHART_COLORS[0]}
-                      radius={[0, 10, 10, 0]}
+                      radius={useVerticalBars ? [0, 10, 10, 0] : [10, 10, 0, 0]}
                     >
                       <LabelList
                         dataKey={chart.yKey}
-                        position="right"
+                        position={useVerticalBars ? "right" : "top"}
                         formatter={(value) => {
                           const payload = { [chart.yKey]: value };
                           return formatChartValue(chart, payload);
