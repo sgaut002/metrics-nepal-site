@@ -302,6 +302,9 @@ function WhitePaperChartGraphic({ chart }) {
   const [isCompactViewport, setIsCompactViewport] = useState(() =>
     typeof window !== "undefined" ? window.innerWidth < 640 : false
   );
+  const [activeMobileLabel, setActiveMobileLabel] = useState(() =>
+    chart.data[0]?.[chart.xKey] ?? ""
+  );
   const hasSeries = Boolean(chart.series);
   const useVerticalBars = !hasSeries && !isCompactViewport;
   const chartHeight = hasSeries
@@ -320,6 +323,13 @@ function WhitePaperChartGraphic({ chart }) {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+
+  useEffect(() => {
+    setActiveMobileLabel(chart.data[0]?.[chart.xKey] ?? "");
+  }, [chart]);
+
+  const showsMobileLabelHelper =
+    isCompactViewport && Boolean(chart.xKey) && chart.id !== "west-asia-exposure";
 
   return (
     <>
@@ -398,12 +408,12 @@ function WhitePaperChartGraphic({ chart }) {
                     tick={{ fill: "#475569", fontSize: 12 }}
                     axisLine={false}
                     tickLine={false}
-                    angle={isCompactViewport ? -18 : 0}
-                    textAnchor={isCompactViewport ? "end" : "middle"}
-                    height={isCompactViewport ? 72 : 30}
+                    angle={0}
+                    textAnchor="middle"
+                    height={isCompactViewport ? 38 : 30}
                     interval={0}
                     tickFormatter={(value) =>
-                      isCompactViewport ? compactLabel(value, hasSeries ? 14 : 16) : value
+                      isCompactViewport ? compactLabel(value, hasSeries ? 12 : 10) : value
                     }
                   />
                   <YAxis
@@ -477,6 +487,38 @@ function WhitePaperChartGraphic({ chart }) {
           </ResponsiveContainer>
         </div>
       )}
+
+      {showsMobileLabelHelper ? (
+        <div className="mt-4 space-y-3 rounded-2xl border border-slate-200 bg-slate-50/70 p-4 sm:hidden">
+          <div className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">
+            Tap a label to view full text
+          </div>
+          <div className="flex flex-wrap gap-2">
+            {chart.data.map((datum) => {
+              const rawLabel = datum[chart.xKey];
+              const isActive = rawLabel === activeMobileLabel;
+
+              return (
+                <button
+                  key={rawLabel}
+                  type="button"
+                  className={`rounded-full border px-3 py-1.5 text-xs font-medium transition ${
+                    isActive
+                      ? "border-blue-900 bg-blue-900 text-white"
+                      : "border-slate-300 bg-white text-slate-700 hover:border-blue-300 hover:text-blue-900"
+                  }`}
+                  onClick={() => setActiveMobileLabel(rawLabel)}
+                >
+                  {compactLabel(rawLabel, 18)}
+                </button>
+              );
+            })}
+          </div>
+          <div className="rounded-xl border border-slate-200 bg-white px-3 py-3 text-sm leading-6 text-slate-700">
+            {activeMobileLabel}
+          </div>
+        </div>
+      ) : null}
     </>
   );
 }
