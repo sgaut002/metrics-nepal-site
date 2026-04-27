@@ -627,6 +627,23 @@ function ChartCard({ title, description, source, children, note }) {
   );
 }
 
+function KeyTakeawayBox({ lines, className = "" }) {
+  return (
+    <section
+      className={`rounded-2xl border border-white/16 bg-white/6 p-5 text-left text-blue-50/88 ${className}`.trim()}
+    >
+      <p className="mb-3 text-xs font-bold uppercase tracking-[0.14em] text-blue-100/72">
+        Key takeaway
+      </p>
+      {lines.map((line, index) => (
+        <p key={index} className="mb-[0.65rem] text-sm leading-[1.65] last:mb-0">
+          {line}
+        </p>
+      ))}
+    </section>
+  );
+}
+
 function WhitePaperBriefPage({
   activeTab,
   isMobileMenuOpen,
@@ -635,6 +652,18 @@ function WhitePaperBriefPage({
   onToggleMobileMenu,
 }) {
   const activeSection = whitePaperCharts[activeTab];
+  const [isTabContentVisible, setIsTabContentVisible] = useState(true);
+  const primaryMetrics = whitePaperHeadlineMetrics.slice(0, 4);
+  const secondaryMetrics = whitePaperHeadlineMetrics.slice(4);
+
+  useEffect(() => {
+    setIsTabContentVisible(false);
+    const frame = window.requestAnimationFrame(() => {
+      setIsTabContentVisible(true);
+    });
+
+    return () => window.cancelAnimationFrame(frame);
+  }, [activeTab]);
 
   return (
     <div className="min-h-screen bg-[radial-gradient(circle_at_top_left,#365fb8_0%,rgba(54,95,184,0.95)_16%,rgba(20,43,95,0.96)_36%,rgba(106,41,61,0.92)_70%,rgba(176,70,70,0.9)_100%)] text-slate-900">
@@ -649,8 +678,8 @@ function WhitePaperBriefPage({
 
       <main>
         <section className="border-b border-white/12 bg-[linear-gradient(135deg,rgba(17,37,88,0.3)_0%,rgba(24,53,109,0.08)_42%,rgba(176,70,70,0.14)_100%)]">
-          <div className="mx-auto max-w-7xl px-6 py-16 lg:px-10 lg:py-20">
-            <div className="max-w-4xl">
+          <div className="mx-auto max-w-7xl px-6 py-10 lg:px-10 lg:py-20">
+            <div className="max-w-3xl">
               <div className="text-sm font-semibold uppercase tracking-[0.28em] text-red-200">
                 Insights Brief
               </div>
@@ -689,10 +718,22 @@ function WhitePaperBriefPage({
 
         <section className="mx-auto max-w-7xl px-6 pb-8 lg:px-10">
           <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-            {whitePaperHeadlineMetrics.map((metric) => (
+            {primaryMetrics.map((metric) => (
               <article
                 key={metric.label}
                 className="rounded-3xl border border-white/16 bg-white/12 p-5 shadow-[0_20px_45px_rgba(15,23,42,0.18)] backdrop-blur-md"
+              >
+                <div className="text-sm font-medium text-blue-50/72">{metric.label}</div>
+                <div className="mt-3 text-3xl font-semibold tracking-tight text-white">
+                  {metric.value}
+                </div>
+                <div className="mt-2 text-sm text-blue-100/78">{metric.subtext}</div>
+              </article>
+            ))}
+            {secondaryMetrics.map((metric) => (
+              <article
+                key={metric.label}
+                className="hidden rounded-3xl border border-white/16 bg-white/12 p-5 shadow-[0_20px_45px_rgba(15,23,42,0.18)] backdrop-blur-md xl:block"
               >
                 <div className="text-sm font-medium text-blue-50/72">{metric.label}</div>
                 <div className="mt-3 text-3xl font-semibold tracking-tight text-white">
@@ -709,30 +750,8 @@ function WhitePaperBriefPage({
             <div className="text-sm font-semibold uppercase tracking-[0.2em] text-red-200">
               Tabbed Sections
             </div>
-            <div className="mt-6 md:hidden">
-              <label
-                htmlFor="white-paper-section-select"
-                className="text-sm font-medium text-blue-50/88"
-              >
-                Select section
-              </label>
-              <select
-                id="white-paper-section-select"
-                value={activeTab}
-                className="mt-2 w-full rounded-2xl border border-white/20 bg-white/12 px-4 py-3 text-sm font-medium text-white shadow-sm outline-none transition focus:border-red-200"
-                onChange={(event) => onChangeTab(event.target.value)}
-              >
-                {WHITE_PAPER_TAB_ORDER.map((key) => {
-                  const section = whitePaperCharts[key];
-                  return (
-                    <option key={key} value={key}>
-                      {section.title}
-                    </option>
-                  );
-                })}
-              </select>
-            </div>
-            <div className="mt-6 hidden gap-3 overflow-x-auto pb-2 md:flex">
+            <div className="-mx-6 mt-6 overflow-x-auto px-6 pb-2 [scrollbar-width:none]">
+              <div className="flex min-w-max gap-3 whitespace-nowrap">
               {WHITE_PAPER_TAB_ORDER.map((key) => {
                 const section = whitePaperCharts[key];
                 const isActive = key === activeTab;
@@ -740,10 +759,10 @@ function WhitePaperBriefPage({
                   <button
                     key={key}
                     type="button"
-                    className={`shrink-0 rounded-full border px-4 py-2 text-sm font-medium transition ${
+                    className={`min-h-11 shrink-0 rounded-full border px-4 py-2 text-sm font-medium transition ${
                       isActive
-                        ? "border-white bg-white text-blue-950"
-                        : "border-white/20 bg-white/10 text-blue-50 hover:border-red-200 hover:text-white"
+                        ? "border-white bg-white text-blue-950 shadow-[0_10px_24px_rgba(15,23,42,0.18)]"
+                        : "border-white/20 bg-white/10 text-blue-50/72 hover:border-red-200 hover:text-white"
                     }`}
                     onClick={() => onChangeTab(key)}
                   >
@@ -751,6 +770,7 @@ function WhitePaperBriefPage({
                   </button>
                 );
               })}
+            </div>
             </div>
 
             <div className="mt-8 rounded-[2rem] border border-white/16 bg-white/10 p-6 shadow-[0_20px_50px_rgba(15,23,42,0.22)] backdrop-blur-md">
@@ -763,30 +783,57 @@ function WhitePaperBriefPage({
                 </h2>
               </div>
 
-              <div className="mt-8 grid gap-6 xl:grid-cols-2">
-                {activeSection.charts.map((chart) => (
-                  <ChartCard
-                    key={chart.id}
-                    title={chart.title}
-                    description={chart.description}
-                    source={whitePaperSource}
-                    note={chart.note}
-                  >
-                    <WhitePaperChartGraphic chart={chart} />
-                  </ChartCard>
-                ))}
+              <KeyTakeawayBox
+                lines={analysisNotes[activeTab]}
+                className="mt-6 md:hidden"
+              />
+
+              <div
+                className={`transition-opacity duration-200 ${isTabContentVisible ? "opacity-100" : "opacity-0"}`}
+              >
+                <div
+                  className={`mt-8 grid gap-5 ${
+                    activeSection.charts.length === 1 ? "grid-cols-1" : "grid-cols-1 xl:grid-cols-2"
+                  }`}
+                >
+                  {activeSection.charts.map((chart) => (
+                    <ChartCard
+                      key={chart.id}
+                      title={chart.title}
+                      description={chart.description}
+                      source={whitePaperSource}
+                      note={chart.note}
+                    >
+                      <WhitePaperChartGraphic chart={chart} />
+                    </ChartCard>
+                  ))}
+                </div>
               </div>
 
-              <section className="mt-6 rounded-2xl border border-white/16 bg-white/6 p-5 text-left text-blue-50/88">
-                <p className="mb-3 text-xs font-bold uppercase tracking-[0.14em] text-blue-100/72">
-                  Key takeaway
-                </p>
-                {analysisNotes[activeTab].map((line, index) => (
-                  <p key={index} className="mb-[0.65rem] text-sm leading-[1.65] last:mb-0">
-                    {line}
-                  </p>
-                ))}
-              </section>
+              <KeyTakeawayBox
+                lines={analysisNotes[activeTab]}
+                className="mt-6 hidden md:block"
+              />
+
+              <details className="mt-6 rounded-2xl border border-white/16 bg-white/6 p-5 text-blue-50/88 xl:hidden">
+                <summary className="min-h-11 cursor-pointer list-none text-sm font-semibold uppercase tracking-[0.16em] text-blue-100/78">
+                  More indicators
+                </summary>
+                <div className="mt-4 grid gap-4 sm:grid-cols-2">
+                  {secondaryMetrics.map((metric) => (
+                    <article
+                      key={metric.label}
+                      className="rounded-3xl border border-white/16 bg-white/8 p-5 shadow-[0_16px_30px_rgba(15,23,42,0.16)] backdrop-blur-md"
+                    >
+                      <div className="text-sm font-medium text-blue-50/72">{metric.label}</div>
+                      <div className="mt-3 text-3xl font-semibold tracking-tight text-white">
+                        {metric.value}
+                      </div>
+                      <div className="mt-2 text-sm text-blue-100/78">{metric.subtext}</div>
+                    </article>
+                  ))}
+                </div>
+              </details>
             </div>
           </div>
         </section>
