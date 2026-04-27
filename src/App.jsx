@@ -86,6 +86,48 @@ const WHITE_PAPER_SUBTITLE =
   "A fast consulting-style data brief summarizing key descriptive indicators from the Government of Nepal’s Baisakh 2083 / April 2026 economic status paper.";
 const WHITE_PAPER_TAB_ORDER = Object.keys(whitePaperCharts);
 const CHART_COLORS = ["#18356d", "#b04646", "#5f6b7a", "#d48657"];
+const analysisNotes = {
+  growthStructure: [
+    "Growth remains modest and volatile, with the projected slowdown suggesting limited momentum beyond post-recovery normalization.",
+    "The structural shift toward services, alongside a contracting industrial share, is consistent with premature de-industrialization rather than productivity-led transformation.",
+    "The gap between agriculture’s employment share and output contribution further points to low labor productivity and weak structural reallocation.",
+  ],
+  laborMigration: [
+    "Foreign employment approvals remain large relative to the domestic labor market, indicating that external labor absorption continues to substitute for domestic job creation.",
+    "The concentration of workers and remittance exposure in West Asia creates a clear macro-risk channel through migration disruption, income shocks, and foreign-exchange pressure.",
+    "The descriptive indicators therefore point to resilience through remittances, but also to structural dependence on labor markets outside Nepal.",
+  ],
+  fiscalFinance: [
+    "Revenue growth has weakened while expenditure remains structurally rigid, increasing pressure on fiscal space.",
+    "The rise in public debt and debt service obligations suggests that fiscal stress is increasingly about repayment capacity and budget composition, not only headline debt levels.",
+    "Low capital expenditure shares imply that borrowing and spending are not translating sufficiently into productivity-enhancing public investment.",
+  ],
+  savingsInvestment: [
+    "Low domestic saving alongside high consumption points to a weak internal financing base for investment-led growth.",
+    "Gross national saving appears stronger largely because external income flows support aggregate saving, but this does not by itself imply stronger domestic productive capacity.",
+    "The saving-investment gap should therefore be read as a structural financing issue, not simply a short-run macro imbalance.",
+  ],
+  taxBase: [
+    "The tax base appears broad in registration counts but narrow in effective compliance and revenue contribution.",
+    "Large taxpayer concentration, informality, and filing gaps suggest that Nepal’s revenue constraint is partly administrative and structural, not only rate-based.",
+    "For policy analysis, the key issue is the effective tax base: who actually files, pays, and remains observable to the fiscal system.",
+  ],
+  federalism: [
+    "Fiscal federalism shows a strong vertical imbalance: expenditure responsibilities are more decentralized than revenue collection.",
+    "Subnational budget utilization rates point to capacity constraints that may limit the growth impact of fiscal transfers.",
+    "The descriptive pattern suggests that decentralization without stronger implementation capacity can weaken the link between allocated resources and actual service delivery.",
+  ],
+  developmentGovernance: [
+    "SDG progress, governance indicators, and human-development rankings point to a gap between formal development commitments and implementation capacity.",
+    "The LDC graduation context raises the stakes because external preferences may weaken before domestic productive capacity is sufficiently deepened.",
+    "These indicators should be interpreted as institutional constraints on transformation, not merely social-sector outcomes.",
+  ],
+  infrastructureTourism: [
+    "Electricity capacity gains show real infrastructure progress, but the development impact depends on transmission, domestic absorption, and reliable seasonal supply.",
+    "Tourism indicators show recovery potential, yet infrastructure and connectivity constraints continue to limit full utilization.",
+    "The common issue across energy and tourism is conversion: turning physical capacity and natural advantage into sustained productivity, exports, and employment.",
+  ],
+};
 
 function formatCompactNumber(value) {
   return new Intl.NumberFormat("en-US", {
@@ -735,13 +777,16 @@ function WhitePaperBriefPage({
                 ))}
               </div>
 
-              <div className="mt-6 rounded-xl border border-dashed border-white/22 bg-white/8 p-5 text-blue-50/82">
-                <p className="text-sm font-medium">Analysis placeholder</p>
-                <p className="mt-2 text-sm">
-                  Add interpretation here later. Keep this block visible in the code.
+              <section className="mt-6 rounded-2xl border border-white/16 bg-white/6 p-5 text-left text-blue-50/88">
+                <p className="mb-3 text-xs font-bold uppercase tracking-[0.14em] text-blue-100/72">
+                  Key takeaway
                 </p>
-                <p className="mt-3 text-sm leading-6 text-blue-100/76">{activeSection.placeholderText}</p>
-              </div>
+                {analysisNotes[activeTab].map((line, index) => (
+                  <p key={index} className="mb-[0.65rem] text-sm leading-[1.65] last:mb-0">
+                    {line}
+                  </p>
+                ))}
+              </section>
             </div>
           </div>
         </section>
