@@ -328,12 +328,12 @@ function getTooltipLabel(chart, tooltipItem, fallbackLabel) {
     }
   }
 
-  if (chart.series && tooltipItem?.name) {
-    return tooltipItem.name;
-  }
-
   if (typeof fallbackLabel === "string" && fallbackLabel.trim() !== "") {
     return fallbackLabel;
+  }
+
+  if (chart.series && tooltipItem?.name) {
+    return tooltipItem.name;
   }
 
   if (tooltipItem?.name && tooltipItem.name !== "value") {
@@ -341,6 +341,39 @@ function getTooltipLabel(chart, tooltipItem, fallbackLabel) {
   }
 
   return chart.title;
+}
+
+function ChartTooltip({ active, payload, label, chart }) {
+  if (!active || !payload || payload.length === 0) return null;
+
+  const title = getTooltipLabel(chart, payload[0], label);
+
+  return (
+    <div className="rounded-2xl border border-slate-200 bg-white/95 px-3 py-2 shadow-lg backdrop-blur-sm">
+      <div className="text-xs font-semibold uppercase tracking-[0.12em] text-slate-500">
+        {title}
+      </div>
+      <div className="mt-2 space-y-1.5">
+        {payload.map((entry, index) => {
+          const formattedValue = formatChartValue(chart, entry.payload, entry.dataKey);
+          const seriesLabel = chart.series ? entry.name : null;
+
+          return (
+            <div key={`${entry.dataKey}-${index}`} className="flex items-center gap-2 text-sm text-slate-700">
+              {chart.series ? (
+                <span
+                  className="h-2.5 w-2.5 rounded-full"
+                  style={{ backgroundColor: entry.color || CHART_COLORS[index % CHART_COLORS.length] }}
+                />
+              ) : null}
+              {seriesLabel ? <span className="font-medium">{seriesLabel}:</span> : null}
+              <span className="font-semibold text-slate-900">{formattedValue}</span>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
 }
 
 function HamburgerButton({ controlsId, isOpen, onClick }) {
@@ -592,13 +625,7 @@ function WhitePaperChartGraphic({ chart }) {
                     />
                     <Tooltip
                       cursor={{ fill: "rgba(15, 23, 42, 0.04)" }}
-                      formatter={(value, _name, tooltipItem) => {
-                        const item = tooltipItem.payload;
-                        return [
-                          formatChartValue(chart, item, tooltipItem.dataKey),
-                          getTooltipLabel(chart, tooltipItem, tooltipItem.label),
-                        ];
-                      }}
+                      content={<ChartTooltip chart={chart} />}
                     />
                     <Bar
                       dataKey="value"
@@ -648,13 +675,7 @@ function WhitePaperChartGraphic({ chart }) {
                     <YAxis type="category" dataKey="label" hide />
                     <Tooltip
                       cursor={{ fill: "rgba(15, 23, 42, 0.04)" }}
-                      formatter={(value, _name, tooltipItem) => {
-                        const item = tooltipItem.payload;
-                        return [
-                          formatChartValue(chart, item),
-                          getTooltipLabel(chart, tooltipItem, tooltipItem.label),
-                        ];
-                      }}
+                      content={<ChartTooltip chart={chart} />}
                     />
                     <Bar
                       dataKey="value"
@@ -759,13 +780,7 @@ function WhitePaperChartGraphic({ chart }) {
               )}
               <Tooltip
                 cursor={{ fill: "rgba(15, 23, 42, 0.04)" }}
-                formatter={(value, _name, tooltipItem) => {
-                  const item = tooltipItem.payload;
-                  return [
-                    formatChartValue(chart, item, tooltipItem.dataKey),
-                    getTooltipLabel(chart, tooltipItem, tooltipItem.label),
-                  ];
-                }}
+                content={<ChartTooltip chart={chart} />}
               />
               {hasSeries
                 ? chart.series.map((series, index) => (
