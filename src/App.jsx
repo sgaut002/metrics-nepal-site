@@ -412,11 +412,93 @@ function WhitePaperChartGraphic({ chart }) {
   }, [chart]);
 
   const showsMobileLabelHelper =
-    isCompactViewport && Boolean(chart.xKey) && chart.id !== "west-asia-exposure";
+    isCompactViewport &&
+    Boolean(chart.xKey) &&
+    chart.id !== "west-asia-exposure" &&
+    chart.id !== "foreign-employment-approvals";
 
   return (
     <>
-      {chart.id === "west-asia-exposure" ? (
+      {chart.id === "foreign-employment-approvals" && isCompactViewport ? (
+        <div className="mt-6 space-y-5">
+          {[
+            {
+              title: "New vs Renewed (FY 2081/82)",
+              data: [
+                { label: "New (FY 2081/82)", value: 506000 },
+                { label: "Renewed (FY 2081/82)", value: 333000 },
+              ],
+            },
+            {
+              title: "Total Approvals",
+              data: [
+                { label: "Total (FY 2081/82)", value: 839000 },
+                { label: "Current FY (YTD)", value: 557000 },
+              ],
+            },
+          ].map((group, groupIndex) => (
+            <div
+              key={group.title}
+              className="rounded-2xl border border-slate-200 bg-slate-50/80 p-4"
+            >
+              <div className="text-sm font-medium leading-6 text-slate-700">
+                {group.title}
+              </div>
+              <div className="mt-4 h-56">
+                <ResponsiveContainer width="100%" height="100%">
+                  <BarChart
+                    data={group.data}
+                    layout="vertical"
+                    margin={{ top: 8, right: 28, bottom: 8, left: 8 }}
+                    barCategoryGap="28%"
+                  >
+                    <CartesianGrid
+                      stroke="#e2e8f0"
+                      strokeDasharray="2 6"
+                      vertical={false}
+                    />
+                    <XAxis
+                      type="number"
+                      tick={{ fill: "#475569", fontSize: 13 }}
+                      axisLine={false}
+                      tickLine={false}
+                      tickFormatter={(value) => formatAxisTick(chart, value)}
+                    />
+                    <YAxis
+                      type="category"
+                      dataKey="label"
+                      width={118}
+                      tick={{ fill: "#475569", fontSize: 12 }}
+                      axisLine={false}
+                      tickLine={false}
+                      interval={0}
+                    />
+                    <Tooltip
+                      cursor={{ fill: "rgba(15, 23, 42, 0.04)" }}
+                      formatter={(value, _name, tooltipItem) => {
+                        const item = tooltipItem.payload;
+                        return formatChartValue(chart, item, tooltipItem.dataKey);
+                      }}
+                    />
+                    <Bar
+                      dataKey="value"
+                      fill={CHART_COLORS[groupIndex]}
+                      radius={[0, 10, 10, 0]}
+                    >
+                      <LabelList
+                        dataKey="value"
+                        position="right"
+                        formatter={(value) => formatChartValue(chart, value, "value")}
+                        style={{ fill: "#0f172a", fontSize: 13, fontWeight: 600 }}
+                      />
+                    </Bar>
+                  </BarChart>
+                </ResponsiveContainer>
+              </div>
+            </div>
+          ))}
+        </div>
+      ) : chart.id === "west-asia-exposure" ? (
         <div className="mt-6 grid gap-4 sm:grid-cols-2">
           {chart.data.map((datum, index) => (
             <div
