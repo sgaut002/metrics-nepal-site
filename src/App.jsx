@@ -497,6 +497,13 @@ function WhitePaperChartGraphic({ chart }) {
           isCompactViewport ? 390 : 320,
           chart.data.length * (isCompactViewport ? 72 : 56)
         );
+  const mobileChartCanvasWidth = isCompactViewport
+    ? hasSeries
+      ? Math.max(440, chart.data.length * 110)
+      : useVerticalBars
+        ? Math.max(460, chart.data.length * 88)
+        : Math.max(420, chart.data.length * 94)
+    : null;
 
   useEffect(() => {
     if (typeof window === "undefined") return undefined;
@@ -546,14 +553,15 @@ function WhitePaperChartGraphic({ chart }) {
               <div className="text-sm font-medium leading-6 text-slate-700">
                 {group.title}
               </div>
-              <div className="mt-4 h-56">
-                <ResponsiveContainer width="100%" height="100%">
-                  <BarChart
-                    data={group.data}
-                    layout="vertical"
-                    margin={{ top: 8, right: 28, bottom: 8, left: 8 }}
-                    barCategoryGap="28%"
-                  >
+              <div className="mt-4 overflow-x-auto pb-2">
+                <div className="h-56 min-w-[440px]">
+                  <ResponsiveContainer width="100%" height="100%">
+                    <BarChart
+                      data={group.data}
+                      layout="vertical"
+                      margin={{ top: 8, right: 40, bottom: 8, left: 8 }}
+                      barCategoryGap="28%"
+                    >
                     <CartesianGrid
                       stroke="#e2e8f0"
                       strokeDasharray="2 6"
@@ -595,8 +603,9 @@ function WhitePaperChartGraphic({ chart }) {
                         style={{ fill: "#0f172a", fontSize: 13, fontWeight: 600 }}
                       />
                     </Bar>
-                  </BarChart>
-                </ResponsiveContainer>
+                    </BarChart>
+                  </ResponsiveContainer>
+                </div>
               </div>
             </div>
           ))}
@@ -647,9 +656,16 @@ function WhitePaperChartGraphic({ chart }) {
           ))}
         </div>
       ) : (
-        <div className="mt-6" style={{ height: `${chartHeight}px` }}>
-          <ResponsiveContainer width="100%" height="100%">
-            <BarChart
+        <div className="mt-6 overflow-x-auto pb-2">
+          <div
+            style={{
+              height: `${chartHeight}px`,
+              width: isCompactViewport && mobileChartCanvasWidth ? `${mobileChartCanvasWidth}px` : "100%",
+              minWidth: isCompactViewport && mobileChartCanvasWidth ? `${mobileChartCanvasWidth}px` : "100%",
+            }}
+          >
+            <ResponsiveContainer width="100%" height="100%">
+              <BarChart
               data={chart.data}
               layout={hasSeries || !useVerticalBars ? "horizontal" : "vertical"}
               margin={
@@ -762,8 +778,9 @@ function WhitePaperChartGraphic({ chart }) {
                       />
                     </Bar>
                   )}
-            </BarChart>
-          </ResponsiveContainer>
+              </BarChart>
+            </ResponsiveContainer>
+          </div>
         </div>
       )}
 
