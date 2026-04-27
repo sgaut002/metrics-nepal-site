@@ -949,7 +949,7 @@ function Homepage({ isMobileMenuOpen, onCloseMobileMenu, onToggleMobileMenu }) {
                     Insights
                   </div>
                   <p className="mt-2 text-sm leading-6 text-slate-600">
-                    Explore an interactive consulting-style data brief with tabbed sections, headline metrics, and chart exhibits.
+                    A complementary data brief of the Government of Nepal&apos;s recent white paper.
                   </p>
                 </div>
               </a>
