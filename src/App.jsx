@@ -87,20 +87,20 @@ const WHITE_PAPER_SUBTITLE =
 const WHITE_PAPER_TAB_ORDER = Object.keys(whitePaperCharts);
 const CHART_COLORS = ["#18356d", "#b04646", "#5f6b7a", "#d48657"];
 const RESPONSIVE_LABEL_MAP = {
-  "10-year average": "10-year average",
+  "10-year average": "10yr avg",
   "FY 2081/82": "FY 81/82",
-  "FY 2082/83 projection": "FY 82/83 projection",
+  "FY 2082/83 projection": "FY 82/83 proj.",
   Agriculture: "Agriculture",
   Industry: "Industry",
   Services: "Services",
-  "Employment share": "Employment share",
+  "Employment share": "Jobs share",
   "GDP share": "GDP share",
-  "New approvals, FY 2081/82": "New approvals (FY 81/82)",
-  "Renewed approvals, FY 2081/82": "Renewed approvals (FY 81/82)",
-  "Total, FY 2081/82": "Total approvals (FY 81/82)",
-  "New approvals, current FY to Chaitra 12": "New approvals (YTD)",
-  "Renewed approvals, current FY to Chaitra 12": "Renewed approvals (YTD)",
-  "Total, current FY to Chaitra 12": "Total approvals (YTD)",
+  "New approvals, FY 2081/82": "New approvals FY 81/82",
+  "Renewed approvals, FY 2081/82": "Renewed FY 81/82",
+  "Total, FY 2081/82": "Total FY 81/82",
+  "New approvals, current FY to Chaitra 12": "New approvals YTD",
+  "Renewed approvals, current FY to Chaitra 12": "Renewed YTD",
+  "Total, current FY to Chaitra 12": "Total YTD",
   "Nepali workers in West Asia": "Workers in West Asia",
   "Remittance share from West Asia": "Remittance share",
   VAT: "VAT",
@@ -116,7 +116,7 @@ const RESPONSIVE_LABEL_MAP = {
   "Share of federal revenue": "Revenue share",
   "Gross domestic saving": "Domestic saving",
   "Total investment": "Investment",
-  "Saving-investment gap": "Saving-investment gap",
+  "Saving-investment gap": "Saving gap",
   "Gross national saving": "National saving",
   "Total consumption": "Consumption",
   "Total PAN": "Total PAN",
@@ -127,13 +127,13 @@ const RESPONSIVE_LABEL_MAP = {
   "Internal revenue from 100 large taxpayers": "100 large taxpayers",
   "Informal economy estimate": "Informal economy",
   "Unregistered establishments": "Unregistered establishments",
-  "Registered establishments keeping accounts": "Registered establishments keeping accounts",
+  "Registered establishments keeping accounts": "Keeping accounts",
   Federal: "Federal",
   Province: "Province",
   Local: "Local",
   "Province and local": "Province and local",
-  "Progress achieved by 2022": "Progress by 2022",
-  "Projected progress by 2030": "Progress by 2030",
+  "Progress achieved by 2022": "2022 progress",
+  "Projected progress by 2030": "2030 progress",
   Target: "Target",
   "CPI score": "CPI score",
   "HDI score × 100": "HDI score × 100",
@@ -141,8 +141,8 @@ const RESPONSIVE_LABEL_MAP = {
   "HDI rank": "HDI rank",
   "Up to Ashar 2068": "Ashar 2068",
   "Falgun 2082": "Falgun 2082",
-  "Foreign tourist arrivals, 2025": "Tourist arrivals (2025)",
-  "Tourist-standard hotels": "Tourist-standard hotels",
+  "Foreign tourist arrivals, 2025": "Tourist arrivals",
+  "Tourist-standard hotels": "Tourist hotels",
   "Daily bed capacity": "Daily bed capacity",
 };
 
@@ -490,12 +490,12 @@ function WhitePaperChartGraphic({ chart }) {
       : 320
     : useVerticalBars
       ? Math.max(
-          isCompactViewport ? 420 : 300,
-          chart.data.length * (isCompactViewport ? 82 : 62)
+          isCompactViewport ? 440 : 300,
+          chart.data.length * (isCompactViewport ? 88 : 62)
         )
       : Math.max(
-          isCompactViewport ? 380 : 320,
-          chart.data.length * (isCompactViewport ? 68 : 56)
+          isCompactViewport ? 390 : 320,
+          chart.data.length * (isCompactViewport ? 72 : 56)
         );
 
   useEffect(() => {
@@ -660,7 +660,12 @@ function WhitePaperChartGraphic({ chart }) {
                       bottom: isCompactViewport ? 56 : 24,
                       left: 0,
                     }
-                  : { top: 16, right: 24, bottom: 16, left: 90 }
+                  : {
+                      top: 16,
+                      right: isCompactViewport ? 24 : 24,
+                      bottom: 16,
+                      left: isCompactViewport ? 8 : 90,
+                    }
               }
               barCategoryGap={
                 hasSeries
@@ -669,10 +674,10 @@ function WhitePaperChartGraphic({ chart }) {
                     : "22%"
                   : useVerticalBars
                     ? isCompactViewport
-                      ? "38%"
+                      ? "46%"
                       : "28%"
                     : isCompactViewport
-                      ? "40%"
+                      ? "42%"
                       : "28%"
               }
             >
@@ -690,7 +695,7 @@ function WhitePaperChartGraphic({ chart }) {
                     tickLine={false}
                     angle={0}
                     textAnchor="middle"
-                    height={isCompactViewport ? 56 : 30}
+                    height={isCompactViewport ? 64 : 30}
                     interval={0}
                     tickFormatter={(value) => getResponsiveLabel(value, isCompactViewport)}
                   />
@@ -715,7 +720,7 @@ function WhitePaperChartGraphic({ chart }) {
                   <YAxis
                     type="category"
                     dataKey={chart.xKey}
-                    width={isCompactViewport ? 196 : 140}
+                    width={isCompactViewport ? 144 : 140}
                     tick={{ fill: "#475569", fontSize: 12 }}
                     tickFormatter={(value) => getResponsiveLabel(value, isCompactViewport)}
                     axisLine={false}
