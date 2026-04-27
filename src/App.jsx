@@ -88,44 +88,44 @@ const WHITE_PAPER_TAB_ORDER = Object.keys(whitePaperCharts);
 const CHART_COLORS = ["#18356d", "#b04646", "#5f6b7a", "#d48657"];
 const analysisNotes = {
   growthStructure: [
-    "Growth remains modest and volatile, with the projected slowdown suggesting limited momentum beyond post-recovery normalization.",
-    "The structural shift toward services, alongside a contracting industrial share, is consistent with premature de-industrialization rather than productivity-led transformation.",
-    "The gap between agriculture’s employment share and output contribution further points to low labor productivity and weak structural reallocation.",
+    "Growth remains modest and uneven, with the latest projection pointing to a loss of momentum after the post-recovery rebound.",
+    "The economy continues to tilt toward services, while industry has yet to establish a stronger footing—suggesting a shift in composition rather than broad-based transformation.",
+    "Agriculture still employs a large share of the workforce relative to its output, highlighting a persistent gap in productivity.",
   ],
   laborMigration: [
-    "Foreign employment approvals remain large relative to the domestic labor market, indicating that external labor absorption continues to substitute for domestic job creation.",
-    "The concentration of workers and remittance exposure in West Asia creates a clear macro-risk channel through migration disruption, income shocks, and foreign-exchange pressure.",
-    "The descriptive indicators therefore point to resilience through remittances, but also to structural dependence on labor markets outside Nepal.",
+    "Foreign employment continues to absorb a large share of the labor force, underscoring limited job creation at home.",
+    "The concentration of workers and remittances in West Asia exposes the economy to external shocks beyond domestic control.",
+    "Remittances provide stability, but also reinforce dependence on external labour markets.",
   ],
   fiscalFinance: [
-    "Revenue growth has weakened while expenditure remains structurally rigid, increasing pressure on fiscal space.",
-    "The rise in public debt and debt service obligations suggests that fiscal stress is increasingly about repayment capacity and budget composition, not only headline debt levels.",
-    "Low capital expenditure shares imply that borrowing and spending are not translating sufficiently into productivity-enhancing public investment.",
+    "Revenue growth has softened while expenditure remains rigid, narrowing fiscal room for manoeuvre.",
+    "Rising debt and servicing costs point to growing pressure on budget composition rather than just headline borrowing levels.",
+    "Limited capital spending suggests weak transmission from public finance to long-term productivity.",
   ],
   savingsInvestment: [
-    "Low domestic saving alongside high consumption points to a weak internal financing base for investment-led growth.",
-    "Gross national saving appears stronger largely because external income flows support aggregate saving, but this does not by itself imply stronger domestic productive capacity.",
-    "The saving-investment gap should therefore be read as a structural financing issue, not simply a short-run macro imbalance.",
+    "Domestic saving remains low relative to investment, reflecting a weak internal financing base.",
+    "Higher national saving is largely supported by external inflows rather than domestic income generation.",
+    "The gap points to a structural reliance on external resources to sustain investment.",
   ],
   taxBase: [
-    "The tax base appears broad in registration counts but narrow in effective compliance and revenue contribution.",
-    "Large taxpayer concentration, informality, and filing gaps suggest that Nepal’s revenue constraint is partly administrative and structural, not only rate-based.",
-    "For policy analysis, the key issue is the effective tax base: who actually files, pays, and remains observable to the fiscal system.",
+    "Tax registration has expanded, but effective compliance and contribution remain uneven.",
+    "Revenue is concentrated among a small group of large taxpayers, while informality remains widespread.",
+    "The constraint is less about rates and more about the breadth and enforceability of the tax base.",
   ],
   federalism: [
-    "Fiscal federalism shows a strong vertical imbalance: expenditure responsibilities are more decentralized than revenue collection.",
-    "Subnational budget utilization rates point to capacity constraints that may limit the growth impact of fiscal transfers.",
-    "The descriptive pattern suggests that decentralization without stronger implementation capacity can weaken the link between allocated resources and actual service delivery.",
+    "Spending responsibilities are increasingly decentralized, but revenue collection remains highly centralized.",
+    "Subnational governments show moderate budget utilization, pointing to capacity constraints.",
+    "The imbalance suggests that decentralization has yet to fully translate into effective service delivery.",
   ],
   developmentGovernance: [
-    "SDG progress, governance indicators, and human-development rankings point to a gap between formal development commitments and implementation capacity.",
-    "The LDC graduation context raises the stakes because external preferences may weaken before domestic productive capacity is sufficiently deepened.",
-    "These indicators should be interpreted as institutional constraints on transformation, not merely social-sector outcomes.",
+    "Progress on development indicators remains gradual, with gaps relative to long-term targets.",
+    "Governance and institutional capacity continue to shape outcomes as much as resource availability.",
+    "The transition out of LDC status raises the importance of strengthening domestic economic foundations.",
   ],
   infrastructureTourism: [
-    "Electricity capacity gains show real infrastructure progress, but the development impact depends on transmission, domestic absorption, and reliable seasonal supply.",
-    "Tourism indicators show recovery potential, yet infrastructure and connectivity constraints continue to limit full utilization.",
-    "The common issue across energy and tourism is conversion: turning physical capacity and natural advantage into sustained productivity, exports, and employment.",
+    "Energy capacity has expanded significantly, reflecting progress in physical infrastructure.",
+    "However, utilization depends on transmission, demand, and system reliability rather than capacity alone.",
+    "Tourism shows recovery potential, but infrastructure constraints continue to limit scale.",
   ],
 };
 
