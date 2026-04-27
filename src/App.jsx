@@ -554,7 +554,30 @@ function WhitePaperBriefPage({
             <div className="text-sm font-semibold uppercase tracking-[0.2em] text-red-700">
               Tabbed Sections
             </div>
-            <div className="mt-6 flex gap-3 overflow-x-auto pb-2">
+            <div className="mt-6 md:hidden">
+              <label
+                htmlFor="white-paper-section-select"
+                className="text-sm font-medium text-slate-700"
+              >
+                Select section
+              </label>
+              <select
+                id="white-paper-section-select"
+                value={activeTab}
+                className="mt-2 w-full rounded-2xl border border-slate-300 bg-white px-4 py-3 text-sm font-medium text-blue-950 shadow-sm outline-none transition focus:border-blue-700"
+                onChange={(event) => onChangeTab(event.target.value)}
+              >
+                {WHITE_PAPER_TAB_ORDER.map((key) => {
+                  const section = whitePaperCharts[key];
+                  return (
+                    <option key={key} value={key}>
+                      {section.title}
+                    </option>
+                  );
+                })}
+              </select>
+            </div>
+            <div className="mt-6 hidden gap-3 overflow-x-auto pb-2 md:flex">
               {WHITE_PAPER_TAB_ORDER.map((key) => {
                 const section = whitePaperCharts[key];
                 const isActive = key === activeTab;
@@ -695,26 +718,6 @@ function Homepage({ isMobileMenuOpen, onCloseMobileMenu, onToggleMobileMenu }) {
             </div>
             <div className="mt-6 grid gap-6 lg:grid-cols-3">
               <a
-                href={PRIVATE_SCHOOLS_HASH_PATH}
-                className="group rounded-xl border border-red-200 bg-white shadow-sm transition hover:-translate-y-1 hover:border-red-300 hover:shadow-md"
-              >
-                <img
-                  src="/insights-private-schools-1.png"
-                  alt={PRIVATE_SCHOOLS_ARTICLE.title}
-                  className="h-40 w-full rounded-t-xl object-cover"
-                />
-                <div className="p-4">
-                  <div className="text-xs font-semibold uppercase tracking-[0.2em] text-red-600">
-                    Insights
-                  </div>
-                  <h3 className="mt-2 text-base font-semibold text-blue-900">
-                    {PRIVATE_SCHOOLS_ARTICLE.title}
-                  </h3>
-                  <p className="mt-2 text-sm text-slate-600">Read the full analysis.</p>
-                </div>
-              </a>
-
-              <a
                 href={WHITE_PAPER_HASH_PATH}
                 className="group rounded-xl border border-red-200 bg-white shadow-sm transition hover:-translate-y-1 hover:border-red-300 hover:shadow-md"
               >
@@ -743,6 +746,26 @@ function Homepage({ isMobileMenuOpen, onCloseMobileMenu, onToggleMobileMenu }) {
                   <p className="mt-2 text-sm leading-6 text-slate-600">
                     Explore an interactive consulting-style data brief with tabbed sections, headline metrics, and chart exhibits.
                   </p>
+                </div>
+              </a>
+
+              <a
+                href={PRIVATE_SCHOOLS_HASH_PATH}
+                className="group rounded-xl border border-red-200 bg-white shadow-sm transition hover:-translate-y-1 hover:border-red-300 hover:shadow-md"
+              >
+                <img
+                  src="/insights-private-schools-1.png"
+                  alt={PRIVATE_SCHOOLS_ARTICLE.title}
+                  className="h-40 w-full rounded-t-xl object-cover"
+                />
+                <div className="p-4">
+                  <div className="text-xs font-semibold uppercase tracking-[0.2em] text-red-600">
+                    Insights
+                  </div>
+                  <h3 className="mt-2 text-base font-semibold text-blue-900">
+                    {PRIVATE_SCHOOLS_ARTICLE.title}
+                  </h3>
+                  <p className="mt-2 text-sm text-slate-600">Read the full analysis.</p>
                 </div>
               </a>
 
