@@ -1,4 +1,4 @@
-import { memo, useEffect, useMemo, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import {
   Bar,
   BarChart,
@@ -603,7 +603,7 @@ function WhitePaperChartGraphic({ chart }) {
 
 function ChartCard({ title, description, source, children, note }) {
   return (
-    <article className="rounded-3xl border border-slate-200 bg-white p-5 shadow-[0_16px_40px_rgba(15,23,42,0.06)] sm:p-6">
+    <article className="relative rounded-3xl border border-slate-200 bg-white p-5 shadow-[0_16px_40px_rgba(15,23,42,0.06)] sm:p-6">
       <div className="flex flex-col gap-2">
         <div className="text-xs font-semibold uppercase tracking-[0.22em] text-red-700">
           Data Exhibit
@@ -618,13 +618,12 @@ function ChartCard({ title, description, source, children, note }) {
 
       {note ? <p className="mt-4 text-sm leading-6 text-slate-500">{note}</p> : null}
 
-      <div className="mt-6 border-t border-slate-200 pt-4">
-        <div className="flex flex-col gap-2 text-xs leading-5 text-slate-500 sm:flex-row sm:items-end sm:justify-between sm:gap-4">
-          <div className="max-w-[42rem]">{source}</div>
-          <div className="shrink-0 text-left font-medium opacity-65 sm:text-right">
-            © Metrics Nepal
-          </div>
-        </div>
+      <div className="mt-6 border-t border-slate-200 pt-4 pr-28 text-xs leading-5 text-slate-500">
+        {source}
+      </div>
+
+      <div className="pointer-events-none absolute bottom-5 right-5 text-xs font-medium text-slate-500 opacity-65 sm:bottom-6 sm:right-6">
+        © Metrics Nepal
       </div>
     </article>
   );
@@ -647,62 +646,6 @@ function KeyTakeawayBox({ lines, className = "" }) {
   );
 }
 
-
-const WhitePaperMetricsSection = memo(function WhitePaperMetricsSection({
-  primaryMetrics,
-  secondaryMetrics,
-}) {
-  return (
-    <section className="mx-auto max-w-7xl px-6 pb-8 lg:px-10">
-      <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-        {primaryMetrics.map((metric) => (
-          <article
-            key={metric.label}
-            className="rounded-3xl border border-white/16 bg-white/12 p-5 shadow-[0_20px_45px_rgba(15,23,42,0.18)] backdrop-blur-md"
-          >
-            <div className="text-sm font-medium text-blue-50/72">{metric.label}</div>
-            <div className="mt-3 text-3xl font-semibold tracking-tight text-white">
-              {metric.value}
-            </div>
-            <div className="mt-2 text-sm text-blue-100/78">{metric.subtext}</div>
-          </article>
-        ))}
-        {secondaryMetrics.map((metric) => (
-          <article
-            key={metric.label}
-            className="hidden rounded-3xl border border-white/16 bg-white/12 p-5 shadow-[0_20px_45px_rgba(15,23,42,0.18)] backdrop-blur-md xl:block"
-          >
-            <div className="text-sm font-medium text-blue-50/72">{metric.label}</div>
-            <div className="mt-3 text-3xl font-semibold tracking-tight text-white">
-              {metric.value}
-            </div>
-            <div className="mt-2 text-sm text-blue-100/78">{metric.subtext}</div>
-          </article>
-        ))}
-      </div>
-
-      <details className="mt-6 rounded-2xl border border-white/16 bg-white/6 p-5 text-blue-50/88 xl:hidden">
-        <summary className="min-h-11 cursor-pointer list-none text-sm font-semibold uppercase tracking-[0.16em] text-blue-100/78">
-          More indicators
-        </summary>
-        <div className="mt-4 grid gap-4 sm:grid-cols-2">
-          {secondaryMetrics.map((metric) => (
-            <article
-              key={metric.label}
-              className="rounded-3xl border border-white/16 bg-white/8 p-5 shadow-[0_16px_30px_rgba(15,23,42,0.16)] backdrop-blur-md"
-            >
-              <div className="text-sm font-medium text-blue-50/72">{metric.label}</div>
-              <div className="mt-3 text-3xl font-semibold tracking-tight text-white">
-                {metric.value}
-              </div>
-              <div className="mt-2 text-sm text-blue-100/78">{metric.subtext}</div>
-            </article>
-          ))}
-        </div>
-      </details>
-    </section>
-  );
-});
 
 const WhitePaperActiveSection = memo(function WhitePaperActiveSection({
   activeSection,
@@ -758,8 +701,8 @@ function WhitePaperBriefPage({
 }) {
   const activeSection = whitePaperCharts[activeTab];
   const [isTabContentVisible, setIsTabContentVisible] = useState(true);
-  const primaryMetrics = useMemo(() => whitePaperHeadlineMetrics.slice(0, 4), []);
-  const secondaryMetrics = useMemo(() => whitePaperHeadlineMetrics.slice(4), []);
+  const primaryMetrics = whitePaperHeadlineMetrics.slice(0, 4);
+  const secondaryMetrics = whitePaperHeadlineMetrics.slice(4);
   const activeAnalysisLines = analysisNotes[activeTab];
 
   useEffect(() => {
@@ -822,10 +765,34 @@ function WhitePaperBriefPage({
           </div>
         </section>
 
-        <WhitePaperMetricsSection
-          primaryMetrics={primaryMetrics}
-          secondaryMetrics={secondaryMetrics}
-        />
+        <section className="mx-auto max-w-7xl px-6 pb-8 lg:px-10">
+          <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+            {primaryMetrics.map((metric) => (
+              <article
+                key={metric.label}
+                className="rounded-3xl border border-white/16 bg-white/12 p-5 shadow-[0_20px_45px_rgba(15,23,42,0.18)] backdrop-blur-md"
+              >
+                <div className="text-sm font-medium text-blue-50/72">{metric.label}</div>
+                <div className="mt-3 text-3xl font-semibold tracking-tight text-white">
+                  {metric.value}
+                </div>
+                <div className="mt-2 text-sm text-blue-100/78">{metric.subtext}</div>
+              </article>
+            ))}
+            {secondaryMetrics.map((metric) => (
+              <article
+                key={metric.label}
+                className="hidden rounded-3xl border border-white/16 bg-white/12 p-5 shadow-[0_20px_45px_rgba(15,23,42,0.18)] backdrop-blur-md xl:block"
+              >
+                <div className="text-sm font-medium text-blue-50/72">{metric.label}</div>
+                <div className="mt-3 text-3xl font-semibold tracking-tight text-white">
+                  {metric.value}
+                </div>
+                <div className="mt-2 text-sm text-blue-100/78">{metric.subtext}</div>
+              </article>
+            ))}
+          </div>
+        </section>
 
         <section className="border-t border-white/12 bg-[linear-gradient(180deg,rgba(20,43,95,0.08)_0%,rgba(176,70,70,0.08)_100%)]">
           <div className="mx-auto max-w-7xl px-6 py-12 lg:px-10">
@@ -864,6 +831,26 @@ function WhitePaperBriefPage({
               analysisLines={activeAnalysisLines}
               isTabContentVisible={isTabContentVisible}
             />
+
+            <details className="mt-6 rounded-2xl border border-white/16 bg-white/6 p-5 text-blue-50/88 xl:hidden">
+              <summary className="min-h-11 cursor-pointer list-none text-sm font-semibold uppercase tracking-[0.16em] text-blue-100/78">
+                More indicators
+              </summary>
+              <div className="mt-4 grid gap-4 sm:grid-cols-2">
+                {secondaryMetrics.map((metric) => (
+                  <article
+                    key={metric.label}
+                    className="rounded-3xl border border-white/16 bg-white/8 p-5 shadow-[0_16px_30px_rgba(15,23,42,0.16)] backdrop-blur-md"
+                  >
+                    <div className="text-sm font-medium text-blue-50/72">{metric.label}</div>
+                    <div className="mt-3 text-3xl font-semibold tracking-tight text-white">
+                      {metric.value}
+                    </div>
+                    <div className="mt-2 text-sm text-blue-100/78">{metric.subtext}</div>
+                  </article>
+                ))}
+              </div>
+            </details>
           </div>
         </section>
 
