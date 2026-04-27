@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { memo, useEffect, useMemo, useState } from "react";
 import {
   Bar,
   BarChart,
@@ -389,10 +389,12 @@ function WhitePaperChartGraphic({ chart }) {
   const hasSeries = Boolean(chart.series);
   const useVerticalBars = !hasSeries && !isCompactViewport;
   const chartHeight = hasSeries
-    ? 320
+    ? isCompactViewport
+      ? 360
+      : 320
     : useVerticalBars
       ? Math.max(300, chart.data.length * 62)
-      : Math.max(320, chart.data.length * 56);
+      : Math.max(isCompactViewport ? 360 : 320, chart.data.length * (isCompactViewport ? 62 : 56));
 
   useEffect(() => {
     if (typeof window === "undefined") return undefined;
@@ -475,31 +477,31 @@ function WhitePaperChartGraphic({ chart }) {
                     }
                   : { top: 16, right: 24, bottom: 16, left: 90 }
               }
-              barCategoryGap={hasSeries ? "22%" : "28%"}
+              barCategoryGap={hasSeries ? (isCompactViewport ? "28%" : "22%") : isCompactViewport ? "34%" : "28%"}
             >
               <CartesianGrid
                 stroke="#e2e8f0"
-                strokeDasharray="3 3"
+                strokeDasharray={isCompactViewport ? "2 6" : "3 3"}
                 vertical={false}
               />
               {hasSeries || !useVerticalBars ? (
                 <>
                   <XAxis
                     dataKey={hasSeries ? chart.xKey : chart.xKey}
-                    tick={{ fill: "#475569", fontSize: 12 }}
+                    tick={{ fill: "#475569", fontSize: isCompactViewport ? 13 : 12 }}
                     axisLine={false}
                     tickLine={false}
                     angle={0}
                     textAnchor="middle"
-                    height={isCompactViewport ? 38 : 30}
+                    height={isCompactViewport ? 46 : 30}
                     interval={0}
                     tickFormatter={(value) =>
-                      isCompactViewport ? compactLabel(value, hasSeries ? 12 : 10) : value
+                      isCompactViewport ? compactLabel(value, hasSeries ? 14 : 12) : value
                     }
                   />
                   <YAxis
                     type="number"
-                    tick={{ fill: "#475569", fontSize: 12 }}
+                    tick={{ fill: "#475569", fontSize: isCompactViewport ? 13 : 12 }}
                     axisLine={false}
                     tickLine={false}
                     tickFormatter={(value) => formatAxisTick(chart, value)}
@@ -510,7 +512,7 @@ function WhitePaperChartGraphic({ chart }) {
                 <>
                   <XAxis
                     type="number"
-                    tick={{ fill: "#475569", fontSize: 12 }}
+                    tick={{ fill: "#475569", fontSize: isCompactViewport ? 13 : 12 }}
                     axisLine={false}
                     tickLine={false}
                     tickFormatter={(value) => formatAxisTick(chart, value)}
@@ -555,7 +557,7 @@ function WhitePaperChartGraphic({ chart }) {
                         formatter={(value) => {
                           return formatChartValue(chart, value, chart.yKey);
                         }}
-                        style={{ fill: "#0f172a", fontSize: 12, fontWeight: 600 }}
+                        style={{ fill: "#0f172a", fontSize: isCompactViewport ? 13 : 12, fontWeight: 600 }}
                       />
                     </Bar>
                   )}
@@ -601,7 +603,7 @@ function WhitePaperChartGraphic({ chart }) {
 
 function ChartCard({ title, description, source, children, note }) {
   return (
-    <article className="relative rounded-3xl border border-slate-200 bg-white p-6 shadow-[0_16px_40px_rgba(15,23,42,0.06)]">
+    <article className="rounded-3xl border border-slate-200 bg-white p-5 shadow-[0_16px_40px_rgba(15,23,42,0.06)] sm:p-6">
       <div className="flex flex-col gap-2">
         <div className="text-xs font-semibold uppercase tracking-[0.22em] text-red-700">
           Data Exhibit
@@ -616,12 +618,13 @@ function ChartCard({ title, description, source, children, note }) {
 
       {note ? <p className="mt-4 text-sm leading-6 text-slate-500">{note}</p> : null}
 
-      <div className="mt-6 border-t border-slate-200 pt-4 pr-28 text-xs leading-5 text-slate-500">
-        {source}
-      </div>
-
-      <div className="pointer-events-none absolute bottom-6 right-6 text-xs font-medium text-slate-500 opacity-65">
-        © Metrics Nepal
+      <div className="mt-6 border-t border-slate-200 pt-4">
+        <div className="flex flex-col gap-2 text-xs leading-5 text-slate-500 sm:flex-row sm:items-end sm:justify-between sm:gap-4">
+          <div className="max-w-[42rem]">{source}</div>
+          <div className="shrink-0 text-left font-medium opacity-65 sm:text-right">
+            © Metrics Nepal
+          </div>
+        </div>
       </div>
     </article>
   );
@@ -644,6 +647,108 @@ function KeyTakeawayBox({ lines, className = "" }) {
   );
 }
 
+
+const WhitePaperMetricsSection = memo(function WhitePaperMetricsSection({
+  primaryMetrics,
+  secondaryMetrics,
+}) {
+  return (
+    <section className="mx-auto max-w-7xl px-6 pb-8 lg:px-10">
+      <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+        {primaryMetrics.map((metric) => (
+          <article
+            key={metric.label}
+            className="rounded-3xl border border-white/16 bg-white/12 p-5 shadow-[0_20px_45px_rgba(15,23,42,0.18)] backdrop-blur-md"
+          >
+            <div className="text-sm font-medium text-blue-50/72">{metric.label}</div>
+            <div className="mt-3 text-3xl font-semibold tracking-tight text-white">
+              {metric.value}
+            </div>
+            <div className="mt-2 text-sm text-blue-100/78">{metric.subtext}</div>
+          </article>
+        ))}
+        {secondaryMetrics.map((metric) => (
+          <article
+            key={metric.label}
+            className="hidden rounded-3xl border border-white/16 bg-white/12 p-5 shadow-[0_20px_45px_rgba(15,23,42,0.18)] backdrop-blur-md xl:block"
+          >
+            <div className="text-sm font-medium text-blue-50/72">{metric.label}</div>
+            <div className="mt-3 text-3xl font-semibold tracking-tight text-white">
+              {metric.value}
+            </div>
+            <div className="mt-2 text-sm text-blue-100/78">{metric.subtext}</div>
+          </article>
+        ))}
+      </div>
+
+      <details className="mt-6 rounded-2xl border border-white/16 bg-white/6 p-5 text-blue-50/88 xl:hidden">
+        <summary className="min-h-11 cursor-pointer list-none text-sm font-semibold uppercase tracking-[0.16em] text-blue-100/78">
+          More indicators
+        </summary>
+        <div className="mt-4 grid gap-4 sm:grid-cols-2">
+          {secondaryMetrics.map((metric) => (
+            <article
+              key={metric.label}
+              className="rounded-3xl border border-white/16 bg-white/8 p-5 shadow-[0_16px_30px_rgba(15,23,42,0.16)] backdrop-blur-md"
+            >
+              <div className="text-sm font-medium text-blue-50/72">{metric.label}</div>
+              <div className="mt-3 text-3xl font-semibold tracking-tight text-white">
+                {metric.value}
+              </div>
+              <div className="mt-2 text-sm text-blue-100/78">{metric.subtext}</div>
+            </article>
+          ))}
+        </div>
+      </details>
+    </section>
+  );
+});
+
+const WhitePaperActiveSection = memo(function WhitePaperActiveSection({
+  activeSection,
+  analysisLines,
+  isTabContentVisible,
+}) {
+  return (
+    <div className="mt-8 rounded-[2rem] border border-white/16 bg-white/10 p-5 shadow-[0_20px_50px_rgba(15,23,42,0.22)] backdrop-blur-md sm:p-6">
+      <div className="max-w-3xl">
+        <div className="text-sm font-semibold uppercase tracking-[0.22em] text-blue-100">
+          Active Section
+        </div>
+        <h2 className="mt-3 text-2xl font-semibold tracking-tight text-white sm:text-3xl">
+          {activeSection.title}
+        </h2>
+      </div>
+
+      <KeyTakeawayBox lines={analysisLines} className="mt-6 md:hidden" />
+
+      <div
+        className={`transition-opacity duration-200 ${isTabContentVisible ? "opacity-100" : "opacity-0"}`}
+      >
+        <div
+          className={`mt-8 grid gap-5 ${
+            activeSection.charts.length === 1 ? "grid-cols-1" : "grid-cols-1 xl:grid-cols-2"
+          }`}
+        >
+          {activeSection.charts.map((chart) => (
+            <ChartCard
+              key={chart.id}
+              title={chart.title}
+              description={chart.description}
+              source={whitePaperSource}
+              note={chart.note}
+            >
+              <WhitePaperChartGraphic chart={chart} />
+            </ChartCard>
+          ))}
+        </div>
+      </div>
+
+      <KeyTakeawayBox lines={analysisLines} className="mt-6 hidden md:block" />
+    </div>
+  );
+});
+
 function WhitePaperBriefPage({
   activeTab,
   isMobileMenuOpen,
@@ -653,8 +758,9 @@ function WhitePaperBriefPage({
 }) {
   const activeSection = whitePaperCharts[activeTab];
   const [isTabContentVisible, setIsTabContentVisible] = useState(true);
-  const primaryMetrics = whitePaperHeadlineMetrics.slice(0, 4);
-  const secondaryMetrics = whitePaperHeadlineMetrics.slice(4);
+  const primaryMetrics = useMemo(() => whitePaperHeadlineMetrics.slice(0, 4), []);
+  const secondaryMetrics = useMemo(() => whitePaperHeadlineMetrics.slice(4), []);
+  const activeAnalysisLines = analysisNotes[activeTab];
 
   useEffect(() => {
     setIsTabContentVisible(false);
@@ -678,15 +784,15 @@ function WhitePaperBriefPage({
 
       <main>
         <section className="border-b border-white/12 bg-[linear-gradient(135deg,rgba(17,37,88,0.3)_0%,rgba(24,53,109,0.08)_42%,rgba(176,70,70,0.14)_100%)]">
-          <div className="mx-auto max-w-7xl px-6 py-10 lg:px-10 lg:py-20">
-            <div className="max-w-3xl">
+          <div className="mx-auto max-w-7xl px-6 py-10 sm:py-12 lg:px-10 lg:py-20">
+            <div className="max-w-[34rem] sm:max-w-3xl">
               <div className="text-sm font-semibold uppercase tracking-[0.28em] text-red-200">
                 Insights Brief
               </div>
-              <h1 className="mt-5 text-4xl font-semibold tracking-tight text-white sm:text-5xl">
+              <h1 className="mt-5 max-w-[14ch] text-4xl font-semibold tracking-tight text-white sm:max-w-none sm:text-5xl">
                 {WHITE_PAPER_TITLE}
               </h1>
-              <p className="mt-6 max-w-3xl text-lg leading-8 text-blue-50/88">
+              <p className="mt-6 max-w-[32rem] text-base leading-7 text-blue-50/88 sm:text-lg sm:leading-8">
                 {WHITE_PAPER_SUBTITLE}
               </p>
             </div>
@@ -716,125 +822,48 @@ function WhitePaperBriefPage({
           </div>
         </section>
 
-        <section className="mx-auto max-w-7xl px-6 pb-8 lg:px-10">
-          <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-            {primaryMetrics.map((metric) => (
-              <article
-                key={metric.label}
-                className="rounded-3xl border border-white/16 bg-white/12 p-5 shadow-[0_20px_45px_rgba(15,23,42,0.18)] backdrop-blur-md"
-              >
-                <div className="text-sm font-medium text-blue-50/72">{metric.label}</div>
-                <div className="mt-3 text-3xl font-semibold tracking-tight text-white">
-                  {metric.value}
-                </div>
-                <div className="mt-2 text-sm text-blue-100/78">{metric.subtext}</div>
-              </article>
-            ))}
-            {secondaryMetrics.map((metric) => (
-              <article
-                key={metric.label}
-                className="hidden rounded-3xl border border-white/16 bg-white/12 p-5 shadow-[0_20px_45px_rgba(15,23,42,0.18)] backdrop-blur-md xl:block"
-              >
-                <div className="text-sm font-medium text-blue-50/72">{metric.label}</div>
-                <div className="mt-3 text-3xl font-semibold tracking-tight text-white">
-                  {metric.value}
-                </div>
-                <div className="mt-2 text-sm text-blue-100/78">{metric.subtext}</div>
-              </article>
-            ))}
-          </div>
-        </section>
+        <WhitePaperMetricsSection
+          primaryMetrics={primaryMetrics}
+          secondaryMetrics={secondaryMetrics}
+        />
 
         <section className="border-t border-white/12 bg-[linear-gradient(180deg,rgba(20,43,95,0.08)_0%,rgba(176,70,70,0.08)_100%)]">
           <div className="mx-auto max-w-7xl px-6 py-12 lg:px-10">
             <div className="text-sm font-semibold uppercase tracking-[0.2em] text-red-200">
               Tabbed Sections
             </div>
-            <div className="-mx-6 mt-6 overflow-x-auto px-6 pb-2 [scrollbar-width:none]">
-              <div className="flex min-w-max gap-3 whitespace-nowrap">
-              {WHITE_PAPER_TAB_ORDER.map((key) => {
-                const section = whitePaperCharts[key];
-                const isActive = key === activeTab;
-                return (
-                  <button
-                    key={key}
-                    type="button"
-                    className={`min-h-11 shrink-0 rounded-full border px-4 py-2 text-sm font-medium transition ${
-                      isActive
-                        ? "border-white bg-white text-blue-950 shadow-[0_10px_24px_rgba(15,23,42,0.18)]"
-                        : "border-white/20 bg-white/10 text-blue-50/72 hover:border-red-200 hover:text-white"
-                    }`}
-                    onClick={() => onChangeTab(key)}
-                  >
-                    {section.title}
-                  </button>
-                );
-              })}
-            </div>
-            </div>
-
-            <div className="mt-8 rounded-[2rem] border border-white/16 bg-white/10 p-6 shadow-[0_20px_50px_rgba(15,23,42,0.22)] backdrop-blur-md">
-              <div className="max-w-3xl">
-                <div className="text-sm font-semibold uppercase tracking-[0.22em] text-blue-100">
-                  Active Section
-                </div>
-                <h2 className="mt-3 text-3xl font-semibold tracking-tight text-white">
-                  {activeSection.title}
-                </h2>
-              </div>
-
-              <KeyTakeawayBox
-                lines={analysisNotes[activeTab]}
-                className="mt-6 md:hidden"
-              />
-
-              <div
-                className={`transition-opacity duration-200 ${isTabContentVisible ? "opacity-100" : "opacity-0"}`}
-              >
-                <div
-                  className={`mt-8 grid gap-5 ${
-                    activeSection.charts.length === 1 ? "grid-cols-1" : "grid-cols-1 xl:grid-cols-2"
-                  }`}
-                >
-                  {activeSection.charts.map((chart) => (
-                    <ChartCard
-                      key={chart.id}
-                      title={chart.title}
-                      description={chart.description}
-                      source={whitePaperSource}
-                      note={chart.note}
-                    >
-                      <WhitePaperChartGraphic chart={chart} />
-                    </ChartCard>
-                  ))}
+            <div className="relative mt-6">
+              <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-6 bg-gradient-to-r from-[#284a93] to-transparent md:hidden" />
+              <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-10 bg-gradient-to-l from-[#793345] to-transparent md:hidden" />
+              <div className="-mx-6 overflow-x-auto px-6 pb-2 [scrollbar-width:none]">
+                <div className="flex min-w-max gap-3 whitespace-nowrap">
+                  {WHITE_PAPER_TAB_ORDER.map((key) => {
+                    const section = whitePaperCharts[key];
+                    const isActive = key === activeTab;
+                    return (
+                      <button
+                        key={key}
+                        type="button"
+                        className={`min-h-11 shrink-0 rounded-full border px-4 py-2 text-sm font-medium transition ${
+                          isActive
+                            ? "border-white bg-white text-blue-950 shadow-[0_10px_24px_rgba(15,23,42,0.18)]"
+                            : "border-white/20 bg-white/10 text-blue-50/72 hover:border-red-200 hover:text-white"
+                        }`}
+                        onClick={() => onChangeTab(key)}
+                      >
+                        {section.title}
+                      </button>
+                    );
+                  })}
                 </div>
               </div>
-
-              <KeyTakeawayBox
-                lines={analysisNotes[activeTab]}
-                className="mt-6 hidden md:block"
-              />
-
-              <details className="mt-6 rounded-2xl border border-white/16 bg-white/6 p-5 text-blue-50/88 xl:hidden">
-                <summary className="min-h-11 cursor-pointer list-none text-sm font-semibold uppercase tracking-[0.16em] text-blue-100/78">
-                  More indicators
-                </summary>
-                <div className="mt-4 grid gap-4 sm:grid-cols-2">
-                  {secondaryMetrics.map((metric) => (
-                    <article
-                      key={metric.label}
-                      className="rounded-3xl border border-white/16 bg-white/8 p-5 shadow-[0_16px_30px_rgba(15,23,42,0.16)] backdrop-blur-md"
-                    >
-                      <div className="text-sm font-medium text-blue-50/72">{metric.label}</div>
-                      <div className="mt-3 text-3xl font-semibold tracking-tight text-white">
-                        {metric.value}
-                      </div>
-                      <div className="mt-2 text-sm text-blue-100/78">{metric.subtext}</div>
-                    </article>
-                  ))}
-                </div>
-              </details>
             </div>
+
+            <WhitePaperActiveSection
+              activeSection={activeSection}
+              analysisLines={activeAnalysisLines}
+              isTabContentVisible={isTabContentVisible}
+            />
           </div>
         </section>
 
