@@ -83,7 +83,7 @@ const WHITE_PAPER_TITLE = "What’s in the Government’s White Paper?";
 const WHITE_PAPER_DISCLAIMER =
   "Figures are descriptive and do not imply causal relationships. Reference years and definitions vary across indicators.";
 const WHITE_PAPER_SUBTITLE =
-  "A fast consulting-style data brief summarizing key descriptive indicators from the Government of Nepal’s Baisakh 2083 / April 2026 economic status paper.";
+  "A complementary data brief of the Government of Nepal’s recent white paper. The key numbers—reframed for clarity, context, and quick reading.";
 const WHITE_PAPER_TAB_ORDER = Object.keys(whitePaperCharts);
 const CHART_COLORS = ["#18356d", "#b04646", "#5f6b7a", "#d48657"];
 const analysisNotes = {
