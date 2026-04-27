@@ -561,7 +561,7 @@ function WhitePaperBriefPage({
   const activeSection = whitePaperCharts[activeTab];
 
   return (
-    <div className="min-h-screen bg-[linear-gradient(180deg,#eef4ff_0%,#f9fbff_22%,#fff7f7_58%,#fefcfc_100%)] text-slate-900">
+    <div className="min-h-screen bg-[radial-gradient(circle_at_top_left,#365fb8_0%,rgba(54,95,184,0.95)_16%,rgba(20,43,95,0.96)_36%,rgba(106,41,61,0.92)_70%,rgba(176,70,70,0.9)_100%)] text-slate-900">
       <SiteHeader
         navItems={ARTICLE_NAV_ITEMS}
         isMobileMenuOpen={isMobileMenuOpen}
@@ -572,16 +572,16 @@ function WhitePaperBriefPage({
       />
 
       <main>
-        <section className="border-b border-slate-200/70 bg-[linear-gradient(135deg,rgba(238,244,255,0.94)_0%,rgba(248,251,255,0.96)_48%,rgba(255,245,245,0.94)_100%)]">
+        <section className="border-b border-white/12 bg-[linear-gradient(135deg,rgba(17,37,88,0.3)_0%,rgba(24,53,109,0.08)_42%,rgba(176,70,70,0.14)_100%)]">
           <div className="mx-auto max-w-7xl px-6 py-16 lg:px-10 lg:py-20">
             <div className="max-w-4xl">
-              <div className="text-sm font-semibold uppercase tracking-[0.28em] text-red-700">
+              <div className="text-sm font-semibold uppercase tracking-[0.28em] text-red-200">
                 Insights Brief
               </div>
-              <h1 className="mt-5 text-4xl font-semibold tracking-tight text-blue-950 sm:text-5xl">
+              <h1 className="mt-5 text-4xl font-semibold tracking-tight text-white sm:text-5xl">
                 {WHITE_PAPER_TITLE}
               </h1>
-              <p className="mt-6 max-w-3xl text-lg leading-8 text-slate-600">
+              <p className="mt-6 max-w-3xl text-lg leading-8 text-blue-50/88">
                 {WHITE_PAPER_SUBTITLE}
               </p>
             </div>
@@ -589,21 +589,21 @@ function WhitePaperBriefPage({
         </section>
 
         <section className="mx-auto max-w-7xl px-6 py-10 lg:px-10">
-          <div className="rounded-3xl border border-slate-200/80 bg-white/75 px-6 py-6 shadow-[0_12px_30px_rgba(15,23,42,0.05)] backdrop-blur-sm">
+          <div className="rounded-3xl border border-white/18 bg-white/10 px-6 py-6 shadow-[0_20px_45px_rgba(15,23,42,0.18)] backdrop-blur-md">
             <div className="grid gap-6 lg:grid-cols-[1.1fr_1.4fr]">
               <div>
-                <div className="text-sm font-semibold uppercase tracking-[0.2em] text-blue-900">
+                <div className="text-sm font-semibold uppercase tracking-[0.2em] text-blue-100">
                   Brief Source
                 </div>
-                <p className="mt-3 text-sm leading-6 text-slate-600">
+                <p className="mt-3 text-sm leading-6 text-blue-50/82">
                   {whitePaperSource}
                 </p>
               </div>
               <div>
-                <div className="text-sm font-semibold uppercase tracking-[0.2em] text-blue-900">
+                <div className="text-sm font-semibold uppercase tracking-[0.2em] text-blue-100">
                   Global Disclaimer
                 </div>
-                <p className="mt-3 text-sm leading-6 text-slate-600">
+                <p className="mt-3 text-sm leading-6 text-blue-50/82">
                   {WHITE_PAPER_DISCLAIMER}
                 </p>
               </div>
@@ -616,34 +616,34 @@ function WhitePaperBriefPage({
             {whitePaperHeadlineMetrics.map((metric) => (
               <article
                 key={metric.label}
-                className="rounded-3xl border border-slate-200/80 bg-white/82 p-5 shadow-[0_12px_30px_rgba(15,23,42,0.05)] backdrop-blur-sm"
+                className="rounded-3xl border border-white/16 bg-white/12 p-5 shadow-[0_20px_45px_rgba(15,23,42,0.18)] backdrop-blur-md"
               >
-                <div className="text-sm font-medium text-slate-500">{metric.label}</div>
-                <div className="mt-3 text-3xl font-semibold tracking-tight text-blue-950">
+                <div className="text-sm font-medium text-blue-50/72">{metric.label}</div>
+                <div className="mt-3 text-3xl font-semibold tracking-tight text-white">
                   {metric.value}
                 </div>
-                <div className="mt-2 text-sm text-slate-600">{metric.subtext}</div>
+                <div className="mt-2 text-sm text-blue-100/78">{metric.subtext}</div>
               </article>
             ))}
           </div>
         </section>
 
-        <section className="border-t border-slate-200/70 bg-[linear-gradient(180deg,rgba(241,245,255,0.78)_0%,rgba(255,247,247,0.62)_100%)]">
+        <section className="border-t border-white/12 bg-[linear-gradient(180deg,rgba(20,43,95,0.08)_0%,rgba(176,70,70,0.08)_100%)]">
           <div className="mx-auto max-w-7xl px-6 py-12 lg:px-10">
-            <div className="text-sm font-semibold uppercase tracking-[0.2em] text-red-700">
+            <div className="text-sm font-semibold uppercase tracking-[0.2em] text-red-200">
               Tabbed Sections
             </div>
             <div className="mt-6 md:hidden">
               <label
                 htmlFor="white-paper-section-select"
-                className="text-sm font-medium text-slate-700"
+                className="text-sm font-medium text-blue-50/88"
               >
                 Select section
               </label>
               <select
                 id="white-paper-section-select"
                 value={activeTab}
-                className="mt-2 w-full rounded-2xl border border-slate-300 bg-white px-4 py-3 text-sm font-medium text-blue-950 shadow-sm outline-none transition focus:border-blue-700"
+                className="mt-2 w-full rounded-2xl border border-white/20 bg-white/12 px-4 py-3 text-sm font-medium text-white shadow-sm outline-none transition focus:border-red-200"
                 onChange={(event) => onChangeTab(event.target.value)}
               >
                 {WHITE_PAPER_TAB_ORDER.map((key) => {
@@ -666,8 +666,8 @@ function WhitePaperBriefPage({
                     type="button"
                     className={`shrink-0 rounded-full border px-4 py-2 text-sm font-medium transition ${
                       isActive
-                        ? "border-blue-900 bg-blue-900 text-white"
-                        : "border-slate-300 bg-white text-slate-700 hover:border-blue-300 hover:text-blue-900"
+                        ? "border-white bg-white text-blue-950"
+                        : "border-white/20 bg-white/10 text-blue-50 hover:border-red-200 hover:text-white"
                     }`}
                     onClick={() => onChangeTab(key)}
                   >
@@ -677,12 +677,12 @@ function WhitePaperBriefPage({
               })}
             </div>
 
-            <div className="mt-8 rounded-[2rem] border border-slate-200/80 bg-white/86 p-6 shadow-[0_16px_40px_rgba(15,23,42,0.06)] backdrop-blur-sm">
+            <div className="mt-8 rounded-[2rem] border border-white/16 bg-white/10 p-6 shadow-[0_20px_50px_rgba(15,23,42,0.22)] backdrop-blur-md">
               <div className="max-w-3xl">
-                <div className="text-sm font-semibold uppercase tracking-[0.22em] text-blue-900">
+                <div className="text-sm font-semibold uppercase tracking-[0.22em] text-blue-100">
                   Active Section
                 </div>
-                <h2 className="mt-3 text-3xl font-semibold tracking-tight text-blue-950">
+                <h2 className="mt-3 text-3xl font-semibold tracking-tight text-white">
                   {activeSection.title}
                 </h2>
               </div>
@@ -701,20 +701,20 @@ function WhitePaperBriefPage({
                 ))}
               </div>
 
-              <div className="mt-6 rounded-xl border border-dashed border-slate-300 p-5 text-slate-500">
+              <div className="mt-6 rounded-xl border border-dashed border-white/22 bg-white/8 p-5 text-blue-50/82">
                 <p className="text-sm font-medium">Analysis placeholder</p>
                 <p className="mt-2 text-sm">
                   Add interpretation here later. Keep this block visible in the code.
                 </p>
-                <p className="mt-3 text-sm leading-6">{activeSection.placeholderText}</p>
+                <p className="mt-3 text-sm leading-6 text-blue-100/76">{activeSection.placeholderText}</p>
               </div>
             </div>
           </div>
         </section>
 
-        <footer className="border-t border-slate-200/70 bg-transparent">
+        <footer className="border-t border-white/12 bg-transparent">
           <div className="mx-auto max-w-7xl px-6 py-8 lg:px-10">
-            <div className="rounded-3xl border border-slate-200/80 bg-white/78 px-6 py-5 text-sm leading-6 text-slate-600 backdrop-blur-sm">
+            <div className="rounded-3xl border border-white/16 bg-white/10 px-6 py-5 text-sm leading-6 text-blue-50/84 backdrop-blur-md">
               {whitePaperSource}
             </div>
           </div>
