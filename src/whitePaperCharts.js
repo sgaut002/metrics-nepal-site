@@ -1,5 +1,5 @@
 export const whitePaperSource =
-  "Source: Government of Nepal, Ministry of Finance, Baisakh 2083 / April 2026 Economic Status Paper";
+  "Source: Government of Nepal, Ministry of Finance, Baisakh 2083 / April 2026 Economic White Paper";
 
 export const whitePaperHeadlineMetrics = [
   {
@@ -54,7 +54,7 @@ export const whitePaperCharts = {
         id: "gdp-growth",
         type: "bar",
         title: "GDP Growth: Recent and Projected",
-        description: "GDP growth rates reported in the status paper.",
+        description: "GDP growth rates reported in the white paper.",
         data: [
           { label: "10-year average", value: 4.2 },
           { label: "FY 2081/82", value: 4.61 },
