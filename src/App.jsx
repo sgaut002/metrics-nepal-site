@@ -86,6 +86,72 @@ const WHITE_PAPER_SUBTITLE =
   "A complementary data brief of the Government of Nepal’s recent white paper. The key numbers—reframed for clarity, context, and quick reading.";
 const WHITE_PAPER_TAB_ORDER = Object.keys(whitePaperCharts);
 const CHART_COLORS = ["#18356d", "#b04646", "#5f6b7a", "#d48657"];
+const RESPONSIVE_LABEL_MAP = {
+  "10-year average": "10yr avg",
+  "FY 2081/82": "FY 81/82",
+  "FY 2082/83 projection": "FY 82/83 proj.",
+  Agriculture: "Agri.",
+  Industry: "Industry",
+  Services: "Services",
+  "Employment share": "Jobs share",
+  "GDP share": "GDP share",
+  "New approvals, FY 2081/82": "New FY 81/82",
+  "Renewed approvals, FY 2081/82": "Renewed FY 81/82",
+  "Total, FY 2081/82": "Total FY 81/82",
+  "New approvals, current FY to Chaitra 12": "New YTD",
+  "Renewed approvals, current FY to Chaitra 12": "Renewed YTD",
+  "Total, current FY to Chaitra 12": "Total YTD",
+  "Nepali workers in West Asia": "Workers",
+  "Remittance share from West Asia": "Remit. share",
+  VAT: "VAT",
+  "Income tax": "Income tax",
+  Customs: "Customs",
+  Excise: "Excise",
+  "Non-tax revenue": "Non-tax",
+  "FY 2072/73": "FY 72/73",
+  "Current expenditure": "Current",
+  "Capital expenditure": "Capital",
+  Financing: "Financing",
+  "Share of federal expenditure": "Exp. share",
+  "Share of federal revenue": "Rev. share",
+  "Gross domestic saving": "Domestic saving",
+  "Total investment": "Investment",
+  "Saving-investment gap": "S-I gap",
+  "Gross national saving": "National saving",
+  "Total consumption": "Consumption",
+  "Total PAN": "Total PAN",
+  "Individual PAN": "Individual",
+  "Business PAN": "Business",
+  "VAT registered": "VAT reg.",
+  "Excise registered": "Excise reg.",
+  "Internal revenue from 100 large taxpayers": "Top 100 taxpayers",
+  "Informal economy estimate": "Informal econ.",
+  "Unregistered establishments": "Unregistered",
+  "Registered establishments keeping accounts": "Keep accounts",
+  Federal: "Federal",
+  Province: "Province",
+  Local: "Local",
+  "Province and local": "Subnational",
+  "Progress achieved by 2022": "2022 progress",
+  "Projected progress by 2030": "2030 proj.",
+  Target: "Target",
+  "CPI score": "CPI score",
+  "HDI score × 100": "HDI ×100",
+  "CPI rank": "CPI rank",
+  "HDI rank": "HDI rank",
+  "Up to Ashar 2068": "Ashar 2068",
+  "Falgun 2082": "Falgun 2082",
+  "Foreign tourist arrivals, 2025": "Arrivals",
+  "Tourist-standard hotels": "Hotels",
+  "Daily bed capacity": "Beds/day",
+};
+
+function getResponsiveLabel(fullLabel, isMobile) {
+  if (typeof fullLabel !== "string") return fullLabel;
+  if (!isMobile) return fullLabel;
+  return RESPONSIVE_LABEL_MAP[fullLabel] ?? fullLabel;
+}
+
 const analysisNotes = {
   growthStructure: [
     "Growth remains modest and uneven, with the latest projection pointing to a loss of momentum after the post-recovery rebound.",
@@ -381,7 +447,7 @@ function InsightArticlePage({ isMobileMenuOpen, onCloseMobileMenu, onToggleMobil
 
 function WhitePaperChartGraphic({ chart }) {
   const [isCompactViewport, setIsCompactViewport] = useState(() =>
-    typeof window !== "undefined" ? window.innerWidth < 640 : false
+    typeof window !== "undefined" ? window.innerWidth < 768 : false
   );
   const [activeMobileLabel, setActiveMobileLabel] = useState(() =>
     chart.data[0]?.[chart.xKey] ?? ""
@@ -400,7 +466,7 @@ function WhitePaperChartGraphic({ chart }) {
     if (typeof window === "undefined") return undefined;
 
     const handleResize = () => {
-      setIsCompactViewport(window.innerWidth < 640);
+      setIsCompactViewport(window.innerWidth < 768);
     };
 
     window.addEventListener("resize", handleResize);
@@ -425,15 +491,15 @@ function WhitePaperChartGraphic({ chart }) {
             {
               title: "New vs Renewed (FY 2081/82)",
               data: [
-                { label: "New (FY 2081/82)", value: 506000 },
-                { label: "Renewed (FY 2081/82)", value: 333000 },
+                { label: "New approvals, FY 2081/82", value: 506000 },
+                { label: "Renewed approvals, FY 2081/82", value: 333000 },
               ],
             },
             {
               title: "Total Approvals",
               data: [
-                { label: "Total (FY 2081/82)", value: 839000 },
-                { label: "Current FY (YTD)", value: 557000 },
+                { label: "Total, FY 2081/82", value: 839000 },
+                { label: "Total, current FY to Chaitra 12", value: 557000 },
               ],
             },
           ].map((group, groupIndex) => (
@@ -469,6 +535,7 @@ function WhitePaperChartGraphic({ chart }) {
                       dataKey="label"
                       width={118}
                       tick={{ fill: "#475569", fontSize: 12 }}
+                      tickFormatter={(value) => getResponsiveLabel(value, true)}
                       axisLine={false}
                       tickLine={false}
                       interval={0}
@@ -506,7 +573,7 @@ function WhitePaperChartGraphic({ chart }) {
               className="rounded-2xl border border-slate-200 bg-slate-50/80 p-4"
             >
               <div className="text-sm font-medium leading-6 text-slate-700">
-                {datum.label}
+                {getResponsiveLabel(datum.label, isCompactViewport)}
               </div>
               <div className="mt-2 text-2xl font-semibold text-blue-950">
                 {formatChartValue(chart, datum)}
@@ -577,9 +644,12 @@ function WhitePaperChartGraphic({ chart }) {
                     textAnchor="middle"
                     height={isCompactViewport ? 46 : 30}
                     interval={0}
-                    tickFormatter={(value) =>
-                      isCompactViewport ? compactLabel(value, hasSeries ? 14 : 12) : value
-                    }
+                    tickFormatter={(value) => {
+                      const responsiveLabel = getResponsiveLabel(value, isCompactViewport);
+                      return isCompactViewport
+                        ? compactLabel(responsiveLabel, hasSeries ? 14 : 12)
+                        : responsiveLabel;
+                    }}
                   />
                   <YAxis
                     type="number"
@@ -604,6 +674,7 @@ function WhitePaperChartGraphic({ chart }) {
                     dataKey={chart.xKey}
                     width={140}
                     tick={{ fill: "#475569", fontSize: 12 }}
+                    tickFormatter={(value) => getResponsiveLabel(value, isCompactViewport)}
                     axisLine={false}
                     tickLine={false}
                     interval={0}
@@ -669,7 +740,7 @@ function WhitePaperChartGraphic({ chart }) {
                   }`}
                   onClick={() => setActiveMobileLabel(rawLabel)}
                 >
-                  {compactLabel(rawLabel, 18)}
+                  {compactLabel(getResponsiveLabel(rawLabel, true), 18)}
                 </button>
               );
             })}
