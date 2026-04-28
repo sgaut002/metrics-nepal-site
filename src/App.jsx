@@ -1198,8 +1198,8 @@ function Homepage({ isMobileMenuOpen, onCloseMobileMenu, onToggleMobileMenu }) {
       <main>
         <section className="border-b border-blue-900/10 bg-gradient-to-br from-slate-100 via-slate-100 to-red-50/70">
           <div className="mx-auto max-w-7xl px-6 py-10 sm:py-12 lg:px-10 lg:py-14">
-            <div className="max-w-3xl">
-              <h1 className="max-w-[14ch] text-3xl font-semibold leading-[1.05] tracking-tight text-blue-900 sm:max-w-[16ch] sm:text-4xl lg:max-w-[14ch] lg:text-6xl">
+            <div className="max-w-5xl">
+              <h1 className="max-w-[14ch] text-3xl font-semibold leading-[1.05] tracking-tight text-blue-900 sm:max-w-[16ch] sm:text-4xl lg:max-w-[20ch] lg:text-6xl">
                 <span>Economic analysis</span>{" "}
                 <span className="text-red-600">for policy and market decisions</span>
               </h1>
