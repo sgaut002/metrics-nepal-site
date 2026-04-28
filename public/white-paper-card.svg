@@ -1,0 +1,33 @@
+<svg width="1200" height="750" viewBox="0 0 1200 750" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="750" fill="#EEF1F6"/>
+  <rect x="0" y="0" width="1200" height="750" fill="url(#bg)"/>
+  <rect x="72" y="72" width="1056" height="606" rx="28" fill="#FFFFFF" fill-opacity="0.92"/>
+  <rect x="72" y="72" width="1056" height="606" rx="28" stroke="#D7DEE9"/>
+  <text x="132" y="154" fill="#B04646" font-family="Georgia, serif" font-size="28" font-weight="700" letter-spacing="6">DATA BRIEF</text>
+  <text x="132" y="238" fill="#18356D" font-family="Georgia, serif" font-size="58" font-weight="700">
+    <tspan x="132" dy="0">What’s in the Government’s</tspan>
+    <tspan x="132" dy="68">White Paper?</tspan>
+  </text>
+  <text x="132" y="382" fill="#5F6B7A" font-family="Arial, sans-serif" font-size="28">
+    <tspan x="132" dy="0">A complementary data brief of the Government of Nepal’s</tspan>
+    <tspan x="132" dy="42">recent white paper.</tspan>
+  </text>
+  <rect x="132" y="472" width="198" height="20" rx="10" fill="#18356D" fill-opacity="0.16"/>
+  <rect x="132" y="520" width="312" height="20" rx="10" fill="#B04646" fill-opacity="0.14"/>
+  <rect x="132" y="568" width="240" height="20" rx="10" fill="#5F6B7A" fill-opacity="0.14"/>
+  <rect x="702" y="446" width="314" height="124" rx="26" fill="#F6F8FB"/>
+  <rect x="742" y="494" width="42" height="42" rx="12" fill="#18356D"/>
+  <rect x="806" y="468" width="42" height="68" rx="12" fill="#31528E"/>
+  <rect x="870" y="430" width="42" height="106" rx="12" fill="#B04646"/>
+  <rect x="934" y="454" width="42" height="82" rx="12" fill="#D48657"/>
+  <path d="M720 606H1040" stroke="#D7DEE9" stroke-width="2"/>
+  <circle cx="1012" cy="144" r="84" fill="#F8E7E7"/>
+  <circle cx="1056" cy="178" r="54" fill="#EAF0FB"/>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1200" y2="750" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#E6ECF7"/>
+      <stop offset="0.52" stop-color="#F5F7FA"/>
+      <stop offset="1" stop-color="#F6E7E7"/>
+    </linearGradient>
+  </defs>
+</svg>

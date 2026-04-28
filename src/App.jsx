@@ -1227,12 +1227,12 @@ function Homepage({ isMobileMenuOpen, onCloseMobileMenu, onToggleMobileMenu }) {
                 href={WHITE_PAPER_HASH_PATH}
                 className="group overflow-hidden rounded-2xl border border-blue-900/10 bg-white transition-colors hover:border-red-200 hover:bg-white/90"
               >
-                <div className="aspect-[16/10] border-b border-blue-900/10 bg-gradient-to-br from-blue-100 via-slate-100 to-red-100">
-                  <div className="flex h-full items-end p-5 sm:p-6">
-                    <div className="rounded-full border border-blue-900/10 bg-white/80 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.22em] text-red-600 backdrop-blur">
-                      Data Brief
-                    </div>
-                  </div>
+                <div className="aspect-[16/10] overflow-hidden border-b border-blue-900/10 bg-slate-200">
+                  <img
+                    src="/white-paper-card.svg"
+                    alt="What’s in the Government’s White Paper?"
+                    className="h-full w-full object-cover transition duration-300 group-hover:scale-[1.02]"
+                  />
                 </div>
                 <div className="space-y-3 p-5 sm:p-6">
                   <div className="flex items-center justify-between gap-4 text-xs font-medium uppercase tracking-[0.18em] text-slate-500">
