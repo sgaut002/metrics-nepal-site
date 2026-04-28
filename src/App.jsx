@@ -552,6 +552,37 @@ function WhitePaperChartGraphic({ chart }) {
         ? Math.max(460, chart.data.length * 88)
         : Math.max(420, chart.data.length * 94)
     : null;
+  const renderSingleSeriesValueLabel = ({ x = 0, y = 0, width = 0, height = 0, value }) => {
+    const formattedValue = formatChartValue(chart, value, chart.yKey);
+
+    if (useVerticalBars) {
+      return (
+        <text
+          x={x + width + 8}
+          y={y + height / 2 + 4}
+          fill="#0f172a"
+          fontSize={isCompactViewport ? 13 : 12}
+          fontWeight={600}
+          textAnchor="start"
+        >
+          {formattedValue}
+        </text>
+      );
+    }
+
+    return (
+      <text
+        x={x + width / 2}
+        y={y - 10}
+        fill="#0f172a"
+        fontSize={isCompactViewport ? 13 : 12}
+        fontWeight={600}
+        textAnchor="middle"
+      >
+        {formattedValue}
+      </text>
+    );
+  };
 
   useEffect(() => {
     if (typeof window === "undefined") return undefined;
@@ -800,11 +831,7 @@ function WhitePaperChartGraphic({ chart }) {
                     >
                       <LabelList
                         dataKey={chart.yKey}
-                        position={useVerticalBars ? "right" : "top"}
-                        formatter={(value) => {
-                          return formatChartValue(chart, value, chart.yKey);
-                        }}
-                        style={{ fill: "#0f172a", fontSize: isCompactViewport ? 13 : 12, fontWeight: 600 }}
+                        content={renderSingleSeriesValueLabel}
                       />
                     </Bar>
                   )}
