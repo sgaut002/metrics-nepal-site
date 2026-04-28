@@ -1191,55 +1191,42 @@ function Homepage({ isMobileMenuOpen, onCloseMobileMenu, onToggleMobileMenu }) {
 
       <main>
         <section className="relative border-b border-blue-900/10 bg-gradient-to-br from-slate-100 via-slate-50 to-red-50">
-          <div className="mx-auto grid max-w-7xl gap-14 px-6 py-24 lg:grid-cols-[1.2fr_0.8fr] lg:px-10 lg:py-32">
-            <div className="max-w-3xl">
-              <h1 className="text-4xl font-semibold tracking-tight sm:text-5xl lg:text-6xl">
-                <span className="text-blue-900">Economic analysis</span>{" "}
+          <div className="mx-auto max-w-7xl px-6 py-14 sm:py-16 lg:px-10 lg:py-20">
+            <div className="max-w-4xl">
+              <h1 className="max-w-[14ch] text-3xl font-semibold tracking-tight leading-[1.05] text-blue-900 sm:max-w-[16ch] sm:text-4xl lg:max-w-none lg:text-6xl">
+                <span>Economic analysis</span>{" "}
                 <span className="text-red-600">for policy and market decisions</span>
               </h1>
-              <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-700">
+              <p className="mt-5 max-w-2xl text-base leading-7 text-slate-700 sm:text-lg sm:leading-8">
                 Structured analysis for investment, policy, and strategic decisions.
               </p>
 
-              <div className="mt-10 flex flex-wrap gap-4">
+              <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:gap-4">
                 <a
                   href="#insights"
-                  className="rounded-xl bg-red-600 px-6 py-3 text-sm font-semibold text-white transition hover:bg-red-700"
+                  className="inline-flex min-h-11 items-center justify-center rounded-xl bg-red-600 px-6 py-3 text-sm font-semibold text-white transition hover:bg-red-700"
                 >
                   Insights
                 </a>
                 <a
                   href="#papers"
-                  className="rounded-xl border border-blue-900 px-6 py-3 text-sm font-semibold text-blue-900 transition hover:bg-blue-50"
+                  className="inline-flex min-h-11 items-center justify-center rounded-xl border border-blue-900 px-6 py-3 text-sm font-semibold text-blue-900 transition hover:bg-blue-50"
                 >
                   Projects
-                </a>
-              </div>
-            </div>
-
-            <div className="rounded-2xl border border-blue-900/20 bg-white p-8 shadow-sm">
-              <div className="text-sm font-semibold text-blue-900">Metrics Nepal</div>
-              <p className="mt-3 text-sm leading-7 text-slate-700">
-                We’re an econometric data analysis firm dedicated to providing data-driven solutions to current private and policy issues. We are committed to applying cutting-edge methods to deliver on Nepal&apos;s business and policy potential.
-              </p>
-              <div className="mt-6">
-                <a
-                  href="mailto:contact@metricsnepal.com"
-                  className="inline-flex items-center justify-center rounded-xl bg-blue-900 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-blue-800"
-                >
-                  Contact us
                 </a>
               </div>
             </div>
           </div>
         </section>
 
-        <section id="about" className="mx-auto max-w-7xl scroll-mt-28 px-6 py-20 lg:px-10">
-          <div className="text-center text-lg font-semibold uppercase tracking-[0.3em] text-blue-900">
-            About us
-          </div>
-          <div className="mt-6 flex items-center justify-center rounded-xl border border-blue-900/10 bg-blue-50 p-8 text-center text-lg text-slate-700">
-            Metrics Nepal is an econometric research firm working at the intersection of policy, markets, and data in Nepal. We structure complex economic questions into measurable problems, producing analysis that informs investment, policy, and strategic decision-making. Our work focuses on identifying drivers, quantifying trade-offs, and bringing clarity to environments where data is limited but decisions cannot wait.
+        <section id="about" className="mx-auto max-w-7xl scroll-mt-28 px-6 py-16 lg:px-10 lg:py-20">
+          <div className="max-w-3xl">
+            <div className="text-sm font-semibold uppercase tracking-[0.3em] text-blue-900">
+              About us
+            </div>
+            <div className="mt-6 border-t border-blue-900/10 pt-6 text-base leading-8 text-slate-700 sm:text-lg">
+              Metrics Nepal is an econometric research firm working at the intersection of policy, markets, and data in Nepal. We structure complex economic questions into measurable problems, producing analysis that informs investment, policy, and strategic decision-making. Our work focuses on identifying drivers, quantifying trade-offs, and bringing clarity to environments where data is limited but decisions cannot wait.
+            </div>
           </div>
         </section>
 
@@ -1251,7 +1238,7 @@ function Homepage({ isMobileMenuOpen, onCloseMobileMenu, onToggleMobileMenu }) {
             <div className="mt-6 grid gap-6 lg:grid-cols-3">
               <a
                 href={WHITE_PAPER_HASH_PATH}
-                className="group rounded-xl border border-red-200 bg-slate-50 shadow-sm transition hover:-translate-y-1 hover:border-red-300 hover:shadow-md"
+                className="group rounded-xl border border-red-200 bg-slate-50 transition hover:-translate-y-1 hover:border-red-300"
               >
                 <div className="rounded-t-xl bg-[linear-gradient(135deg,#142b5f_0%,#203f86_55%,#b04646_100%)] p-5 text-white">
                   <div className="text-xs font-semibold uppercase tracking-[0.24em] text-blue-100">
@@ -1283,7 +1270,7 @@ function Homepage({ isMobileMenuOpen, onCloseMobileMenu, onToggleMobileMenu }) {
 
               <a
                 href={PRIVATE_SCHOOLS_HASH_PATH}
-                className="group rounded-xl border border-red-200 bg-slate-50 shadow-sm transition hover:-translate-y-1 hover:border-red-300 hover:shadow-md"
+                className="group rounded-xl border border-red-200 bg-slate-50 transition hover:-translate-y-1 hover:border-red-300"
               >
                 <img
                   src="/insights-private-schools-1.png"
