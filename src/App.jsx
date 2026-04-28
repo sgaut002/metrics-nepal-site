@@ -18,18 +18,13 @@ import {
 } from "./whitePaperCharts";
 
 const NAV_ITEMS = [
-  { label: "About us", href: "#about" },
-  { label: "Insights", href: "#insights" },
-  { label: "Projects", href: "#papers" },
+  { label: "About us", href: "/#about" },
+  { label: "Insights", href: "/#insights" },
+  { label: "Projects", href: "/#papers" },
   { label: "Services", href: "/" },
   { label: "Research", href: "/" },
-  { label: "Careers", href: "#careers" },
-];
-
-const ARTICLE_NAV_ITEMS = [
-  { label: "Home", href: "/" },
-  { label: "Insights", href: "/#insights" },
-  { label: "Contact", href: "mailto:contact@metricsnepal.com" },
+  { label: "Careers", href: "/#careers" },
+  { label: "Contact", href: "/#contact" },
 ];
 
 const PRIVATE_SCHOOLS_PATH = "/insights/private-schools-better";
@@ -496,7 +491,7 @@ function InsightArticlePage({ isMobileMenuOpen, onCloseMobileMenu, onToggleMobil
   return (
     <div className="min-h-screen bg-slate-100 text-slate-900">
       <SiteHeader
-        navItems={ARTICLE_NAV_ITEMS}
+        navItems={NAV_ITEMS}
         isMobileMenuOpen={isMobileMenuOpen}
         menuId="article-mobile-menu"
         logoClassName="h-14 w-auto sm:h-24"
@@ -1034,7 +1029,7 @@ function WhitePaperBriefPage({
   return (
     <div className="min-h-screen bg-[radial-gradient(circle_at_top_left,#365fb8_0%,rgba(54,95,184,0.95)_16%,rgba(20,43,95,0.96)_36%,rgba(106,41,61,0.92)_70%,rgba(176,70,70,0.9)_100%)] text-slate-900">
       <SiteHeader
-        navItems={ARTICLE_NAV_ITEMS}
+        navItems={NAV_ITEMS}
         isMobileMenuOpen={isMobileMenuOpen}
         menuId="white-paper-mobile-menu"
         logoClassName="h-14 w-auto sm:h-24"
