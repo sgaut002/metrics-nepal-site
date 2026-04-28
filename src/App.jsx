@@ -6,6 +6,7 @@ import {
   LabelList,
   Legend,
   ResponsiveContainer,
+  ReferenceLine,
   Tooltip,
   XAxis,
   YAxis,
@@ -678,6 +679,70 @@ function WhitePaperChartGraphic({ chart }) {
               </div>
             </div>
           ))}
+        </div>
+      ) : chart.id === "saving-investment-gap" && isCompactViewport ? (
+        <div className="mt-6 overflow-x-auto pb-2">
+          <div className="h-[440px] min-w-[520px]">
+            <ResponsiveContainer width="100%" height="100%">
+              <BarChart
+                data={chart.data}
+                layout="vertical"
+                margin={{ top: 12, right: 44, bottom: 12, left: 18 }}
+                barCategoryGap="32%"
+              >
+                <CartesianGrid
+                  stroke="#e2e8f0"
+                  strokeDasharray="2 6"
+                  vertical={false}
+                />
+                <XAxis
+                  type="number"
+                  domain={[-35, 100]}
+                  tick={{ fill: "#475569", fontSize: 13 }}
+                  axisLine={false}
+                  tickLine={false}
+                  tickFormatter={(value) => formatAxisTick(chart, value)}
+                />
+                <YAxis
+                  type="category"
+                  dataKey={chart.xKey}
+                  width={150}
+                  tick={{ fill: "#475569", fontSize: 12 }}
+                  tickFormatter={(value) => getResponsiveLabel(value, true)}
+                  axisLine={false}
+                  tickLine={false}
+                  interval={0}
+                />
+                <ReferenceLine x={0} stroke="#94a3b8" strokeWidth={1.5} />
+                <Tooltip
+                  cursor={{ fill: "rgba(15, 23, 42, 0.04)" }}
+                  content={<ChartTooltip chart={chart} />}
+                />
+                <Bar dataKey={chart.yKey} fill={CHART_COLORS[0]} radius={[0, 10, 10, 0]}>
+                  <LabelList
+                    dataKey={chart.yKey}
+                    content={({ x = 0, y = 0, width = 0, height = 0, value }) => {
+                      const formattedValue = formatChartValue(chart, value, chart.yKey);
+                      const isNegative = typeof value === "number" && value < 0;
+
+                      return (
+                        <text
+                          x={isNegative ? x - 10 : x + width + 10}
+                          y={y + height / 2 + 4}
+                          fill="#0f172a"
+                          fontSize={13}
+                          fontWeight={600}
+                          textAnchor={isNegative ? "end" : "start"}
+                        >
+                          {formattedValue}
+                        </text>
+                      );
+                    }}
+                  />
+                </Bar>
+              </BarChart>
+            </ResponsiveContainer>
+          </div>
         </div>
       ) : chart.id === "west-asia-exposure" ? (
         <div className="mt-6 grid gap-4 sm:grid-cols-2">
