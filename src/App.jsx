@@ -1179,7 +1179,7 @@ function WhitePaperBriefPage({
 
 function Homepage({ isMobileMenuOpen, onCloseMobileMenu, onToggleMobileMenu }) {
   return (
-    <div className="min-h-screen bg-white text-slate-900">
+    <div className="min-h-screen bg-slate-100 text-slate-900">
       <SiteHeader
         navItems={NAV_ITEMS}
         isMobileMenuOpen={isMobileMenuOpen}
@@ -1190,132 +1190,126 @@ function Homepage({ isMobileMenuOpen, onCloseMobileMenu, onToggleMobileMenu }) {
       />
 
       <main>
-        <section className="relative border-b border-blue-900/10 bg-gradient-to-br from-slate-100 via-slate-50 to-red-50">
-          <div className="mx-auto max-w-7xl px-6 py-14 sm:py-16 lg:px-10 lg:py-20">
-            <div className="max-w-4xl">
-              <h1 className="max-w-[14ch] text-3xl font-semibold tracking-tight leading-[1.05] text-blue-900 sm:max-w-[16ch] sm:text-4xl lg:max-w-none lg:text-6xl">
+        <section className="border-b border-blue-900/10 bg-gradient-to-br from-slate-100 via-slate-100 to-red-50/70">
+          <div className="mx-auto max-w-7xl px-6 py-12 sm:py-14 lg:px-10 lg:py-16">
+            <div className="max-w-3xl">
+              <h1 className="max-w-[14ch] text-3xl font-semibold leading-[1.05] tracking-tight text-blue-900 sm:max-w-[16ch] sm:text-4xl lg:max-w-[14ch] lg:text-6xl">
                 <span>Economic analysis</span>{" "}
                 <span className="text-red-600">for policy and market decisions</span>
               </h1>
-              <p className="mt-5 max-w-2xl text-base leading-7 text-slate-700 sm:text-lg sm:leading-8">
+              <p className="mt-5 max-w-xl text-base leading-7 text-slate-700 sm:text-lg sm:leading-8">
                 Structured analysis for investment, policy, and strategic decisions.
               </p>
+            </div>
+          </div>
+        </section>
 
-              <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:gap-4">
+        <section id="about" className="border-b border-blue-900/10">
+          <div className="mx-auto max-w-7xl scroll-mt-28 px-6 py-20 lg:px-10 lg:py-24">
+            <div className="max-w-[44rem]">
+              <div className="text-sm font-semibold uppercase tracking-[0.3em] text-blue-900">
+                About us
+              </div>
+              <div className="mt-10 text-base leading-8 text-slate-700 sm:text-lg">
+                Metrics Nepal is an econometric research firm working at the intersection of policy, markets, and data in Nepal. We structure complex economic questions into measurable problems, producing analysis that informs investment, policy, and strategic decision-making. Our work focuses on identifying drivers, quantifying trade-offs, and bringing clarity to environments where data is limited but decisions cannot wait.
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="insights" className="border-b border-blue-900/10">
+          <div className="mx-auto max-w-7xl scroll-mt-28 px-6 py-18 lg:px-10 lg:py-22">
+            <div className="max-w-4xl">
+              <div className="text-sm font-semibold uppercase tracking-[0.2em] text-red-700">
+                Insights
+              </div>
+              <div className="mt-8 divide-y divide-blue-900/10 border-t border-blue-900/10">
                 <a
-                  href="#insights"
-                  className="inline-flex min-h-11 items-center justify-center rounded-xl bg-red-600 px-6 py-3 text-sm font-semibold text-white transition hover:bg-red-700"
+                  href={WHITE_PAPER_HASH_PATH}
+                  className="group block py-6 transition-colors hover:bg-white/40"
                 >
-                  Insights
+                  <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between sm:gap-8">
+                    <div className="max-w-2xl">
+                      <div className="text-xs font-semibold uppercase tracking-[0.22em] text-red-600">
+                        Data Brief
+                      </div>
+                      <h3 className="mt-2 text-xl font-semibold text-blue-900">
+                        {WHITE_PAPER_TITLE}
+                      </h3>
+                      <p className="mt-3 text-sm leading-6 text-slate-600 sm:text-base">
+                        A complementary data brief of the Government of Nepal&apos;s recent white paper.
+                      </p>
+                    </div>
+                    <div className="shrink-0 text-sm text-slate-500">April 2026</div>
+                  </div>
                 </a>
+
                 <a
-                  href="#papers"
-                  className="inline-flex min-h-11 items-center justify-center rounded-xl border border-blue-900 px-6 py-3 text-sm font-semibold text-blue-900 transition hover:bg-blue-50"
+                  href={PRIVATE_SCHOOLS_HASH_PATH}
+                  className="group block py-6 transition-colors hover:bg-white/40"
                 >
-                  Projects
+                  <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between sm:gap-8">
+                    <div className="max-w-2xl">
+                      <div className="text-xs font-semibold uppercase tracking-[0.22em] text-red-600">
+                        Insight Note
+                      </div>
+                      <h3 className="mt-2 text-xl font-semibold text-blue-900">
+                        {PRIVATE_SCHOOLS_ARTICLE.title}
+                      </h3>
+                      <p className="mt-3 text-sm leading-6 text-slate-600 sm:text-base">
+                        Read the full analysis.
+                      </p>
+                    </div>
+                    <div className="shrink-0 text-sm text-slate-500">Education</div>
+                  </div>
                 </a>
               </div>
             </div>
           </div>
         </section>
 
-        <section id="about" className="mx-auto max-w-7xl scroll-mt-28 px-6 py-16 lg:px-10 lg:py-20">
-          <div className="max-w-3xl">
-            <div className="text-sm font-semibold uppercase tracking-[0.3em] text-blue-900">
-              About us
-            </div>
-            <div className="mt-6 border-t border-blue-900/10 pt-6 text-base leading-8 text-slate-700 sm:text-lg">
-              Metrics Nepal is an econometric research firm working at the intersection of policy, markets, and data in Nepal. We structure complex economic questions into measurable problems, producing analysis that informs investment, policy, and strategic decision-making. Our work focuses on identifying drivers, quantifying trade-offs, and bringing clarity to environments where data is limited but decisions cannot wait.
-            </div>
-          </div>
-        </section>
-
-        <section id="insights" className="scroll-mt-28 border-y border-red-200 bg-red-50">
-          <div className="mx-auto max-w-7xl scroll-mt-28 px-6 py-20 lg:px-10">
-            <div className="text-sm font-semibold uppercase tracking-[0.2em] text-red-700">
-              Insights
-            </div>
-            <div className="mt-6 grid gap-6 lg:grid-cols-3">
-              <a
-                href={WHITE_PAPER_HASH_PATH}
-                className="group rounded-xl border border-red-200 bg-slate-50 transition hover:-translate-y-1 hover:border-red-300"
-              >
-                <div className="rounded-t-xl bg-[linear-gradient(135deg,#142b5f_0%,#203f86_55%,#b04646_100%)] p-5 text-white">
-                  <div className="text-xs font-semibold uppercase tracking-[0.24em] text-blue-100">
-                    Data Brief
-                  </div>
-                  <h3 className="mt-4 text-xl font-semibold leading-7">
-                    {WHITE_PAPER_TITLE}
-                  </h3>
-                  <div className="mt-5 grid grid-cols-2 gap-3 text-sm">
-                    <div className="rounded-xl bg-white/10 px-3 py-2">
-                      <div className="text-blue-100">GDP Growth</div>
-                      <div className="mt-1 text-lg font-semibold">3.5%</div>
-                    </div>
-                    <div className="rounded-xl bg-white/10 px-3 py-2">
-                      <div className="text-blue-100">Public Debt</div>
-                      <div className="mt-1 text-lg font-semibold">43.8%</div>
-                    </div>
-                  </div>
+        <section id="papers" className="border-b border-blue-900/10">
+          <div className="mx-auto max-w-7xl scroll-mt-28 px-6 py-18 lg:px-10 lg:py-22">
+            <div className="max-w-4xl">
+              <div className="text-sm font-semibold uppercase tracking-[0.2em] text-blue-900">
+                Projects
+              </div>
+              <div className="mt-8 divide-y divide-blue-900/10 border-t border-blue-900/10">
+                <div className="py-6 text-sm leading-6 text-slate-500">
+                  Project work and commissioned research summaries will appear here.
                 </div>
-                <div className="p-4">
-                  <div className="text-xs font-semibold uppercase tracking-[0.2em] text-red-600">
-                    Insights
-                  </div>
-                  <p className="mt-2 text-sm leading-6 text-slate-600">
-                    A complementary data brief of the Government of Nepal&apos;s recent white paper.
-                  </p>
+                <div className="py-6 text-sm leading-6 text-slate-500">
+                  Additional project briefs are in development.
                 </div>
-              </a>
-
-              <a
-                href={PRIVATE_SCHOOLS_HASH_PATH}
-                className="group rounded-xl border border-red-200 bg-slate-50 transition hover:-translate-y-1 hover:border-red-300"
-              >
-                <img
-                  src="/insights-private-schools-1.png"
-                  alt={PRIVATE_SCHOOLS_ARTICLE.title}
-                  className="h-40 w-full rounded-t-xl object-cover"
-                />
-                <div className="p-4">
-                  <div className="text-xs font-semibold uppercase tracking-[0.2em] text-red-600">
-                    Insights
-                  </div>
-                  <h3 className="mt-2 text-base font-semibold text-blue-900">
-                    {PRIVATE_SCHOOLS_ARTICLE.title}
-                  </h3>
-                  <p className="mt-2 text-sm text-slate-600">Read the full analysis.</p>
-                </div>
-              </a>
-
-              <div className="rounded-xl border border-dashed border-red-200 bg-slate-100/90 p-6 text-sm leading-6 text-slate-500">
-                Additional insight briefs are in development.
               </div>
             </div>
           </div>
         </section>
 
-        <section id="papers" className="mx-auto max-w-7xl scroll-mt-28 px-6 py-20 lg:px-10">
-          <div className="text-sm font-semibold uppercase tracking-[0.2em] text-blue-900">
-            Projects
-          </div>
-          <div className="mt-6 space-y-4">
-            {[1, 2, 3].map((i) => (
-              <div key={i} className="h-20 rounded-xl border border-blue-900/10 bg-blue-50" />
-            ))}
+        <section id="careers" className="border-b border-blue-900/10">
+          <div className="mx-auto max-w-7xl scroll-mt-28 px-6 py-18 lg:px-10 lg:py-22">
+            <div className="max-w-4xl">
+              <div className="text-sm font-semibold uppercase tracking-[0.3em] text-blue-900">
+                Careers
+              </div>
+              <div className="mt-8 text-base leading-8 text-slate-700 sm:text-lg">
+                No openings at this moment. We&apos;ll let you know if any opportunities open up!
+              </div>
+            </div>
           </div>
         </section>
 
-        <section id="careers" className="scroll-mt-28 bg-blue-900 text-white">
-          <div className="mx-auto max-w-7xl scroll-mt-28 px-6 py-20 lg:px-10">
-            <div className="text-center text-lg font-semibold uppercase tracking-[0.3em] text-blue-200">
-              Careers
-            </div>
-            <div className="mt-6 flex items-center justify-center rounded-xl border border-white/15 bg-white/10 p-8 text-center text-lg text-blue-100">
-              No openings at this moment. We&apos;ll let you know if any opportunities open up!
+        <footer className="border-b border-blue-900/10">
+          <div className="mx-auto max-w-7xl px-6 py-10 lg:px-10">
+            <div className="space-y-2 text-sm leading-6 text-slate-600">
+              <div>© 2026 Metrics Nepal</div>
+              <div>Kathmandu, Nepal</div>
+              <a href="mailto:contact@metricsnepal.com" className="inline-block text-blue-900 hover:text-red-600">
+                contact@metricsnepal.com
+              </a>
             </div>
           </div>
-        </section>
+        </footer>
       </main>
     </div>
   );
