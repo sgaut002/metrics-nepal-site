@@ -1219,51 +1219,59 @@ function Homepage({ isMobileMenuOpen, onCloseMobileMenu, onToggleMobileMenu }) {
 
         <section id="insights" className="border-b border-blue-900/10">
           <div className="mx-auto max-w-7xl scroll-mt-28 px-6 py-18 lg:px-10 lg:py-22">
-            <div className="max-w-4xl">
-              <div className="text-sm font-semibold uppercase tracking-[0.2em] text-red-700">
-                Insights
-              </div>
-              <div className="mt-8 divide-y divide-blue-900/10 border-t border-blue-900/10">
-                <a
-                  href={WHITE_PAPER_HASH_PATH}
-                  className="group block py-6 transition-colors hover:bg-white/40"
-                >
-                  <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between sm:gap-8">
-                    <div className="max-w-2xl">
-                      <div className="text-xs font-semibold uppercase tracking-[0.22em] text-red-600">
-                        Data Brief
-                      </div>
-                      <h3 className="mt-2 text-xl font-semibold text-blue-900">
-                        {WHITE_PAPER_TITLE}
-                      </h3>
-                      <p className="mt-3 text-sm leading-6 text-slate-600 sm:text-base">
-                        A complementary data brief of the Government of Nepal&apos;s recent white paper.
-                      </p>
+            <div className="text-sm font-semibold uppercase tracking-[0.2em] text-red-700">
+              Insights
+            </div>
+            <div className="mt-8 grid gap-6 md:grid-cols-2">
+              <a
+                href={WHITE_PAPER_HASH_PATH}
+                className="group overflow-hidden rounded-2xl border border-blue-900/10 bg-white transition-colors hover:border-red-200 hover:bg-white/90"
+              >
+                <div className="aspect-[16/10] border-b border-blue-900/10 bg-gradient-to-br from-blue-100 via-slate-100 to-red-100">
+                  <div className="flex h-full items-end p-5 sm:p-6">
+                    <div className="rounded-full border border-blue-900/10 bg-white/80 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.22em] text-red-600 backdrop-blur">
+                      Data Brief
                     </div>
-                    <div className="shrink-0 text-sm text-slate-500">April 2026</div>
                   </div>
-                </a>
+                </div>
+                <div className="space-y-3 p-5 sm:p-6">
+                  <div className="flex items-center justify-between gap-4 text-xs font-medium uppercase tracking-[0.18em] text-slate-500">
+                    <span>April 2026</span>
+                    <span>Economic White Paper</span>
+                  </div>
+                  <h3 className="text-xl font-semibold text-blue-900">
+                    {WHITE_PAPER_TITLE}
+                  </h3>
+                  <p className="text-sm leading-6 text-slate-600 sm:text-base">
+                    A complementary data brief of the Government of Nepal&apos;s recent white paper.
+                  </p>
+                </div>
+              </a>
 
-                <a
-                  href={PRIVATE_SCHOOLS_HASH_PATH}
-                  className="group block py-6 transition-colors hover:bg-white/40"
-                >
-                  <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between sm:gap-8">
-                    <div className="max-w-2xl">
-                      <div className="text-xs font-semibold uppercase tracking-[0.22em] text-red-600">
-                        Insight Note
-                      </div>
-                      <h3 className="mt-2 text-xl font-semibold text-blue-900">
-                        {PRIVATE_SCHOOLS_ARTICLE.title}
-                      </h3>
-                      <p className="mt-3 text-sm leading-6 text-slate-600 sm:text-base">
-                        Read the full analysis.
-                      </p>
-                    </div>
-                    <div className="shrink-0 text-sm text-slate-500">Education</div>
+              <a
+                href={PRIVATE_SCHOOLS_HASH_PATH}
+                className="group overflow-hidden rounded-2xl border border-blue-900/10 bg-white transition-colors hover:border-red-200 hover:bg-white/90"
+              >
+                <div className="aspect-[16/10] overflow-hidden border-b border-blue-900/10 bg-slate-200">
+                  <img
+                    src="/insights-private-schools-1.png"
+                    alt="Are private schools really better?"
+                    className="h-full w-full object-cover transition duration-300 group-hover:scale-[1.02]"
+                  />
+                </div>
+                <div className="space-y-3 p-5 sm:p-6">
+                  <div className="flex items-center justify-between gap-4 text-xs font-medium uppercase tracking-[0.18em] text-slate-500">
+                    <span>Insight Note</span>
+                    <span>Education</span>
                   </div>
-                </a>
-              </div>
+                  <h3 className="text-xl font-semibold text-blue-900">
+                    {PRIVATE_SCHOOLS_ARTICLE.title}
+                  </h3>
+                  <p className="text-sm leading-6 text-slate-600 sm:text-base">
+                    Read the full analysis.
+                  </p>
+                </div>
+              </a>
             </div>
           </div>
         </section>
