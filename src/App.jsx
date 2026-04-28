@@ -560,7 +560,7 @@ function WhitePaperChartGraphic({ chart }) {
 
       return (
         <text
-          x={isNegative ? x + width - 8 : x + width + 8}
+          x={isNegative ? x - 8 : x + width + 8}
           y={y + height / 2 + 4}
           fill="#0f172a"
           fontSize={isCompactViewport ? 13 : 12}
