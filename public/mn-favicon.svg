@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title">
+  <title>Metrics Nepal</title>
+  <rect width="64" height="64" rx="14" fill="#F5F5F3" />
+  <rect x="1" y="1" width="62" height="62" rx="13" fill="none" stroke="#E0E0DC" />
+  <path
+    d="M9.5 47V17h7.6l7.9 12.1L33 17h7.1v30h-6.4V28.8l-8.6 12.6-8.9-12.7V47z"
+    fill="#C8102E"
+  />
+  <path
+    d="M23 47V17h7l13.7 17.6V17h6.8v30h-6.8L29.9 29.3V47z"
+    fill="#173A8A"
+  />
+</svg>
