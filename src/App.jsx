@@ -556,14 +556,16 @@ function WhitePaperChartGraphic({ chart }) {
     const formattedValue = formatChartValue(chart, value, chart.yKey);
 
     if (useVerticalBars) {
+      const isNegative = typeof value === "number" && value < 0;
+
       return (
         <text
-          x={x + width + 8}
+          x={isNegative ? x + width - 8 : x + width + 8}
           y={y + height / 2 + 4}
           fill="#0f172a"
           fontSize={isCompactViewport ? 13 : 12}
           fontWeight={600}
-          textAnchor="start"
+          textAnchor={isNegative ? "end" : "start"}
         >
           {formattedValue}
         </text>
@@ -1188,7 +1190,7 @@ function Homepage({ isMobileMenuOpen, onCloseMobileMenu, onToggleMobileMenu }) {
               >
                 <div className="rounded-t-xl bg-[linear-gradient(135deg,#142b5f_0%,#203f86_55%,#b04646_100%)] p-5 text-white">
                   <div className="text-xs font-semibold uppercase tracking-[0.24em] text-blue-100">
-                    Consulting Brief
+                    Data Brief
                   </div>
                   <h3 className="mt-4 text-xl font-semibold leading-7">
                     {WHITE_PAPER_TITLE}
