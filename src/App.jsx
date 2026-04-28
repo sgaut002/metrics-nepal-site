@@ -1194,11 +1194,11 @@ function Homepage({ isMobileMenuOpen, onCloseMobileMenu, onToggleMobileMenu }) {
           <div className="mx-auto grid max-w-7xl gap-14 px-6 py-24 lg:grid-cols-[1.2fr_0.8fr] lg:px-10 lg:py-32">
             <div className="max-w-3xl">
               <h1 className="text-4xl font-semibold tracking-tight sm:text-5xl lg:text-6xl">
-                <span className="text-blue-900">Data-driven solutions</span>{" "}
-                <span className="text-red-600">for an efficient Nepal</span>
+                <span className="text-blue-900">Economic analysis</span>{" "}
+                <span className="text-red-600">for policy and market decisions</span>
               </h1>
               <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-700">
-                Applying rigorous analysis to policy, markets, and public decision-making.
+                Structured analysis for investment, policy, and strategic decisions.
               </p>
 
               <div className="mt-10 flex flex-wrap gap-4">
@@ -1239,7 +1239,7 @@ function Homepage({ isMobileMenuOpen, onCloseMobileMenu, onToggleMobileMenu }) {
             About us
           </div>
           <div className="mt-6 flex items-center justify-center rounded-xl border border-blue-900/10 bg-blue-50 p-8 text-center text-lg text-slate-700">
-            Metrics Nepal is a research platform applying rigorous economic analysis to real-world policy and market decisions in Nepal. We combine data, analytical methods, and economic reasoning to move beyond intuition-led approaches. Our work delivers clear insights, practical evaluations, and structured reports that quantify impact, uncover key drivers, and support better decision-making across both public and private sectors.
+            Metrics Nepal is an econometric research firm working at the intersection of policy, markets, and data in Nepal. We structure complex economic questions into measurable problems, producing analysis that informs investment, policy, and strategic decision-making. Our work focuses on identifying drivers, quantifying trade-offs, and bringing clarity to environments where data is limited but decisions cannot wait.
           </div>
         </section>
 
