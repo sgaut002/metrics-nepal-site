@@ -488,7 +488,7 @@ function SiteHeader({
 
 function InsightArticlePage({ isMobileMenuOpen, onCloseMobileMenu, onToggleMobileMenu }) {
   return (
-    <div className="min-h-screen bg-white text-slate-900">
+    <div className="min-h-screen bg-slate-100 text-slate-900">
       <SiteHeader
         navItems={ARTICLE_NAV_ITEMS}
         isMobileMenuOpen={isMobileMenuOpen}
@@ -1190,7 +1190,7 @@ function Homepage({ isMobileMenuOpen, onCloseMobileMenu, onToggleMobileMenu }) {
       />
 
       <main>
-        <section className="relative border-b border-blue-900/10 bg-gradient-to-br from-blue-50 via-white to-red-50">
+        <section className="relative border-b border-blue-900/10 bg-gradient-to-br from-slate-100 via-slate-50 to-red-50">
           <div className="mx-auto grid max-w-7xl gap-14 px-6 py-24 lg:grid-cols-[1.2fr_0.8fr] lg:px-10 lg:py-32">
             <div className="max-w-3xl">
               <h1 className="text-4xl font-semibold tracking-tight sm:text-5xl lg:text-6xl">
@@ -1251,7 +1251,7 @@ function Homepage({ isMobileMenuOpen, onCloseMobileMenu, onToggleMobileMenu }) {
             <div className="mt-6 grid gap-6 lg:grid-cols-3">
               <a
                 href={WHITE_PAPER_HASH_PATH}
-                className="group rounded-xl border border-red-200 bg-white shadow-sm transition hover:-translate-y-1 hover:border-red-300 hover:shadow-md"
+                className="group rounded-xl border border-red-200 bg-slate-50 shadow-sm transition hover:-translate-y-1 hover:border-red-300 hover:shadow-md"
               >
                 <div className="rounded-t-xl bg-[linear-gradient(135deg,#142b5f_0%,#203f86_55%,#b04646_100%)] p-5 text-white">
                   <div className="text-xs font-semibold uppercase tracking-[0.24em] text-blue-100">
@@ -1283,7 +1283,7 @@ function Homepage({ isMobileMenuOpen, onCloseMobileMenu, onToggleMobileMenu }) {
 
               <a
                 href={PRIVATE_SCHOOLS_HASH_PATH}
-                className="group rounded-xl border border-red-200 bg-white shadow-sm transition hover:-translate-y-1 hover:border-red-300 hover:shadow-md"
+                className="group rounded-xl border border-red-200 bg-slate-50 shadow-sm transition hover:-translate-y-1 hover:border-red-300 hover:shadow-md"
               >
                 <img
                   src="/insights-private-schools-1.png"
@@ -1301,7 +1301,7 @@ function Homepage({ isMobileMenuOpen, onCloseMobileMenu, onToggleMobileMenu }) {
                 </div>
               </a>
 
-              <div className="rounded-xl border border-dashed border-red-200 bg-white/70 p-6 text-sm leading-6 text-slate-500">
+              <div className="rounded-xl border border-dashed border-red-200 bg-slate-100/90 p-6 text-sm leading-6 text-slate-500">
                 Additional insight briefs are in development.
               </div>
             </div>
