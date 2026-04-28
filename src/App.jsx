@@ -1227,12 +1227,23 @@ function Homepage({ isMobileMenuOpen, onCloseMobileMenu, onToggleMobileMenu }) {
                 href={WHITE_PAPER_HASH_PATH}
                 className="group overflow-hidden rounded-2xl border border-blue-900/10 bg-white transition-colors hover:border-red-200 hover:bg-white/90"
               >
-                <div className="aspect-[16/10] overflow-hidden border-b border-blue-900/10 bg-slate-200">
-                  <img
-                    src="/white-paper-card.svg"
-                    alt="What’s in the Government’s White Paper?"
-                    className="h-full w-full object-cover transition duration-300 group-hover:scale-[1.02]"
-                  />
+                <div className="border-b border-blue-900/10 bg-[linear-gradient(135deg,#142b5f_0%,#203f86_55%,#b04646_100%)] p-5 text-white sm:p-6">
+                  <div className="text-xs font-semibold uppercase tracking-[0.24em] text-blue-100">
+                    Data Brief
+                  </div>
+                  <h3 className="mt-4 text-xl font-semibold leading-7 text-white">
+                    {WHITE_PAPER_TITLE}
+                  </h3>
+                  <div className="mt-5 grid grid-cols-2 gap-3 text-sm">
+                    <div className="rounded-xl bg-white/10 px-3 py-2">
+                      <div className="text-blue-100">GDP Growth</div>
+                      <div className="mt-1 text-lg font-semibold">3.5%</div>
+                    </div>
+                    <div className="rounded-xl bg-white/10 px-3 py-2">
+                      <div className="text-blue-100">Public Debt</div>
+                      <div className="mt-1 text-lg font-semibold">43.8%</div>
+                    </div>
+                  </div>
                 </div>
                 <div className="space-y-3 p-5 sm:p-6">
                   <div className="flex items-center justify-between gap-4 text-xs font-medium uppercase tracking-[0.18em] text-slate-500">
