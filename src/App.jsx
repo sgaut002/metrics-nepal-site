@@ -454,7 +454,7 @@ function SiteHeader({
             aria-label="Metrics Nepal home"
           >
             <img
-              src="/logo.png"
+              src="/logo-2026.png"
               alt="Metrics Nepal"
               className={`${logoClassName} bg-transparent mix-blend-multiply`}
             />
