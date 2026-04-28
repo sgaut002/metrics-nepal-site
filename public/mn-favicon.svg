@@ -1,13 +1,29 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title">
   <title>Metrics Nepal</title>
-  <rect width="64" height="64" rx="14" fill="#F5F5F3" />
-  <rect x="1" y="1" width="62" height="62" rx="13" fill="none" stroke="#E0E0DC" />
-  <path
-    d="M9.5 47V17h7.6l7.9 12.1L33 17h7.1v30h-6.4V28.8l-8.6 12.6-8.9-12.7V47z"
-    fill="#C8102E"
-  />
-  <path
-    d="M23 47V17h7l13.7 17.6V17h6.8v30h-6.8L29.9 29.3V47z"
+  <rect width="64" height="64" rx="12" fill="#FFFFFF" />
+  <rect x="1" y="1" width="62" height="62" rx="11" fill="none" stroke="#E0E0DC" />
+  <text
+    x="32"
+    y="27"
+    text-anchor="middle"
     fill="#173A8A"
-  />
+    font-family="Georgia, 'Times New Roman', serif"
+    font-size="13"
+    font-weight="700"
+    letter-spacing="0.8"
+  >
+    METRICS
+  </text>
+  <text
+    x="32"
+    y="43"
+    text-anchor="middle"
+    fill="#C8102E"
+    font-family="Georgia, 'Times New Roman', serif"
+    font-size="9"
+    font-weight="700"
+    letter-spacing="2.1"
+  >
+    NEPAL
+  </text>
 </svg>
