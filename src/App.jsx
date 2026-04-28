@@ -445,7 +445,7 @@ function SiteHeader({
   onToggleMobileMenu,
 }) {
   return (
-    <header className="sticky top-0 z-50 border-b border-blue-900/10 bg-white">
+    <header className="sticky top-0 z-50 border-b border-[#E0E0DC] bg-[#F5F5F3]">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-3 lg:px-10">
         <div className="flex items-center gap-3">
           <a
@@ -472,7 +472,7 @@ function SiteHeader({
             <a
               key={item.label}
               href={item.href}
-              className="text-sm font-medium text-blue-900 transition hover:text-red-600"
+              className="text-sm font-normal text-[#173A8A] transition hover:text-[#C8102E]"
             >
               {item.label}
             </a>
@@ -489,7 +489,7 @@ function SiteHeader({
 
 function InsightArticlePage({ isMobileMenuOpen, onCloseMobileMenu, onToggleMobileMenu }) {
   return (
-    <div className="min-h-screen bg-slate-100 text-slate-900">
+    <div className="min-h-screen bg-[#F5F5F3] text-slate-900 [font-family:Inter,ui-sans-serif,system-ui,sans-serif]">
       <SiteHeader
         navItems={NAV_ITEMS}
         isMobileMenuOpen={isMobileMenuOpen}
@@ -504,7 +504,7 @@ function InsightArticlePage({ isMobileMenuOpen, onCloseMobileMenu, onToggleMobil
           <div className="text-center text-sm font-semibold uppercase tracking-[0.2em] text-red-700">
             Insights
           </div>
-          <h1 className="mt-4 text-center text-3xl font-bold text-blue-900 sm:text-4xl">
+          <h1 className="mt-4 text-center text-3xl font-semibold text-[#173A8A] sm:text-4xl [font-family:Georgia,'Times_New_Roman',serif]">
             {PRIVATE_SCHOOLS_ARTICLE.title}
           </h1>
           <div className="mt-10 space-y-6 text-lg leading-8 text-slate-700">
@@ -1180,7 +1180,7 @@ function WhitePaperBriefPage({
 
 function Homepage({ isMobileMenuOpen, onCloseMobileMenu, onToggleMobileMenu }) {
   return (
-    <div className="min-h-screen bg-slate-100 text-slate-900">
+    <div className="min-h-screen bg-[#F5F5F3] text-slate-900 [font-family:Inter,ui-sans-serif,system-ui,sans-serif]">
       <SiteHeader
         navItems={NAV_ITEMS}
         isMobileMenuOpen={isMobileMenuOpen}
@@ -1191,12 +1191,12 @@ function Homepage({ isMobileMenuOpen, onCloseMobileMenu, onToggleMobileMenu }) {
       />
 
       <main>
-        <section className="border-b border-blue-900/10 bg-gradient-to-br from-slate-100 via-slate-100 to-red-50/70">
-          <div className="mx-auto max-w-7xl px-6 py-10 sm:py-12 lg:px-10 lg:py-14">
+        <section className="border-b border-[#E0E0DC] bg-[#F5F5F3]">
+          <div className="mx-auto max-w-7xl px-6 py-12 sm:py-12 lg:px-10 lg:py-[72px]">
             <div className="max-w-5xl">
-              <h1 className="max-w-[14ch] text-3xl font-semibold leading-[1.05] tracking-tight text-blue-900 sm:max-w-[16ch] sm:text-4xl lg:max-w-[20ch] lg:text-6xl">
+              <h1 className="max-w-[14ch] text-3xl font-semibold leading-[1.08] tracking-tight text-[#173A8A] sm:max-w-[16ch] sm:text-4xl lg:max-w-[24ch] lg:text-6xl [font-family:Georgia,'Times_New_Roman',serif]">
                 <span>Economic analysis</span>{" "}
-                <span className="text-red-600">for policy and market decisions</span>
+                <span className="text-[#C8102E]">for policy and market decisions</span>
               </h1>
               <p className="mt-5 max-w-xl text-base leading-7 text-slate-700 sm:text-lg sm:leading-8">
                 Structured analysis for investment, policy, and strategic decisions.
@@ -1205,10 +1205,10 @@ function Homepage({ isMobileMenuOpen, onCloseMobileMenu, onToggleMobileMenu }) {
           </div>
         </section>
 
-        <section id="about" className="border-b border-blue-900/10">
+        <section id="about" className="border-b border-[#E0E0DC] bg-[#FAFAF8]">
           <div className="mx-auto max-w-7xl scroll-mt-28 px-6 py-20 lg:px-10 lg:py-24">
             <div className="max-w-[44rem]">
-              <div className="text-sm font-semibold uppercase tracking-[0.3em] text-blue-900">
+              <div className="text-sm font-semibold uppercase tracking-[0.3em] text-[#173A8A]">
                 About us
               </div>
               <div className="mt-10 text-base leading-8 text-slate-700 sm:text-lg">
@@ -1218,21 +1218,21 @@ function Homepage({ isMobileMenuOpen, onCloseMobileMenu, onToggleMobileMenu }) {
           </div>
         </section>
 
-        <section id="insights" className="border-b border-blue-900/10">
+        <section id="insights" className="border-b border-[#E0E0DC] bg-[#F5F5F3]">
           <div className="mx-auto max-w-7xl scroll-mt-28 px-6 py-18 lg:px-10 lg:py-22">
-            <div className="text-sm font-semibold uppercase tracking-[0.2em] text-red-700">
+            <div className="text-sm font-semibold uppercase tracking-[0.2em] text-[#C8102E]">
               Insights
             </div>
             <div className="mt-8 grid gap-6 md:grid-cols-2">
               <a
                 href={WHITE_PAPER_HASH_PATH}
-                className="group overflow-hidden rounded-2xl border border-blue-900/10 bg-white transition-colors hover:border-red-200 hover:bg-white/90"
+                className="group overflow-hidden rounded-2xl border border-[#E0E0DC] bg-[#FAFAF8] transition-colors hover:border-red-200 hover:bg-[#FAFAF8]"
               >
                 <div className="border-b border-blue-900/10 bg-[linear-gradient(135deg,#142b5f_0%,#203f86_55%,#b04646_100%)] p-5 text-white sm:p-6">
                   <div className="text-xs font-semibold uppercase tracking-[0.24em] text-blue-100">
                     Data Brief
                   </div>
-                  <h3 className="mt-4 text-xl font-semibold leading-7 text-white">
+                  <h3 className="mt-4 text-xl font-semibold leading-7 text-white [font-family:Georgia,'Times_New_Roman',serif]">
                     {WHITE_PAPER_TITLE}
                   </h3>
                   <div className="mt-5 grid grid-cols-2 gap-3 text-sm">
@@ -1251,7 +1251,7 @@ function Homepage({ isMobileMenuOpen, onCloseMobileMenu, onToggleMobileMenu }) {
                     <span>April 2026</span>
                     <span>Economic White Paper</span>
                   </div>
-                  <h3 className="text-xl font-semibold text-blue-900">
+                  <h3 className="text-xl font-semibold text-[#173A8A] [font-family:Georgia,'Times_New_Roman',serif]">
                     {WHITE_PAPER_TITLE}
                   </h3>
                   <p className="text-sm leading-6 text-slate-600 sm:text-base">
@@ -1262,9 +1262,9 @@ function Homepage({ isMobileMenuOpen, onCloseMobileMenu, onToggleMobileMenu }) {
 
               <a
                 href={PRIVATE_SCHOOLS_HASH_PATH}
-                className="group overflow-hidden rounded-2xl border border-blue-900/10 bg-white transition-colors hover:border-red-200 hover:bg-white/90"
+                className="group overflow-hidden rounded-2xl border border-[#E0E0DC] bg-[#FAFAF8] transition-colors hover:border-red-200 hover:bg-[#FAFAF8]"
               >
-                <div className="aspect-[16/10] overflow-hidden border-b border-blue-900/10 bg-slate-200">
+                <div className="aspect-[16/10] overflow-hidden border-b border-[#E0E0DC] bg-[#F5F5F3]">
                   <img
                     src="/insights-private-schools-1.png"
                     alt="Are private schools really better?"
@@ -1276,7 +1276,7 @@ function Homepage({ isMobileMenuOpen, onCloseMobileMenu, onToggleMobileMenu }) {
                     <span>Insight Note</span>
                     <span>Education</span>
                   </div>
-                  <h3 className="text-xl font-semibold text-blue-900">
+                  <h3 className="text-xl font-semibold text-[#173A8A] [font-family:Georgia,'Times_New_Roman',serif]">
                     {PRIVATE_SCHOOLS_ARTICLE.title}
                   </h3>
                   <p className="text-sm leading-6 text-slate-600 sm:text-base">
@@ -1288,13 +1288,13 @@ function Homepage({ isMobileMenuOpen, onCloseMobileMenu, onToggleMobileMenu }) {
           </div>
         </section>
 
-        <section id="papers" className="border-b border-blue-900/10">
+        <section id="papers" className="border-b border-[#E0E0DC] bg-[#FAFAF8]">
           <div className="mx-auto max-w-7xl scroll-mt-28 px-6 py-18 lg:px-10 lg:py-22">
             <div className="max-w-4xl">
-              <div className="text-sm font-semibold uppercase tracking-[0.2em] text-blue-900">
+              <div className="text-sm font-semibold uppercase tracking-[0.2em] text-[#173A8A]">
                 Projects
               </div>
-              <div className="mt-8 divide-y divide-blue-900/10 border-t border-blue-900/10">
+              <div className="mt-8 divide-y divide-[#E0E0DC] border-t border-[#E0E0DC]">
                 <div className="py-6 text-sm leading-6 text-slate-500">
                   Project work and commissioned research summaries will appear here.
                 </div>
@@ -1306,10 +1306,10 @@ function Homepage({ isMobileMenuOpen, onCloseMobileMenu, onToggleMobileMenu }) {
           </div>
         </section>
 
-        <section id="careers" className="border-b border-blue-900/10">
+        <section id="careers" className="border-b border-[#E0E0DC] bg-[#F5F5F3]">
           <div className="mx-auto max-w-7xl scroll-mt-28 px-6 py-18 lg:px-10 lg:py-22">
             <div className="max-w-4xl">
-              <div className="text-sm font-semibold uppercase tracking-[0.3em] text-blue-900">
+              <div className="text-sm font-semibold uppercase tracking-[0.3em] text-[#173A8A]">
                 Careers
               </div>
               <div className="mt-8 text-base leading-8 text-slate-700 sm:text-lg">
@@ -1319,7 +1319,7 @@ function Homepage({ isMobileMenuOpen, onCloseMobileMenu, onToggleMobileMenu }) {
           </div>
         </section>
 
-        <footer className="border-b border-blue-900/10">
+        <footer className="border-b border-[#E0E0DC] bg-[#FAFAF8]">
           <div className="mx-auto max-w-7xl px-6 py-10 lg:px-10">
             <div className="space-y-2 text-sm leading-6 text-slate-600">
               <div>© 2026 Metrics Nepal</div>
