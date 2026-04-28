@@ -21,7 +21,10 @@ const NAV_ITEMS = [
   { label: "About us", href: "#about" },
   { label: "Insights", href: "#insights" },
   { label: "Projects", href: "#papers" },
+  { label: "Services", href: "#about" },
+  { label: "Research", href: "#insights" },
   { label: "Careers", href: "#careers" },
+  { label: "Contact", href: "#contact" },
 ];
 
 const ARTICLE_NAV_ITEMS = [
@@ -449,14 +452,18 @@ function SiteHeader({
 }) {
   return (
     <header className="sticky top-0 z-50 border-b border-blue-900/10 bg-white">
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-10">
+      <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-3 lg:px-10">
         <div className="flex items-center gap-3">
           <a
             href="https://metricsnepal.com"
             className="flex items-center"
             aria-label="Metrics Nepal home"
           >
-            <img src="/logo.png" alt="Metrics Nepal" className={logoClassName} />
+            <img
+              src="/logo.png"
+              alt="Metrics Nepal"
+              className={`${logoClassName} mix-blend-multiply`}
+            />
           </a>
         </div>
 
@@ -466,7 +473,7 @@ function SiteHeader({
           onClick={onToggleMobileMenu}
         />
 
-        <nav className="hidden items-center gap-6 text-xs sm:text-sm md:flex">
+        <nav className="hidden items-center gap-5 text-xs sm:text-sm md:flex">
           {navItems.map((item) => (
             <a
               key={item.label}
@@ -1184,14 +1191,14 @@ function Homepage({ isMobileMenuOpen, onCloseMobileMenu, onToggleMobileMenu }) {
         navItems={NAV_ITEMS}
         isMobileMenuOpen={isMobileMenuOpen}
         menuId="mobile-menu"
-        logoClassName="h-16 w-auto sm:h-28 lg:h-32"
+        logoClassName="h-12 w-auto sm:h-20 lg:h-24"
         onCloseMobileMenu={onCloseMobileMenu}
         onToggleMobileMenu={onToggleMobileMenu}
       />
 
       <main>
         <section className="border-b border-blue-900/10 bg-gradient-to-br from-slate-100 via-slate-100 to-red-50/70">
-          <div className="mx-auto max-w-7xl px-6 py-12 sm:py-14 lg:px-10 lg:py-16">
+          <div className="mx-auto grid max-w-7xl gap-10 px-6 py-10 sm:py-12 lg:grid-cols-[minmax(0,1.35fr)_minmax(280px,0.65fr)] lg:items-start lg:gap-12 lg:px-10 lg:py-14">
             <div className="max-w-3xl">
               <h1 className="max-w-[14ch] text-3xl font-semibold leading-[1.05] tracking-tight text-blue-900 sm:max-w-[16ch] sm:text-4xl lg:max-w-[14ch] lg:text-6xl">
                 <span>Economic analysis</span>{" "}
@@ -1201,6 +1208,32 @@ function Homepage({ isMobileMenuOpen, onCloseMobileMenu, onToggleMobileMenu }) {
                 Structured analysis for investment, policy, and strategic decisions.
               </p>
             </div>
+
+            <aside className="border-t border-blue-900/10 pt-5 lg:border-l lg:border-t-0 lg:pl-8 lg:pt-1">
+              <div className="text-xs font-semibold uppercase tracking-[0.24em] text-red-600">
+                Current focus
+              </div>
+              <div className="mt-4 space-y-4 text-sm leading-6 text-slate-700 sm:text-base">
+                <div className="border-b border-blue-900/8 pb-4">
+                  Economic data briefs
+                </div>
+                <div className="border-b border-blue-900/8 pb-4">
+                  Policy and market analysis
+                </div>
+                <div>Applied econometric research</div>
+              </div>
+            </aside>
+          </div>
+        </section>
+
+        <section className="border-b border-blue-900/10 bg-white/40">
+          <div className="mx-auto flex max-w-7xl flex-wrap gap-x-8 gap-y-3 px-6 py-4 text-sm text-slate-600 lg:px-10">
+            <div className="font-medium text-blue-900">Kathmandu-based research platform</div>
+            <div>Policy, market, and investment analysis</div>
+            <div>Independent briefs and commissioned work</div>
+            <a href="mailto:contact@metricsnepal.com" className="text-blue-900 hover:text-red-600">
+              contact@metricsnepal.com
+            </a>
           </div>
         </section>
 
@@ -1318,7 +1351,7 @@ function Homepage({ isMobileMenuOpen, onCloseMobileMenu, onToggleMobileMenu }) {
           </div>
         </section>
 
-        <footer className="border-b border-blue-900/10">
+        <footer id="contact" className="border-b border-blue-900/10">
           <div className="mx-auto max-w-7xl px-6 py-10 lg:px-10">
             <div className="space-y-2 text-sm leading-6 text-slate-600">
               <div>© 2026 Metrics Nepal</div>
