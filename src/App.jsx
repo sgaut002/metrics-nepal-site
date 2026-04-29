@@ -654,29 +654,57 @@ function ConsumerTariffsProjectPage({
         <section className="bg-[#F5F5F3]">
           <div className="mx-auto max-w-[1120px] overflow-x-hidden px-6 py-14 lg:px-10 lg:py-16">
             <div className="max-w-[760px] space-y-14">
+              <div className="rounded-xl border border-[#E3E6EB] bg-[#FAFAF8] px-5 py-4 text-slate-700">
+                <div className="text-xs font-semibold uppercase tracking-[0.12em] text-[#B20D18]">
+                  Working Project Note
+                </div>
+                <div className="mt-3 space-y-3 text-base leading-7">
+                  <p>
+                    This project develops a formal econometric framework for analyzing Nepal’s recent enforcement of customs duties on consumer imports exceeding Rs. 100. It is a working research note.
+                  </p>
+                  <p>
+                    At present, full administrative data on enforcement intensity, border flows, and revenue collection are not publicly available. The analysis therefore focuses on identification strategy, behavioral margins, and testable implications, rather than definitive empirical estimates.
+                  </p>
+                  <p>
+                    The framework is designed to be taken to data as administrative and survey evidence becomes available.
+                  </p>
+                </div>
+              </div>
+
               <section className="space-y-6">
                 <h2 className="text-2xl font-semibold text-[#173A8A] [font-family:Georgia,'Times_New_Roman',serif]">
                   1. Introduction
                 </h2>
                 <div className="space-y-6 text-lg leading-8 text-slate-700">
                   <p>
-                    Policies that impose tariffs on small-scale consumer
-                    imports—particularly in open-border contexts—aim to expand
-                    the tax base by capturing retail-level cross-border
-                    purchases. The central difficulty is that such policies do
-                    not operate on a passive base. They alter behavior.
+                    In April 2026, Nepal began aggressively enforcing customs duties on goods valued above Rs. 100 brought from Indian border markets. The policy is intended to curb informal cross-border trade, reduce revenue leakage, and protect domestic markets. :contentReference[oaicite:0]{index=0}
+                  </p>
+                  <p>
+                    This policy differs from standard tariff settings. The taxable base consists of mobile households rather than formal importers, and enforcement operates at the level of individual crossings rather than firms. As a result, taxation directly alters the behavior it seeks to measure.
                   </p>
                   <p>This project studies the following question:</p>
                   <div className="rounded-xl border border-[#E3E6EB] bg-[#FAFAF8] px-5 py-4 text-[#173A8A] [font-family:Georgia,'Times_New_Roman',serif]">
-                    “Under what conditions do consumer tariffs expand the tax
-                    base rather than induce spatial arbitrage and evasion?”
+                    Under what conditions does strict enforcement of Nepal’s Rs. 100 consumer-import threshold expand the tax base rather than redirect activity into spatial arbitrage, evasion, and informal trade?
                   </div>
                   <p>
-                    The answer depends not only on the statutory tariff rate,
-                    but on the behavioral response of consumers, the cost of
-                    enforcement, and the structure of cross-border price
-                    differentials.
+                    The analysis develops a formal framework in which arbitrage is endogenous, partially unobserved, and shaped by enforcement, geography, and learning. The goal is not to estimate a single reduced-form effect, but to characterize the conditions under which the policy generates net fiscal gains.
                   </p>
+                </div>
+                <div className="rounded-xl border border-[#E3E6EB] bg-[#FAFAF8] px-5 py-4 text-slate-700">
+                  <div className="text-xs font-semibold uppercase tracking-[0.12em] text-[#B20D18]">
+                    Policy Context: Nepal’s Rs. 100 Border Rule
+                  </div>
+                  <div className="mt-3 space-y-3 text-base leading-7">
+                    <p>
+                      Nepal has recently tightened customs enforcement at border crossings, requiring duties on goods worth more than Rs. 100 brought from Indian markets. This reflects concerns over revenue leakage due to frequent cross-border shopping by residents in border regions. :contentReference[oaicite:1]{index=1}
+                    </p>
+                    <p>
+                      The policy has altered everyday economic activity: increased inspections, reduced cross-border shopping, and tension in border districts where such trade is a long-standing part of household consumption. :contentReference[oaicite:2]{index=2}
+                    </p>
+                    <p>
+                      This setting provides a natural case for studying consumer-level taxation when the tax base is mobile and partially informal.
+                    </p>
+                  </div>
                 </div>
               </section>
 
@@ -733,6 +761,38 @@ function ConsumerTariffsProjectPage({
                   math={String.raw`A^* = F(\Delta p)`}
                   interpretation="This is a latent arbitrage function: it determines the true behavioral response to tariff changes."
                 />
+
+                <div className="space-y-6 border-t border-[#E0E0DC] pt-8">
+                  <h3 className="text-xl font-semibold text-[#173A8A] [font-family:Georgia,'Times_New_Roman',serif]">
+                    2.1 Threshold Enforcement and Behavioral Distortion
+                  </h3>
+                  <div className="space-y-6 text-lg leading-8 text-slate-700">
+                    <p>
+                      The Rs. 100 rule introduces a discrete enforcement threshold. Goods below the threshold are effectively untaxed at the consumer level, while goods above the threshold are subject to inspection and duty.
+                    </p>
+                    <p>
+                      Let <InlineMath math={String.raw`v_i`} /> denote the declared value of goods carried by individual <InlineMath math={String.raw`i`} />. The policy creates incentives for behavioral manipulation:
+                    </p>
+                    <ul className="list-disc space-y-2 pl-5 text-base leading-7 marker:text-slate-500">
+                      <li>under-reporting (<InlineMath math={String.raw`v_i < 100`} />)</li>
+                      <li>splitting purchases across trips</li>
+                      <li>substitution toward less detectable goods</li>
+                    </ul>
+                  </div>
+                  <EquationCard
+                    title="Threshold enforcement condition"
+                    math={String.raw`p_N + t_N \cdot 1(v_i \geq 100) > p_I + c_i`}
+                    interpretation="This creates a discontinuity in behavior around the threshold."
+                  />
+                  <div className="space-y-4 text-base leading-7 text-slate-700">
+                    <div>Empirical implications:</div>
+                    <ul className="list-disc space-y-2 pl-5 marker:text-slate-500">
+                      <li>bunching just below Rs. 100</li>
+                      <li>distortions in declared value distributions</li>
+                      <li>nonlinear responses to small price changes</li>
+                    </ul>
+                  </div>
+                </div>
               </section>
 
               <section className="space-y-6">
@@ -886,6 +946,34 @@ function ConsumerTariffsProjectPage({
                     math={String.raw`Arbitrage_{gdt} = \beta \widehat{\Delta p}_{gdt} + \varepsilon_{gdt}`}
                     interpretation="This estimates arbitrage response using exogenous wedge variation."
                   />
+                </div>
+
+                <div className="space-y-6 border-t border-[#E0E0DC] pt-8">
+                  <h3 className="text-xl font-semibold text-[#173A8A] [font-family:Georgia,'Times_New_Roman',serif]">
+                    5.4 Threshold-based identification
+                  </h3>
+                  <div className="space-y-6 text-lg leading-8 text-slate-700">
+                    <p>The Rs. 100 cutoff creates a bunching design.</p>
+                    <p>Let <InlineMath math={String.raw`v`} /> denote declared value. Then examine the density:</p>
+                  </div>
+                  <EquationCard
+                    title="Density"
+                    math={String.raw`f(v)`}
+                    interpretation="This is the density of declared value around the threshold."
+                  />
+                  <div className="space-y-6 text-lg leading-8 text-slate-700">
+                    <p>Test for excess mass just below 100:</p>
+                  </div>
+                  <EquationCard
+                    title="Threshold bunching condition"
+                    math={String.raw`\lim_{v \to 100^-} f(v) > \lim_{v \to 100^+} f(v)`}
+                    interpretation="This identifies behavioral distortion induced by enforcement."
+                  />
+                  <div className="space-y-6 text-lg leading-8 text-slate-700">
+                    <p>
+                      This complements spatial and price-based identification by isolating manipulation at the reporting margin.
+                    </p>
+                  </div>
                 </div>
               </section>
 
