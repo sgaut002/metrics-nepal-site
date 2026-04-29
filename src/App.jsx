@@ -577,37 +577,19 @@ function ConsumerTariffsProjectPage({
             <h1 className="mt-4 max-w-4xl text-4xl font-semibold leading-[1.08] text-[#173A8A] sm:text-5xl [font-family:Georgia,'Times_New_Roman',serif]">
               Will consumer tariffs work?
             </h1>
-            <p className="mt-4 max-w-3xl text-xl leading-8 text-slate-700 [font-family:Georgia,'Times_New_Roman',serif]">
-              Cross-border arbitrage, consumer taxation, and enforcement trade-offs
+            <p className="mt-4 max-w-4xl text-xl leading-8 text-slate-700 [font-family:Georgia,'Times_New_Roman',serif]">
+              A structural and empirical framework for consumer-level tariff enforcement, cross-border arbitrage, and market response.
             </p>
             <div className="mt-6 text-sm font-medium uppercase tracking-[0.16em] text-slate-500">
-              Saugat Raj Gautam · April 2026
+              Institutional working project · April 2026 · Awaiting updated government data
             </div>
-            <div className="mt-6 max-w-3xl rounded-2xl border border-[#E0E0DC] bg-[#F5F5F3] px-5 py-4 text-sm leading-6 text-slate-700">
-              This is a working project. It outlines the economic mechanism and empirical strategy while awaiting updated government data.
-            </div>
-
-            <div className="mt-10 max-w-4xl rounded-2xl border border-[#E0E0DC] bg-[#F5F5F3] p-6">
-              <div className="flex items-end justify-between gap-6">
-                <div className="flex-1">
-                  <div className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">
-                    Domestic price
-                  </div>
-                  <div className="mt-3 h-28 rounded-t-xl bg-[#173A8A]" />
-                </div>
-                <div className="flex w-24 flex-col items-center">
-                  <div className="text-xs font-semibold uppercase tracking-[0.16em] text-[#C8102E]">
-                    Tariff wedge
-                  </div>
-                  <div className="mt-3 h-16 w-8 rounded-full bg-[#C8102E]" />
-                </div>
-                <div className="flex-1">
-                  <div className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">
-                    Foreign price
-                  </div>
-                  <div className="mt-3 h-20 rounded-t-xl bg-slate-400" />
-                </div>
+            <div className="mt-8 max-w-3xl rounded-2xl border border-[#E0E0DC] bg-[#F5F5F3] p-5">
+              <div className="text-xs font-semibold uppercase tracking-[0.16em] text-[#C8102E]">
+                Core question
               </div>
+              <p className="mt-3 text-base leading-7 text-slate-700">
+                Can consumer-level tariff enforcement raise durable net revenue without inducing avoidance, informality, or welfare losses that offset the fiscal gain?
+              </p>
             </div>
           </div>
         </section>
@@ -615,163 +597,18 @@ function ConsumerTariffsProjectPage({
         <section className="border-b border-[#E0E0DC]">
           <div className="mx-auto max-w-5xl px-6 py-16 lg:px-10">
             <h2 className="text-2xl font-semibold text-[#173A8A] [font-family:Georgia,'Times_New_Roman',serif]">
-              Why impose tariffs on consumers?
+              Research question
             </h2>
-            <p className="mt-6 text-lg leading-8 text-slate-700">
-              Consumer tariff enforcement shifts taxation from firms to individuals. In an open-border setting, households exploit price differences across markets. The policy attempts to tax this arbitrage directly.
-            </p>
-            <div className="mt-10 grid gap-6 md:grid-cols-3">
-              <div>
-                <div className="text-lg font-semibold text-[#173A8A] [font-family:Georgia,'Times_New_Roman',serif]">
-                  Raising revenue
-                </div>
-                <p className="mt-3 text-base leading-7 text-slate-700">
-                  The state expands the taxable base by including cross-border consumption.
-                </p>
-              </div>
-              <div>
-                <div className="text-lg font-semibold text-[#173A8A] [font-family:Georgia,'Times_New_Roman',serif]">
-                  Protecting domestic industry
-                </div>
-                <p className="mt-3 text-base leading-7 text-slate-700">
-                  Higher effective prices on imported goods may redirect demand.
-                </p>
-              </div>
-              <div>
-                <div className="text-lg font-semibold text-[#173A8A] [font-family:Georgia,'Times_New_Roman',serif]">
-                  Formalizing transactions
-                </div>
-                <p className="mt-3 text-base leading-7 text-slate-700">
-                  Taxation may reduce informal cross-border purchases if enforceable.
-                </p>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section className="border-b border-[#E0E0DC] bg-[#FAFAF8]">
-          <div className="mx-auto grid max-w-5xl gap-10 px-6 py-16 lg:grid-cols-[1.05fr_0.95fr] lg:px-10">
-            <div>
-              <h2 className="text-2xl font-semibold text-[#173A8A] [font-family:Georgia,'Times_New_Roman',serif]">
-                The arbitrage decision
-              </h2>
-              <p className="mt-6 text-lg leading-8 text-slate-700">
-                Consumers compare domestic prices with foreign prices adjusted for tariffs and travel costs. Arbitrage occurs only if the price gap exceeds this wedge.
+            <div className="mt-6 space-y-6 text-lg leading-8 text-slate-700">
+              <p>
+                Consumer tariff enforcement should not be evaluated as a simple question of whether the state can collect tax at the border. The relevant economic question is whether enforcement at the consumer margin can raise net public revenue once behavioral adjustment, administrative cost, and market substitution are taken seriously.
               </p>
-              <div className="mt-8 text-2xl font-semibold text-[#173A8A] [font-family:Georgia,'Times_New_Roman',serif]">
-                P_d - P_f &gt; τ + c_i
-              </div>
-              <div className="mt-6 space-y-2 text-base leading-7 text-slate-700">
-                <div>P_d = domestic price</div>
-                <div>P_f = foreign price</div>
-                <div>τ = tariff</div>
-                <div>c_i = individual cost</div>
-              </div>
-              <p className="mt-6 text-lg leading-8 text-slate-700">
-                The tariff operates jointly with travel cost and enforcement. Behavior changes only if the total wedge closes the price gap.
+              <p>
+                In an open-border economy, small consumer imports are a behavioral margin rather than a fixed tax base. Households may continue buying across the border, reduce purchase frequency, switch to domestic retailers, move purchases through informal intermediaries, or substitute away from taxed goods. The tax base is therefore endogenous to the policy.
               </p>
-            </div>
-            <ProjectVisualCard title="Price wedge diagram">
-              <div className="space-y-5">
-                <div className="h-px bg-[#E0E0DC]" />
-                <div className="flex items-center gap-4">
-                  <div className="w-28 text-sm text-slate-600">Foreign price</div>
-                  <div className="h-3 flex-1 rounded-full bg-slate-400" />
-                </div>
-                <div className="flex items-center gap-4">
-                  <div className="w-28 text-sm text-slate-600">Tariff + travel</div>
-                  <div className="h-3 w-28 rounded-full bg-[#C8102E]" />
-                </div>
-                <div className="flex items-center gap-4">
-                  <div className="w-28 text-sm text-slate-600">Domestic price</div>
-                  <div className="h-3 flex-1 rounded-full bg-[#173A8A]" />
-                </div>
-              </div>
-            </ProjectVisualCard>
-          </div>
-        </section>
-
-        <section className="border-b border-[#E0E0DC]">
-          <div className="mx-auto grid max-w-5xl gap-10 px-6 py-16 lg:grid-cols-[1.05fr_0.95fr] lg:px-10">
-            <div>
-              <h2 className="text-2xl font-semibold text-[#173A8A] [font-family:Georgia,'Times_New_Roman',serif]">
-                Revenue is not linear
-              </h2>
-              <p className="mt-6 text-lg leading-8 text-slate-700">
-                Higher tariffs increase revenue per transaction but reduce the number of transactions. The net effect depends on behavioral response.
+              <p>
+                This working project studies consumer tariffs as a joint problem of tax incidence, enforcement technology, and cross-border arbitrage.
               </p>
-              <div className="mt-8 text-2xl font-semibold text-[#173A8A] [font-family:Georgia,'Times_New_Roman',serif]">
-                R(τ) = τ × Q(τ)
-              </div>
-              <p className="mt-6 text-lg leading-8 text-slate-700">
-                Revenue depends on elasticity, not just tax rates.
-              </p>
-            </div>
-            <ProjectVisualCard title="Illustrative mechanism (not empirical data)">
-              <svg viewBox="0 0 360 220" className="w-full">
-                <path d="M36 188H330" stroke="#CBD5E1" strokeWidth="2" />
-                <path d="M36 188V26" stroke="#CBD5E1" strokeWidth="2" />
-                <path d="M48 176C96 78 168 24 222 64C264 95 280 136 316 176" fill="none" stroke="#173A8A" strokeWidth="4" />
-                <text x="250" y="44" fill="#C8102E" fontSize="12" fontWeight="600">Revenue</text>
-                <text x="302" y="205" fill="#64748B" fontSize="12">Tariff</text>
-              </svg>
-            </ProjectVisualCard>
-          </div>
-        </section>
-
-        <section className="border-b border-[#E0E0DC] bg-[#FAFAF8]">
-          <div className="mx-auto grid max-w-5xl gap-10 px-6 py-16 lg:grid-cols-[1.05fr_0.95fr] lg:px-10">
-            <div>
-              <h2 className="text-2xl font-semibold text-[#173A8A] [font-family:Georgia,'Times_New_Roman',serif]">
-                Taxation requires monitoring
-              </h2>
-              <p className="mt-6 text-lg leading-8 text-slate-700">
-                Unlike standard tariffs, this policy requires monitoring individual consumers. Enforcement intensity affects compliance and cost.
-              </p>
-              <div className="mt-8 text-2xl font-semibold text-[#173A8A] [font-family:Georgia,'Times_New_Roman',serif]">
-                R_net = τ·Q(τ, e) − C(e)
-              </div>
-              <p className="mt-6 text-lg leading-8 text-slate-700">
-                Enforcement is central to policy effectiveness.
-              </p>
-            </div>
-            <ProjectVisualCard title="Enforcement trade-off visual">
-              <svg viewBox="0 0 360 220" className="w-full">
-                <path d="M36 188H330" stroke="#CBD5E1" strokeWidth="2" />
-                <path d="M36 188V26" stroke="#CBD5E1" strokeWidth="2" />
-                <path d="M46 170C104 126 154 98 320 44" fill="none" stroke="#173A8A" strokeWidth="4" />
-                <path d="M46 54C122 78 196 118 320 176" fill="none" stroke="#C8102E" strokeWidth="4" />
-                <text x="252" y="40" fill="#173A8A" fontSize="12" fontWeight="600">Compliance / revenue</text>
-                <text x="256" y="194" fill="#C8102E" fontSize="12" fontWeight="600">Enforcement cost</text>
-              </svg>
-            </ProjectVisualCard>
-          </div>
-        </section>
-
-        <section className="border-b border-[#E0E0DC]">
-          <div className="mx-auto max-w-5xl px-6 py-16 lg:px-10">
-            <h2 className="text-2xl font-semibold text-[#173A8A] [font-family:Georgia,'Times_New_Roman',serif]">
-              Will domestic firms benefit?
-            </h2>
-            <div className="mt-10 grid gap-8 md:grid-cols-2">
-              <div>
-                <div className="text-lg font-semibold text-[#173A8A] [font-family:Georgia,'Times_New_Roman',serif]">
-                  When it works:
-                </div>
-                <ul className="mt-4 space-y-3 text-base leading-7 text-slate-700">
-                  <li>- Existing domestic supply</li>
-                  <li>- Close substitutes</li>
-                </ul>
-              </div>
-              <div>
-                <div className="text-lg font-semibold text-[#173A8A] [font-family:Georgia,'Times_New_Roman',serif]">
-                  When it fails:
-                </div>
-                <ul className="mt-4 space-y-3 text-base leading-7 text-slate-700">
-                  <li>- No domestic production</li>
-                  <li>- Differentiated goods</li>
-                </ul>
-              </div>
             </div>
           </div>
         </section>
@@ -779,39 +616,346 @@ function ConsumerTariffsProjectPage({
         <section className="border-b border-[#E0E0DC] bg-[#FAFAF8]">
           <div className="mx-auto max-w-5xl px-6 py-16 lg:px-10">
             <h2 className="text-2xl font-semibold text-[#173A8A] [font-family:Georgia,'Times_New_Roman',serif]">
-              How this would be measured
+              Literature spine
             </h2>
-            <p className="mt-6 text-lg leading-8 text-slate-700">
-              Compare border regions to interior regions before and after enforcement.
-            </p>
-            <div className="mt-8 text-2xl font-semibold text-[#173A8A] [font-family:Georgia,'Times_New_Roman',serif]">
-              Y_dt = α + β(Border_d × Post_t) + γ_d + δ_t + ε_dt
+            <div className="mt-6 space-y-6 text-lg leading-8 text-slate-700">
+              <p>This project draws on four bodies of economic literature.</p>
+              <p>
+                First, the tax compliance literature treats enforcement as a behavioral technology, not a legal formality. Detection probability, penalty structure, audit credibility, and compliance costs affect whether tax liabilities translate into actual collections.
+              </p>
+              <p>
+                Second, the tariff evasion literature shows that higher statutory tariffs do not mechanically imply higher revenue. When enforcement is imperfect, higher rates can increase evasion, misclassification, under-reporting, or movement into less observable channels.
+              </p>
+              <p>
+                Third, the cross-border shopping literature shows that households respond to price differentials across borders. Distance, travel cost, tax wedges, and product substitutability determine whether consumers arbitrage price gaps.
+              </p>
+              <p>
+                Fourth, the informality literature in developing economies shows that taxation can shift activity across formal and informal margins. This is especially relevant when enforcement is weak, third-party reporting is absent, and transactions are small but frequent.
+              </p>
             </div>
-            <div className="mt-8">
-              <div className="text-lg font-semibold text-[#173A8A] [font-family:Georgia,'Times_New_Roman',serif]">
-                Data requirements:
+            <div className="mt-10 rounded-2xl border border-[#E0E0DC] bg-[#F5F5F3] p-5">
+              <div className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">
+                Reference spine
               </div>
               <ul className="mt-4 space-y-3 text-base leading-7 text-slate-700">
-                <li>- Customs revenue</li>
-                <li>- Border flows</li>
-                <li>- Price differentials</li>
-                <li>- Household consumption</li>
+                <li>- Slemrod and Yitzhaki on tax avoidance, evasion, and administration</li>
+                <li>- Fisman and Wei on tariff rates and missing imports</li>
+                <li>- Javorcik and Narciso on differentiated products and tariff evasion</li>
+                <li>- Mishra, Subramanian, and Topalova on tariffs, enforcement, and customs evasion</li>
+                <li>- Asplund, Friberg, and Wilander on cross-border shopping and distance</li>
+                <li>- Kleven and Waseem / Waseem on taxation and behavioral response under weak enforcement</li>
+                <li>- Bachas, Gadenne, and Jensen on consumption taxes and informality in developing countries</li>
               </ul>
             </div>
           </div>
         </section>
 
         <section className="border-b border-[#E0E0DC]">
+          <div className="mx-auto grid max-w-5xl gap-10 px-6 py-16 lg:grid-cols-[1.05fr_0.95fr] lg:px-10">
+            <div>
+              <h2 className="text-2xl font-semibold text-[#173A8A] [font-family:Georgia,'Times_New_Roman',serif]">
+                Economic mechanism
+              </h2>
+              <p className="mt-6 text-lg leading-8 text-slate-700">
+                Let households compare the domestic price of a good with the foreign price plus the full cost of arbitrage.
+              </p>
+              <div className="mt-8 rounded-xl border border-[#E0E0DC] bg-[#FAFAF8] px-5 py-4 text-xl font-semibold text-[#173A8A] [font-family:Georgia,'Times_New_Roman',serif]">
+                P_d - P_f &gt; τ + κ_i + μ(e)
+              </div>
+              <div className="mt-6 space-y-2 text-base leading-7 text-slate-700">
+                <div>P_d: domestic price</div>
+                <div>P_f: foreign price</div>
+                <div>τ: tariff or tax wedge</div>
+                <div>κ_i: household-specific travel and transaction cost</div>
+                <div>μ(e): expected enforcement cost generated by monitoring intensity e</div>
+              </div>
+              <p className="mt-6 text-lg leading-8 text-slate-700">
+                The tariff is not the full policy instrument. The operative object is the effective wedge: statutory liability plus transaction cost plus expected enforcement cost. A high statutory tariff with weak monitoring may produce limited compliance. A lower tariff with credible enforcement may change behavior but could impose larger administrative and political costs.
+              </p>
+            </div>
+            <ProjectVisualCard title="Conceptual mechanism — not empirical data">
+              <div className="space-y-4">
+                <div className="flex items-center gap-4">
+                  <div className="w-40 text-sm text-slate-600">Foreign price</div>
+                  <div className="h-3 flex-1 rounded-full bg-slate-400" />
+                </div>
+                <div className="flex items-center gap-4">
+                  <div className="w-40 text-sm text-slate-600">Transaction cost</div>
+                  <div className="h-3 w-20 rounded-full bg-slate-300" />
+                </div>
+                <div className="flex items-center gap-4">
+                  <div className="w-40 text-sm text-slate-600">Tariff liability</div>
+                  <div className="h-3 w-24 rounded-full bg-[#C8102E]" />
+                </div>
+                <div className="flex items-center gap-4">
+                  <div className="w-40 text-sm text-slate-600">Expected enforcement cost</div>
+                  <div className="h-3 w-28 rounded-full bg-[#B45353]" />
+                </div>
+                <div className="h-px bg-[#E0E0DC]" />
+                <div className="flex items-center gap-4">
+                  <div className="w-40 text-sm font-medium text-[#173A8A]">Effective cross-border price</div>
+                  <div className="h-3 flex-1 rounded-full bg-[#173A8A]" />
+                </div>
+                <div className="flex items-center gap-4">
+                  <div className="w-40 text-sm font-medium text-slate-700">Domestic price</div>
+                  <div className="h-3 flex-1 rounded-full bg-slate-600" />
+                </div>
+              </div>
+            </ProjectVisualCard>
+          </div>
+        </section>
+
+        <section className="border-b border-[#E0E0DC] bg-[#FAFAF8]">
+          <div className="mx-auto grid max-w-5xl gap-10 px-6 py-16 lg:grid-cols-[1.05fr_0.95fr] lg:px-10">
+            <div>
+              <h2 className="text-2xl font-semibold text-[#173A8A] [font-family:Georgia,'Times_New_Roman',serif]">
+                Revenue and taxable-base response
+              </h2>
+              <p className="mt-6 text-lg leading-8 text-slate-700">Government revenue is:</p>
+              <div className="mt-6 rounded-xl border border-[#E0E0DC] bg-[#F5F5F3] px-5 py-4 text-xl font-semibold text-[#173A8A] [font-family:Georgia,'Times_New_Roman',serif]">
+                R(τ,e) = τ · Q(τ,e)
+              </div>
+              <p className="mt-6 text-lg leading-8 text-slate-700">
+                where Q(τ,e) is the volume of taxable cross-border purchases that remains observable under tariff τ and enforcement intensity e.
+              </p>
+              <p className="mt-6 text-lg leading-8 text-slate-700">The key econometric object is the elasticity of the taxable base:</p>
+              <div className="mt-6 rounded-xl border border-[#E0E0DC] bg-[#F5F5F3] px-5 py-4 text-xl font-semibold text-[#173A8A] [font-family:Georgia,'Times_New_Roman',serif]">
+                ε_Q,τ = ∂logQ(τ,e) / ∂logτ
+              </div>
+              <p className="mt-6 text-lg leading-8 text-slate-700">
+                If this elasticity is small in absolute value, higher tariffs may raise revenue. If it is large, higher tariffs shrink the tax base through reduced trips, avoidance, informal resale, or substitution. The policy is therefore not evaluated by the tariff rate, but by the slope of the taxable base response.
+              </p>
+              <div className="mt-8 rounded-2xl border border-[#E0E0DC] bg-[#F5F5F3] p-5">
+                <div className="text-xs font-semibold uppercase tracking-[0.16em] text-[#C8102E]">
+                  Executive insight
+                </div>
+                <p className="mt-3 text-base leading-7 text-slate-700">
+                  A tariff on consumer arbitrage is fiscally useful only if the taxable base is sufficiently inelastic and sufficiently observable.
+                </p>
+              </div>
+            </div>
+            <ProjectVisualCard title="Illustrative mechanism — not empirical data">
+              <svg viewBox="0 0 360 220" className="w-full">
+                <path d="M36 188H330" stroke="#CBD5E1" strokeWidth="2" />
+                <path d="M36 188V24" stroke="#CBD5E1" strokeWidth="2" />
+                <path d="M54 176L300 52" fill="none" stroke="#C8102E" strokeWidth="4" />
+                <path d="M54 50C130 64 214 108 300 178" fill="none" stroke="#9CA3AF" strokeWidth="4" />
+                <path d="M54 154C120 138 180 108 220 90C250 78 278 82 308 116" fill="none" stroke="#173A8A" strokeWidth="4" />
+                <text x="230" y="46" fill="#C8102E" fontSize="12" fontWeight="600">Statutory rate effect</text>
+                <text x="208" y="192" fill="#6B7280" fontSize="12" fontWeight="600">Taxable-base erosion</text>
+                <text x="224" y="104" fill="#173A8A" fontSize="12" fontWeight="600">Net revenue response</text>
+              </svg>
+            </ProjectVisualCard>
+          </div>
+        </section>
+
+        <section className="border-b border-[#E0E0DC]">
+          <div className="mx-auto grid max-w-5xl gap-10 px-6 py-16 lg:grid-cols-[1.05fr_0.95fr] lg:px-10">
+            <div>
+              <h2 className="text-2xl font-semibold text-[#173A8A] [font-family:Georgia,'Times_New_Roman',serif]">
+                Enforcement technology
+              </h2>
+              <p className="mt-6 text-lg leading-8 text-slate-700">Net fiscal return is:</p>
+              <div className="mt-6 rounded-xl border border-[#E0E0DC] bg-[#FAFAF8] px-5 py-4 text-xl font-semibold text-[#173A8A] [font-family:Georgia,'Times_New_Roman',serif]">
+                NR(τ,e) = τ · Q(τ,e) − C(e)
+              </div>
+              <p className="mt-6 text-lg leading-8 text-slate-700">
+                where C(e) is the fiscal, administrative, and political cost of monitoring.
+              </p>
+              <p className="mt-6 text-lg leading-8 text-slate-700">
+                The enforcement problem is first-order. Consumer-level tariff collection requires monitoring many low-value transactions. That differs from firm-level import taxation, where fewer entities, documentation trails, and shipment records make enforcement easier.
+              </p>
+              <p className="mt-6 text-lg leading-8 text-slate-700">
+                The policy is likely to fail if enforcement costs rise faster than collections, or if enforcement redirects trade into less visible channels. This means the relevant question is not only “how much can be collected?” but “at what marginal enforcement cost?”
+              </p>
+              <div className="mt-8 rounded-xl border border-[#E0E0DC] bg-[#FAFAF8] px-5 py-4 text-xl font-semibold text-[#173A8A] [font-family:Georgia,'Times_New_Roman',serif]">
+                ∂[τQ(τ,e)]/∂e ≥ C′(e)
+              </div>
+              <p className="mt-6 text-lg leading-8 text-slate-700">
+                Additional enforcement is justified only while the marginal revenue recovered exceeds the marginal cost of enforcement.
+              </p>
+            </div>
+            <ProjectVisualCard title="Conceptual enforcement condition — not empirical data">
+              <svg viewBox="0 0 360 220" className="w-full">
+                <path d="M36 188H330" stroke="#CBD5E1" strokeWidth="2" />
+                <path d="M36 188V24" stroke="#CBD5E1" strokeWidth="2" />
+                <path d="M52 160C110 132 172 102 310 46" fill="none" stroke="#173A8A" strokeWidth="4" />
+                <path d="M52 48C120 72 188 108 312 176" fill="none" stroke="#C8102E" strokeWidth="4" />
+                <circle cx="186" cy="112" r="5" fill="#173A8A" />
+                <text x="194" y="108" fill="#173A8A" fontSize="12" fontWeight="600">Efficient enforcement range</text>
+                <text x="198" y="42" fill="#173A8A" fontSize="12" fontWeight="600">Marginal revenue recovered</text>
+                <text x="206" y="194" fill="#C8102E" fontSize="12" fontWeight="600">Marginal enforcement cost</text>
+              </svg>
+            </ProjectVisualCard>
+          </div>
+        </section>
+
+        <section className="border-b border-[#E0E0DC] bg-[#FAFAF8]">
           <div className="mx-auto max-w-5xl px-6 py-16 lg:px-10">
             <h2 className="text-2xl font-semibold text-[#173A8A] [font-family:Georgia,'Times_New_Roman',serif]">
-              Key takeaways
+              Market and welfare effects
             </h2>
-            <ul className="mt-8 space-y-3 text-lg leading-8 text-slate-700">
-              <li>- Revenue gains are limited by behavioral response</li>
-              <li>- Enforcement costs are first-order</li>
-              <li>- Long-run adaptation reduces effectiveness</li>
-              <li>- Domestic benefits depend on market structure</li>
-            </ul>
+            <p className="mt-6 text-lg leading-8 text-slate-700">
+              Domestic industry protection is not automatic. It depends on whether domestic firms can actually absorb redirected demand.
+            </p>
+            <p className="mt-6 text-lg leading-8 text-slate-700">
+              If domestic substitutes exist and supply is elastic, consumer tariffs may raise domestic retail activity. If substitutes are weak, capacity is limited, or goods are differentiated, the policy may mainly raise consumer prices without creating meaningful domestic production gains.
+            </p>
+            <div className="mt-10 overflow-hidden rounded-2xl border border-[#E0E0DC]">
+              <div className="grid bg-[#F5F5F3] md:grid-cols-2">
+                <div className="border-b border-[#E0E0DC] p-6 md:border-b-0 md:border-r">
+                  <div className="text-lg font-semibold text-[#173A8A] [font-family:Georgia,'Times_New_Roman',serif]">
+                    Conditions under which domestic effects are stronger:
+                  </div>
+                  <ul className="mt-4 space-y-3 text-base leading-7 text-slate-700">
+                    <li>- Close domestic substitutes</li>
+                    <li>- Competitive local retail supply</li>
+                    <li>- Low capacity constraints</li>
+                    <li>- Small quality gap between domestic and cross-border goods</li>
+                    <li>- Limited informal resale networks</li>
+                  </ul>
+                </div>
+                <div className="p-6">
+                  <div className="text-lg font-semibold text-[#173A8A] [font-family:Georgia,'Times_New_Roman',serif]">
+                    Conditions under which effects are weaker:
+                  </div>
+                  <ul className="mt-4 space-y-3 text-base leading-7 text-slate-700">
+                    <li>- Differentiated imported goods</li>
+                    <li>- No domestic production base</li>
+                    <li>- High domestic markups</li>
+                    <li>- Weak enforcement credibility</li>
+                    <li>- Easy informal intermediation</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div className="mt-8 rounded-2xl border border-[#E0E0DC] bg-[#F5F5F3] p-5 text-base leading-7 text-slate-700">
+              The domestic-industry channel is conditional. It should be treated as an empirical hypothesis, not as an assumed benefit.
+            </div>
+          </div>
+        </section>
+
+        <section className="border-b border-[#E0E0DC]">
+          <div className="mx-auto max-w-5xl px-6 py-16 lg:px-10">
+            <h2 className="text-2xl font-semibold text-[#173A8A] [font-family:Georgia,'Times_New_Roman',serif]">
+              Empirical strategy
+            </h2>
+            <div className="mt-6 space-y-6 text-lg leading-8 text-slate-700">
+              <p>
+                The empirical challenge is that observed revenue after enforcement is not a clean measure of policy success. Revenue may rise because compliance improved, because enforcement became more aggressive, because consumption shifted, or because price gaps changed independently.
+              </p>
+              <p>A credible empirical design should separate:</p>
+              <div className="space-y-2 text-lg leading-8 text-slate-700">
+                <div>1. revenue effects</div>
+                <div>2. quantity response</div>
+                <div>3. avoidance response</div>
+                <div>4. domestic market response</div>
+                <div>5. enforcement cost</div>
+              </div>
+              <p>Use this baseline difference-in-differences specification:</p>
+            </div>
+            <div className="mt-8 rounded-xl border border-[#E0E0DC] bg-[#FAFAF8] px-5 py-4 text-xl font-semibold text-[#173A8A] [font-family:Georgia,'Times_New_Roman',serif]">
+              Y_dt = α + β(Border_d × Post_t) + γ_d + δ_t + X_dt′θ + ε_dt
+            </div>
+            <div className="mt-6 space-y-6 text-lg leading-8 text-slate-700">
+              <p>where d indexes districts or border markets and t indexes time.</p>
+              <p>
+                Interpretation: β captures the differential post-enforcement change in border-exposed areas relative to less exposed areas, conditional on district fixed effects, time fixed effects, and observed controls.
+              </p>
+              <div>
+                <div className="text-lg font-semibold text-[#173A8A] [font-family:Georgia,'Times_New_Roman',serif]">
+                  Required outcomes:
+                </div>
+                <ul className="mt-4 space-y-3 text-base leading-7 text-slate-700">
+                  <li>- customs revenue from small consumer declarations</li>
+                  <li>- border crossing frequency</li>
+                  <li>- observed taxable purchase volume</li>
+                  <li>- local retail prices</li>
+                  <li>- local retail sales</li>
+                  <li>- enforcement staffing and cost</li>
+                  <li>- household expenditure composition</li>
+                </ul>
+              </div>
+              <p>
+                Identification concern: Border areas may differ systematically from interior areas. The design therefore requires pre-trend checks, price-gap controls, and robustness across product categories.
+              </p>
+              <p>
+                Add optional structural extension: A discrete-choice model can estimate the probability of cross-border purchase as a function of the price gap, travel cost, enforcement intensity, and household characteristics.
+              </p>
+            </div>
+            <div className="mt-8 rounded-xl border border-[#E0E0DC] bg-[#FAFAF8] px-5 py-4 text-xl font-semibold text-[#173A8A] [font-family:Georgia,'Times_New_Roman',serif]">
+              Pr(cross-border purchase_i = 1) = F[(P_d − P_f) − τ − κ_i − μ(e)]
+            </div>
+          </div>
+        </section>
+
+        <section className="border-b border-[#E0E0DC] bg-[#FAFAF8]">
+          <div className="mx-auto max-w-5xl px-6 py-16 lg:px-10">
+            <h2 className="text-2xl font-semibold text-[#173A8A] [font-family:Georgia,'Times_New_Roman',serif]">
+              Working hypotheses
+            </h2>
+            <div className="mt-8 space-y-6 text-lg leading-8 text-slate-700">
+              <div>
+                <div className="text-lg font-semibold text-[#173A8A] [font-family:Georgia,'Times_New_Roman',serif]">H1:</div>
+                <p>Revenue gains are largest when the initial price gap is large, enforcement is credible, and household demand is relatively inelastic.</p>
+              </div>
+              <div>
+                <div className="text-lg font-semibold text-[#173A8A] [font-family:Georgia,'Times_New_Roman',serif]">H2:</div>
+                <p>Revenue gains decay over time if households adapt through trip consolidation, informal intermediation, or substitution.</p>
+              </div>
+              <div>
+                <div className="text-lg font-semibold text-[#173A8A] [font-family:Georgia,'Times_New_Roman',serif]">H3:</div>
+                <p>Domestic retail gains are strongest for goods with close local substitutes and weakest for differentiated imports.</p>
+              </div>
+              <div>
+                <div className="text-lg font-semibold text-[#173A8A] [font-family:Georgia,'Times_New_Roman',serif]">H4:</div>
+                <p>The policy’s net fiscal effect depends more on enforcement cost and taxable-base elasticity than on the statutory tariff threshold itself.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="border-b border-[#E0E0DC]">
+          <div className="mx-auto max-w-5xl px-6 py-16 lg:px-10">
+            <h2 className="text-2xl font-semibold text-[#173A8A] [font-family:Georgia,'Times_New_Roman',serif]">
+              Data status
+            </h2>
+            <div className="mt-6 space-y-6 text-lg leading-8 text-slate-700">
+              <p>
+                Current status: This project is awaiting updated government data before empirical estimation.
+              </p>
+              <div>
+                <div className="text-lg font-semibold text-[#173A8A] [font-family:Georgia,'Times_New_Roman',serif]">
+                  Data needed:
+                </div>
+                <ul className="mt-4 space-y-3 text-base leading-7 text-slate-700">
+                  <li>- customs revenue by checkpoint and product category</li>
+                  <li>- declaration counts and small-consignment records</li>
+                  <li>- border movement data</li>
+                  <li>- domestic and Indian-side retail price comparisons</li>
+                  <li>- district-level retail indicators</li>
+                  <li>- enforcement staffing or administrative cost</li>
+                  <li>- household expenditure data near border and non-border regions</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="border-b border-[#E0E0DC] bg-[#FAFAF8]">
+          <div className="mx-auto max-w-5xl px-6 py-16 lg:px-10">
+            <div className="rounded-2xl border border-[#E0E0DC] bg-[#F5F5F3] p-6">
+              <div className="text-xs font-semibold uppercase tracking-[0.16em] text-[#C8102E]">
+                Executive takeaways
+              </div>
+              <ol className="mt-5 space-y-3 text-lg leading-8 text-slate-700">
+                <li>1. Consumer tariffs tax a behavioral margin, not a fixed base.</li>
+                <li>2. Revenue depends on taxable-base elasticity and enforcement credibility.</li>
+                <li>3. Enforcement costs are central, not secondary.</li>
+                <li>4. Domestic-industry gains are conditional on substitutability and supply capacity.</li>
+                <li>5. The correct evaluation is net revenue plus market response, not gross collections.</li>
+              </ol>
+            </div>
           </div>
         </section>
       </main>
