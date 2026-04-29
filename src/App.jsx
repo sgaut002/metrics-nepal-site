@@ -21,8 +21,7 @@ const NAV_ITEMS = [
   { label: "About us", href: "/#about" },
   { label: "Insights", href: "/#insights" },
   { label: "Projects", href: "/#papers" },
-  { label: "Services", href: "/" },
-  { label: "Research", href: "/" },
+  { label: "Datasets", href: "/" },
   { label: "Careers", href: "/#careers" },
   { label: "Contact", href: "/#contact" },
 ];
