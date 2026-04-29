@@ -1,4 +1,4 @@
-import { memo, useEffect, useState } from "react";
+import { cloneElement, isValidElement, memo, useEffect, useState } from "react";
 import "katex/dist/katex.min.css";
 import {
   Bar,
@@ -97,6 +97,38 @@ const WHITE_PAPER_SUBTITLE =
   "A complementary data brief of the Government of Nepal’s recent white paper. The key numbers—reframed for clarity, context, and quick reading.";
 const WHITE_PAPER_TAB_ORDER = Object.keys(whitePaperCharts);
 const CHART_COLORS = ["#18356d", "#b04646", "#5f6b7a", "#d48657"];
+
+function cleanArtifacts(text) {
+  return text
+    .replace(/:contentReference\[.*?\]\{.*?\}/g, "")
+    .replace(/\[oaicite:\d+\]/g, "")
+    .replace(/\{index=\d+\}/g, "")
+    .trim();
+}
+
+function sanitizeProjectNode(node) {
+  if (typeof node === "string") {
+    return cleanArtifacts(node);
+  }
+
+  if (Array.isArray(node)) {
+    return node.map(sanitizeProjectNode);
+  }
+
+  if (!isValidElement(node)) {
+    return node;
+  }
+
+  if (!Object.prototype.hasOwnProperty.call(node.props, "children")) {
+    return node;
+  }
+
+  return cloneElement(
+    node,
+    { ...node.props },
+    sanitizeProjectNode(node.props.children),
+  );
+}
 const RESPONSIVE_LABEL_MAP = {
   "10-year average": "10yr avg",
   "FY 2081/82": "FY 81/82",
@@ -626,7 +658,7 @@ function ConsumerTariffsProjectPage({
   onCloseMobileMenu,
   onToggleMobileMenu,
 }) {
-  return (
+  const page = (
     <div className="min-h-screen bg-[#F5F5F3] text-slate-900 [font-family:Inter,ui-sans-serif,system-ui,sans-serif]">
       <SiteHeader
         navItems={NAV_ITEMS}
@@ -677,7 +709,7 @@ function ConsumerTariffsProjectPage({
                 </h2>
                 <div className="space-y-6 text-lg leading-8 text-slate-700">
                   <p>
-                    In April 2026, Nepal began aggressively enforcing customs duties on goods valued above Rs. 100 brought from Indian border markets. The policy is intended to curb informal cross-border trade, reduce revenue leakage, and protect domestic markets. {":contentReference[oaicite:0]{index=0}"}
+                    In April 2026, Nepal began aggressively enforcing customs duties on goods valued above Rs. 100 brought from Indian border markets. The policy is intended to curb informal cross-border trade, reduce revenue leakage, and protect domestic markets.
                   </p>
                   <p>
                     This policy differs from standard tariff settings. The taxable base consists of mobile households rather than formal importers, and enforcement operates at the level of individual crossings rather than firms. As a result, taxation directly alters the behavior it seeks to measure.
@@ -696,10 +728,10 @@ function ConsumerTariffsProjectPage({
                   </div>
                   <div className="mt-3 space-y-3 text-base leading-7">
                     <p>
-                      Nepal has recently tightened customs enforcement at border crossings, requiring duties on goods worth more than Rs. 100 brought from Indian markets. This reflects concerns over revenue leakage due to frequent cross-border shopping by residents in border regions. {":contentReference[oaicite:1]{index=1}"}
+                      Nepal has recently tightened customs enforcement at border crossings, requiring duties on goods worth more than Rs. 100 brought from Indian markets. This reflects concerns over revenue leakage due to frequent cross-border shopping by residents in border regions.
                     </p>
                     <p>
-                      The policy has altered everyday economic activity: increased inspections, reduced cross-border shopping, and tension in border districts where such trade is a long-standing part of household consumption. {":contentReference[oaicite:2]{index=2}"}
+                      The policy has altered everyday economic activity: increased inspections, reduced cross-border shopping, and tension in border districts where such trade is a long-standing part of household consumption.
                     </p>
                     <p>
                       This setting provides a natural case for studying consumer-level taxation when the tax base is mobile and partially informal.
@@ -1146,6 +1178,8 @@ function ConsumerTariffsProjectPage({
       </main>
     </div>
   );
+
+  return sanitizeProjectNode(page);
 }
 
 function WhitePaperChartGraphic({ chart }) {
