@@ -677,7 +677,7 @@ function ConsumerTariffsProjectPage({
                 </h2>
                 <div className="space-y-6 text-lg leading-8 text-slate-700">
                   <p>
-                    In April 2026, Nepal began aggressively enforcing customs duties on goods valued above Rs. 100 brought from Indian border markets. The policy is intended to curb informal cross-border trade, reduce revenue leakage, and protect domestic markets. :contentReference[oaicite:0]{index=0}
+                    In April 2026, Nepal began aggressively enforcing customs duties on goods valued above Rs. 100 brought from Indian border markets. The policy is intended to curb informal cross-border trade, reduce revenue leakage, and protect domestic markets. {":contentReference[oaicite:0]{index=0}"}
                   </p>
                   <p>
                     This policy differs from standard tariff settings. The taxable base consists of mobile households rather than formal importers, and enforcement operates at the level of individual crossings rather than firms. As a result, taxation directly alters the behavior it seeks to measure.
@@ -696,10 +696,10 @@ function ConsumerTariffsProjectPage({
                   </div>
                   <div className="mt-3 space-y-3 text-base leading-7">
                     <p>
-                      Nepal has recently tightened customs enforcement at border crossings, requiring duties on goods worth more than Rs. 100 brought from Indian markets. This reflects concerns over revenue leakage due to frequent cross-border shopping by residents in border regions. :contentReference[oaicite:1]{index=1}
+                      Nepal has recently tightened customs enforcement at border crossings, requiring duties on goods worth more than Rs. 100 brought from Indian markets. This reflects concerns over revenue leakage due to frequent cross-border shopping by residents in border regions. {":contentReference[oaicite:1]{index=1}"}
                     </p>
                     <p>
-                      The policy has altered everyday economic activity: increased inspections, reduced cross-border shopping, and tension in border districts where such trade is a long-standing part of household consumption. :contentReference[oaicite:2]{index=2}
+                      The policy has altered everyday economic activity: increased inspections, reduced cross-border shopping, and tension in border districts where such trade is a long-standing part of household consumption. {":contentReference[oaicite:2]{index=2}"}
                     </p>
                     <p>
                       This setting provides a natural case for studying consumer-level taxation when the tax base is mobile and partially informal.
