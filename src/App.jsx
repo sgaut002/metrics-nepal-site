@@ -588,13 +588,14 @@ function ProjectVisualCard({ title, children }) {
   );
 }
 
-function MathBlock({ children, math, label }) {
+function MathBlock({ children, math, label, interpretation }) {
   const source = typeof math === "string" ? math : typeof children === "string" ? children : "";
   const html = katex.renderToString(source, {
     throwOnError: false,
     displayMode: true,
     strict: false,
   });
+  const [showInterpretation, setShowInterpretation] = useState(false);
 
   return (
     <div className="math-card w-full max-w-[720px] min-w-0 overflow-hidden rounded-[10px] border border-[#E2E2DE] border-l-4 border-l-[#123C7C] bg-[#F8F8F6] px-[22px] py-[18px] box-border">
@@ -607,6 +608,20 @@ function MathBlock({ children, math, label }) {
         className="math-scroll max-w-full overflow-x-auto text-[#173A8A] [&_.katex-display]:m-0 [&_.katex]:font-['Times_New_Roman',Georgia,serif]"
         dangerouslySetInnerHTML={{ __html: html }}
       />
+      {interpretation ? (
+        <div className="mt-4 border-t border-[#E2E2DE] pt-3">
+          <button
+            type="button"
+            onClick={() => setShowInterpretation((value) => !value)}
+            className="text-xs font-medium tracking-[0.08em] text-slate-500 transition hover:text-[#173A8A]"
+          >
+            Interpretation
+          </button>
+          {showInterpretation ? (
+            <div className="mt-3 text-sm leading-6 text-slate-700">{interpretation}</div>
+          ) : null}
+        </div>
+      ) : null}
     </div>
   );
 }
@@ -636,8 +651,7 @@ function EquationCard({
 }) {
   return (
     <div className="equation-card w-full max-w-full min-w-0 overflow-x-auto box-border">
-      <MathBlock math={math} label={title} />
-      <div className="mt-4 text-base leading-7 text-slate-700">{interpretation}</div>
+      <MathBlock math={math} label={title} interpretation={interpretation} />
       {appendixChildren ? (
         <details className="mt-5 rounded-lg border border-[#E3E6EB] bg-white/75 p-4">
           <summary className="cursor-pointer text-sm font-medium text-[#173A8A]">
@@ -709,17 +723,20 @@ function ConsumerTariffsProjectPage({
                 </h2>
                 <div className="space-y-6 text-lg leading-8 text-slate-700">
                   <p>
-                    In April 2026, Nepal began aggressively enforcing customs duties on goods valued above Rs. 100 brought from Indian border markets. The policy is intended to curb informal cross-border trade, reduce revenue leakage, and protect domestic markets.
+                    In April 2026, Nepal began enforcing customs duties more aggressively on consumer goods valued above Rs. 100 brought from Indian border markets. The policy is not simply a tariff change. It is an enforcement shock applied to small, mobile, household-level transactions.
                   </p>
                   <p>
-                    This policy differs from standard tariff settings. The taxable base consists of mobile households rather than formal importers, and enforcement operates at the level of individual crossings rather than firms. As a result, taxation directly alters the behavior it seeks to measure.
+                    That distinction matters. Standard tariff analysis usually begins with firms, import volumes, and declared customs values. This case begins with households deciding whether to buy across the border, how much to declare, whether to split purchases, and whether the expected cost of inspection outweighs the price advantage of buying in India.
                   </p>
-                  <p>This project studies the following question:</p>
+                  <p>
+                    The empirical problem is therefore not only whether the state can collect more revenue. The harder question is whether stricter enforcement converts informal consumer imports into taxable transactions, or instead shifts activity into avoidance, under-reporting, repeated small trips, informal brokerage, and unobserved arbitrage.
+                  </p>
+                  <p>This project develops a formal econometric framework for that question:</p>
                   <div className="rounded-xl border border-[#E3E6EB] bg-[#FAFAF8] px-5 py-4 text-[#173A8A] [font-family:Georgia,'Times_New_Roman',serif]">
-                    Under what conditions does strict enforcement of Nepal’s Rs. 100 consumer-import threshold expand the tax base rather than redirect activity into spatial arbitrage, evasion, and informal trade?
+                    Under what conditions does enforcement of Nepal’s Rs. 100 consumer-import threshold expand the tax base rather than redirect activity into spatial arbitrage and evasion?
                   </div>
                   <p>
-                    The analysis develops a formal framework in which arbitrage is endogenous, partially unobserved, and shaped by enforcement, geography, and learning. The goal is not to estimate a single reduced-form effect, but to characterize the conditions under which the policy generates net fiscal gains.
+                    The framework treats arbitrage as endogenous, partially latent, spatially heterogeneous, and shaped by enforcement. The objective is not to report a premature treatment effect before complete administrative data are available. It is to specify the model, estimands, identification problems, and empirical designs required to take the policy seriously.
                   </p>
                 </div>
                 <div className="rounded-xl border border-[#E3E6EB] bg-[#FAFAF8] px-5 py-4 text-slate-700">
@@ -728,13 +745,32 @@ function ConsumerTariffsProjectPage({
                   </div>
                   <div className="mt-3 space-y-3 text-base leading-7">
                     <p>
-                      Nepal has recently tightened customs enforcement at border crossings, requiring duties on goods worth more than Rs. 100 brought from Indian markets. This reflects concerns over revenue leakage due to frequent cross-border shopping by residents in border regions.
+                      Nepal’s customs enforcement has recently targeted goods worth more than Rs. 100 brought from Indian border markets. Reports from border districts describe tighter checks, reduced shopping flows into Indian markets, support from some Nepali border traders, and complaints from local households that rely on cross-border purchases for daily necessities.
                     </p>
                     <p>
-                      The policy has altered everyday economic activity: increased inspections, reduced cross-border shopping, and tension in border districts where such trade is a long-standing part of household consumption.
+                      This setting provides a useful case for studying consumer-level taxation when the tax base is mobile, partially informal, and difficult to observe directly.
+                    </p>
+                  </div>
+                </div>
+                <div className="space-y-6 border-t border-[#E0E0DC] pt-8">
+                  <h3 className="text-xl font-semibold text-[#173A8A] [font-family:Georgia,'Times_New_Roman',serif]">
+                    1.1 Research Design
+                  </h3>
+                  <div className="space-y-6 text-lg leading-8 text-slate-700">
+                    <p>
+                      The project has four linked econometric objects.
                     </p>
                     <p>
-                      This setting provides a natural case for studying consumer-level taxation when the tax base is mobile and partially informal.
+                      First, the behavioral object is the latent arbitrage decision. Consumers compare the domestic tax-inclusive price with the foreign price plus crossing, search, time, risk, and enforcement costs.
+                    </p>
+                    <p>
+                      Second, the measurement object is imperfect observation. True arbitrage is not directly observed. Administrative seizures, border traffic, domestic retail sales, and declared values are proxies, not the object itself.
+                    </p>
+                    <p>
+                      Third, the identification object is exogenous variation in arbitrage incentives. Useful variation may come from distance to border, product-level price wedges, foreign price shocks, exchange-rate movements, and the Rs. 100 reporting threshold.
+                    </p>
+                    <p>
+                      Fourth, the policy object is net fiscal gain. The relevant question is not whether gross collections rise mechanically, but whether additional revenue exceeds the behavioral loss from evasion and the administrative cost of enforcement.
                     </p>
                   </div>
                 </div>
@@ -763,7 +799,7 @@ function ConsumerTariffsProjectPage({
                 <EquationCard
                   title="Arbitrage condition"
                   math={String.raw`p_N + t_N > p_I + c_i`}
-                  interpretation="This condition defines the basic price comparison underlying cross-border arbitrage."
+                  interpretation="This defines the consumer’s crossing margin. The Rs. 100 rule enters as a discrete enforcement threshold: once declared value crosses the cutoff, the expected tax-inclusive domestic price changes discontinuously."
                 />
                 <div className="space-y-6 text-lg leading-8 text-slate-700">
                   <p>Define the effective price wedge:</p>
@@ -771,7 +807,7 @@ function ConsumerTariffsProjectPage({
                 <EquationCard
                   title="Effective price wedge"
                   math={String.raw`\Delta p = (p_N + t_N) - p_I`}
-                  interpretation="The wedge is the difference between the taxed domestic price and the foreign border price."
+                  interpretation="This is the private incentive to arbitrage. Larger wedges increase the probability that consumers cross the border, under-report, or split purchases."
                 />
                 <div className="space-y-6 text-lg leading-8 text-slate-700">
                   <p>Then arbitrage occurs whenever:</p>
@@ -791,7 +827,7 @@ function ConsumerTariffsProjectPage({
                 <EquationCard
                   title="Latent arbitrage function"
                   math={String.raw`A^* = F(\Delta p)`}
-                  interpretation="This is a latent arbitrage function: it determines the true behavioral response to tariff changes."
+                  interpretation="This maps price incentives into the unobserved share of consumers who arbitrage. The function is latent because true cross-border household purchases are not fully recorded."
                 />
 
                 <div className="space-y-6 border-t border-[#E0E0DC] pt-8">
@@ -806,7 +842,7 @@ function ConsumerTariffsProjectPage({
                       Let <InlineMath math={String.raw`v_i`} /> denote the declared value of goods carried by individual <InlineMath math={String.raw`i`} />. The policy creates incentives for behavioral manipulation:
                     </p>
                     <ul className="list-disc space-y-2 pl-5 text-base leading-7 marker:text-slate-500">
-                      <li>under-reporting (<InlineMath math={String.raw`v_i < 100`} />)</li>
+                      <li>under-reporting, where <InlineMath math={String.raw`v_i < 100`} /></li>
                       <li>splitting purchases across trips</li>
                       <li>substitution toward less detectable goods</li>
                     </ul>
@@ -814,15 +850,12 @@ function ConsumerTariffsProjectPage({
                   <EquationCard
                     title="Threshold enforcement condition"
                     math={String.raw`p_N + t_N \cdot 1(v_i \geq 100) > p_I + c_i`}
-                    interpretation="This creates a discontinuity in behavior around the threshold."
+                    interpretation="This defines the consumer’s crossing margin with the Rs. 100 threshold embedded directly into the tax term. Once declared value crosses the cutoff, the expected tax-inclusive price changes discontinuously."
                   />
-                  <div className="space-y-4 text-base leading-7 text-slate-700">
-                    <div>Empirical implications:</div>
-                    <ul className="list-disc space-y-2 pl-5 marker:text-slate-500">
-                      <li>bunching just below Rs. 100</li>
-                      <li>distortions in declared value distributions</li>
-                      <li>nonlinear responses to small price changes</li>
-                    </ul>
+                  <div className="space-y-6 text-lg leading-8 text-slate-700">
+                    <p>
+                      This creates a discontinuity in behavior around the threshold. Empirically, the model predicts bunching just below Rs. 100, distortions in declared-value distributions, and nonlinear responses to small changes in transaction value.
+                    </p>
                   </div>
                 </div>
               </section>
@@ -848,7 +881,7 @@ function ConsumerTariffsProjectPage({
                 <EquationCard
                   title="Revenue function"
                   math={String.raw`R(t_N) = t_N \cdot Q(t_N, A^*)`}
-                  interpretation="Revenue depends on both the statutory rate and the endogenous taxed quantity."
+                  interpretation="Revenue depends on both the tax rate and the behavioral response. A higher tariff can reduce the base it is trying to tax."
                 />
                 <div className="space-y-6 text-lg leading-8 text-slate-700">
                   <p>Taking derivatives:</p>
@@ -856,7 +889,7 @@ function ConsumerTariffsProjectPage({
                 <EquationCard
                   title="Revenue derivative"
                   math={String.raw`\frac{dR}{dt_N} = Q + t_N \left[\frac{\partial Q}{\partial t_N} + \left(\frac{\partial Q}{\partial A^*}\right) \cdot \left(\frac{dA^*}{dt_N}\right)\right]`}
-                  interpretation="This highlights the key trade-off: increasing tariffs raises revenue mechanically, but also increases arbitrage, reducing the taxable base. The sign of dR/dt_N is therefore empirical, not mechanical."
+                  interpretation="This derivative separates the mechanical revenue gain from the behavioral loss. The sign is ambiguous and must be estimated or bounded."
                 />
               </section>
 
@@ -881,13 +914,7 @@ function ConsumerTariffsProjectPage({
                 <EquationCard
                   title="Observed proxy equation"
                   math={String.raw`\tilde{A} = \rho \cdot A^* + \nu`}
-                  interpretation={
-                    <>
-                      Where <InlineMath math={String.raw`\rho`} /> is
-                      detection/enforcement intensity and <InlineMath math={String.raw`\nu`} /> is
-                      measurement error.
-                    </>
-                  }
+                  interpretation="This formalizes the proxy problem. Observed enforcement data are a filtered version of true arbitrage, and the filter itself changes with enforcement intensity."
                 />
                 <div className="space-y-6 text-lg leading-8 text-slate-700">
                   <p>This creates two problems.</p>
@@ -904,7 +931,7 @@ function ConsumerTariffsProjectPage({
                 <EquationCard
                   title="Endogeneity condition"
                   math={String.raw`t_N \not\perp\!\!\!\perp \varepsilon`}
-                  interpretation="Naïve regressions will therefore conflate behavioral responses with policy reactions."
+                  interpretation="This states the policy endogeneity problem. Tariffs and enforcement are not randomly assigned; they may respond to prior leakage, political pressure, or domestic-market stress."
                 />
               </section>
 
@@ -920,17 +947,11 @@ function ConsumerTariffsProjectPage({
                   <div className="space-y-6 text-lg leading-8 text-slate-700">
                     <p>Exploit variation in distance to the border:</p>
                   </div>
-                  <EquationCard
-                    title="Spatial border-exposure specification"
-                    math={String.raw`Y_{id} = \alpha + \tau BorderExposure_d + f(distance_d) + X_i'\beta + \varepsilon_{id}`}
-                    interpretation={
-                      <>
-                        Where <InlineMath math={String.raw`Y_{id}`} /> is retail outcomes,
-                        consumption, or price indices, and <InlineMath math={String.raw`BorderExposure_d`} /> is
-                        proximity to cross-border arbitrage.
-                      </>
-                    }
-                  />
+                <EquationCard
+                  title="Spatial border-exposure specification"
+                  math={String.raw`Y_{id} = \alpha + \tau BorderExposure_d + f(distance_d) + X_i'\beta + \varepsilon_{id}`}
+                  interpretation="This estimates whether outcomes vary discontinuously or steeply with proximity to the border. It is useful because arbitrage costs rise with distance."
+                />
                   <div className="space-y-6 text-lg leading-8 text-slate-700">
                     <p>This identifies local arbitrage effects.</p>
                   </div>
@@ -943,11 +964,11 @@ function ConsumerTariffsProjectPage({
                   <div className="space-y-6 text-lg leading-8 text-slate-700">
                     <p>Estimate behavioral response to price differentials:</p>
                   </div>
-                  <EquationCard
-                    title="Tax wedge elasticity equation"
-                    math={String.raw`Arbitrage_{igdt} = \beta_1 \Delta p_{gdt} + \beta_2 Distance_i + \beta_3(\Delta p_{gdt} \times Distance_i) + \varepsilon_{igdt}`}
-                    interpretation="This recovers how arbitrage varies with both price incentives and spatial frictions."
-                  />
+                <EquationCard
+                  title="Tax wedge elasticity equation"
+                  math={String.raw`Arbitrage_{igdt} = \beta_1 \Delta p_{gdt} + \beta_2 Distance_i + \beta_3(\Delta p_{gdt} \times Distance_i) + \varepsilon_{igdt}`}
+                  interpretation="This recovers heterogeneous behavioral response to price incentives. The interaction with distance allows arbitrage elasticity to decay inland."
+                />
                 </div>
 
                 <div className="space-y-6">
@@ -957,11 +978,11 @@ function ConsumerTariffsProjectPage({
                   <div className="space-y-6 text-lg leading-8 text-slate-700">
                     <p>To address tariff endogeneity, use exogenous shocks to foreign prices:</p>
                   </div>
-                  <EquationCard
-                    title="First stage"
-                    math={String.raw`\Delta p_{gdt} = \pi_1 Z_{gt} + \pi_2 Distance_i + u_{gdt}`}
-                    interpretation="This isolates exogenous variation in the price wedge."
-                  />
+                <EquationCard
+                  title="First stage"
+                  math={String.raw`\Delta p_{gdt} = \pi_1 Z_{gt} + \pi_2 Distance_i + u_{gdt}`}
+                  interpretation="This isolates variation in the price wedge driven by external shocks, such as Indian-side prices or exchange rates, rather than Nepal’s policy response."
+                />
                   <div className="rounded-xl border border-[#E3E6EB] bg-[#FAFAF8] p-5 text-base leading-7 text-slate-700">
                     <div>Where instruments <InlineMath math={String.raw`Z_{gt}`} /> may include:</div>
                     <ul className="mt-3 space-y-2">
@@ -973,11 +994,11 @@ function ConsumerTariffsProjectPage({
                   <div className="space-y-6 text-lg leading-8 text-slate-700">
                     <p>Second stage:</p>
                   </div>
-                  <EquationCard
-                    title="Second stage"
-                    math={String.raw`Arbitrage_{gdt} = \beta \widehat{\Delta p}_{gdt} + \varepsilon_{gdt}`}
-                    interpretation="This estimates arbitrage response using exogenous wedge variation."
-                  />
+                <EquationCard
+                  title="Second stage"
+                  math={String.raw`Arbitrage_{gdt} = \beta \widehat{\Delta p}_{gdt} + \varepsilon_{gdt}`}
+                  interpretation="This estimates the causal response of arbitrage to the predicted price wedge, using only the component plausibly external to domestic policy."
+                />
                 </div>
 
                 <div className="space-y-6 border-t border-[#E0E0DC] pt-8">
@@ -986,24 +1007,16 @@ function ConsumerTariffsProjectPage({
                   </h3>
                   <div className="space-y-6 text-lg leading-8 text-slate-700">
                     <p>The Rs. 100 cutoff creates a bunching design.</p>
-                    <p>Let <InlineMath math={String.raw`v`} /> denote declared value. Then examine the density:</p>
-                  </div>
-                  <EquationCard
-                    title="Density"
-                    math={String.raw`f(v)`}
-                    interpretation="This is the density of declared value around the threshold."
-                  />
-                  <div className="space-y-6 text-lg leading-8 text-slate-700">
-                    <p>Test for excess mass just below 100:</p>
+                    <p>Let <InlineMath math={String.raw`v`} /> denote declared value. Examine the density of reported values around the cutoff.</p>
                   </div>
                   <EquationCard
                     title="Threshold bunching condition"
                     math={String.raw`\lim_{v \to 100^-} f(v) > \lim_{v \to 100^+} f(v)`}
-                    interpretation="This identifies behavioral distortion induced by enforcement."
+                    interpretation="This is the bunching test. Excess mass just below Rs. 100 would indicate manipulation of declared values around the enforcement cutoff."
                   />
                   <div className="space-y-6 text-lg leading-8 text-slate-700">
                     <p>
-                      This complements spatial and price-based identification by isolating manipulation at the reporting margin.
+                      This design complements spatial and price-based identification by isolating manipulation at the reporting margin. It does not require observing all true purchases; it requires observing whether the reported-value distribution changes at the cutoff.
                     </p>
                   </div>
                 </div>
@@ -1045,7 +1058,7 @@ function ConsumerTariffsProjectPage({
                 <EquationCard
                   title="Dynamic adjustment equation"
                   math={String.raw`A_t = f(\Delta p_t, Enforcement_t, Learning_t)`}
-                  interpretation="Consumers learn routes, informal networks develop, and enforcement adapts. Short-run responses may therefore differ significantly from long-run equilibrium behavior."
+                  interpretation="This allows behavior to evolve over time as consumers learn routes, brokers emerge, and enforcement adapts."
                 />
               </section>
 
@@ -1081,9 +1094,9 @@ function ConsumerTariffsProjectPage({
                   <p>Consumer tariffs expand the tax base only if:</p>
                 </div>
                 <EquationCard
-                  title="Policy condition"
+                  title="Policy inequality"
                   math={String.raw`\text{Revenue gain} > \text{Loss from arbitrage} + \text{Enforcement cost}`}
-                  interpretation="This condition depends on the distribution of arbitrage costs, the elasticity of arbitrage with respect to price wedges, and the cost and effectiveness of enforcement."
+                  interpretation="This is the policy criterion. Enforcement works fiscally only if additional revenue exceeds behavioral leakage and enforcement costs."
                 />
                 <div className="space-y-6 text-lg leading-8 text-slate-700">
                   <p>
@@ -1168,6 +1181,37 @@ function ConsumerTariffsProjectPage({
                       <p>1. Instruments affect arbitrage only through price differentials.</p>
                       <p>2. Distance affects arbitrage cost but not preferences.</p>
                       <p>3. Measurement error is monotonic in enforcement.</p>
+                    </div>
+                  </details>
+
+                  <details className="rounded-xl border border-[#E3E6EB] bg-[#FAFAF8] p-5">
+                    <summary className="cursor-pointer text-lg font-semibold text-[#173A8A] [font-family:Georgia,'Times_New_Roman',serif]">
+                      Appendix F. Bunching Around the Rs. 100 Threshold
+                    </summary>
+                    <div className="mt-4 space-y-4 text-base leading-7 text-slate-700">
+                      <p>
+                        Let <InlineMath math={String.raw`v`} /> denote the declared value of goods carried by a consumer at the border. If enforcement changes discretely at <InlineMath math={String.raw`v = 100`} />, consumers with true purchase values slightly above the threshold may have an incentive to report values below it.
+                      </p>
+                      <p>
+                        Let <InlineMath math={String.raw`f_0(v)`} /> denote the counterfactual density of declared values absent the threshold, and let <InlineMath math={String.raw`f(v)`} /> denote the observed density under enforcement. Bunching is present if observed mass below the cutoff exceeds the smooth counterfactual density.
+                      </p>
+                      <EquationCard
+                        title="Bunching mass below threshold"
+                        math={String.raw`B = \int_{100-h}^{100} [f(v) - f_0(v)] \, dv`}
+                        interpretation="This measures excess reported transactions just below Rs. 100 relative to a smooth counterfactual density."
+                      />
+                      <p>The missing mass above the threshold can be written as:</p>
+                      <EquationCard
+                        title="Missing mass above threshold"
+                        math={String.raw`M = \int_{100}^{100+k} [f_0(v) - f(v)] \, dv`}
+                        interpretation="This measures the missing density above the cutoff. Comparing B and M helps distinguish reporting manipulation from ordinary demand changes."
+                      />
+                      <p>
+                        In a frictionless manipulation model, <InlineMath math={String.raw`B`} /> and <InlineMath math={String.raw`M`} /> should be approximately equal after adjusting for density growth. In practice, they may differ because of concealment, repeated trips, inspection error, and imperfect compliance.
+                      </p>
+                      <p>
+                        The bunching design does not require observing every true purchase. It asks whether the reported-value distribution itself changes at the enforcement threshold. That makes it useful when administrative revenue data are incomplete but declared-value records become available.
+                      </p>
                     </div>
                   </details>
                 </div>
