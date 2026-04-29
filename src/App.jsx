@@ -1751,7 +1751,7 @@ function Homepage({ isMobileMenuOpen, onCloseMobileMenu, onToggleMobileMenu }) {
                       </div>
                     </div>
                     <div className="shrink-0 text-sm text-slate-500">
-                      Saugat Raj Gautam · April 2026
+                      Institutional working project · April 2026
                     </div>
                   </div>
                 </a>
