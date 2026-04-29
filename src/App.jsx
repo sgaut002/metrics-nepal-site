@@ -28,8 +28,10 @@ const NAV_ITEMS = [
 
 const PRIVATE_SCHOOLS_PATH = "/insights/private-schools-better";
 const WHITE_PAPER_PATH = "/insights/government-white-paper";
+const CONSUMER_TARIFFS_PROJECT_PATH = "/projects/will-consumer-tariffs-work";
 const PRIVATE_SCHOOLS_HASH_PATH = `#${PRIVATE_SCHOOLS_PATH}`;
 const WHITE_PAPER_HASH_PATH = `#${WHITE_PAPER_PATH}`;
+const CONSUMER_TARIFFS_PROJECT_HASH_PATH = `#${CONSUMER_TARIFFS_PROJECT_PATH}`;
 
 const PRIVATE_SCHOOLS_ARTICLE = {
   title: 'Are private schools really “better”?',
@@ -77,6 +79,16 @@ const PRIVATE_SCHOOLS_ARTICLE = {
 };
 
 const WHITE_PAPER_TITLE = "What’s in the Government’s White Paper?";
+const CONSUMER_TARIFFS_PROJECT = {
+  title: "Will consumer tariffs work?",
+  tag: "Working Project",
+  subtitle: "Cross-border arbitrage, consumer taxation, and enforcement trade-offs",
+  authorDate: "Saugat Raj Gautam · April 2026",
+  status:
+    "This is a working project. It outlines the economic mechanism and empirical strategy while awaiting updated government data.",
+  description:
+    "A working analysis of cross-border arbitrage, tariff incidence, and enforcement trade-offs.",
+};
 const WHITE_PAPER_DISCLAIMER =
   "Figures are descriptive and do not imply causal relationships. Reference years and definitions vary across indicators.";
 const WHITE_PAPER_SUBTITLE =
@@ -519,6 +531,287 @@ function InsightArticlePage({ isMobileMenuOpen, onCloseMobileMenu, onToggleMobil
                 <p key={`${block.text}-${index}`}>{block.text}</p>
               )
             )}
+          </div>
+        </section>
+      </main>
+    </div>
+  );
+}
+
+function ProjectVisualCard({ title, children }) {
+  return (
+    <div className="rounded-2xl border border-[#E0E0DC] bg-[#FAFAF8] p-5">
+      <div className="text-xs font-semibold uppercase tracking-[0.18em] text-[#C8102E]">
+        Illustrative
+      </div>
+      <div className="mt-2 text-base font-semibold text-[#173A8A] [font-family:Georgia,'Times_New_Roman',serif]">
+        {title}
+      </div>
+      <div className="mt-5">{children}</div>
+    </div>
+  );
+}
+
+function ConsumerTariffsProjectPage({
+  isMobileMenuOpen,
+  onCloseMobileMenu,
+  onToggleMobileMenu,
+}) {
+  return (
+    <div className="min-h-screen bg-[#F5F5F3] text-slate-900 [font-family:Inter,ui-sans-serif,system-ui,sans-serif]">
+      <SiteHeader
+        navItems={NAV_ITEMS}
+        isMobileMenuOpen={isMobileMenuOpen}
+        menuId="project-mobile-menu"
+        logoClassName="h-14 w-auto sm:h-24"
+        onCloseMobileMenu={onCloseMobileMenu}
+        onToggleMobileMenu={onToggleMobileMenu}
+      />
+
+      <main>
+        <section className="border-b border-[#E0E0DC] bg-[#FAFAF8]">
+          <div className="mx-auto max-w-5xl px-6 py-16 lg:px-10 lg:py-20">
+            <div className="text-sm font-semibold uppercase tracking-[0.2em] text-[#C8102E]">
+              {CONSUMER_TARIFFS_PROJECT.tag}
+            </div>
+            <h1 className="mt-4 max-w-4xl text-4xl font-semibold leading-[1.08] text-[#173A8A] sm:text-5xl [font-family:Georgia,'Times_New_Roman',serif]">
+              Will consumer tariffs work?
+            </h1>
+            <p className="mt-4 max-w-3xl text-xl leading-8 text-slate-700 [font-family:Georgia,'Times_New_Roman',serif]">
+              Cross-border arbitrage, consumer taxation, and enforcement trade-offs
+            </p>
+            <div className="mt-6 text-sm font-medium uppercase tracking-[0.16em] text-slate-500">
+              Saugat Raj Gautam · April 2026
+            </div>
+            <div className="mt-6 max-w-3xl rounded-2xl border border-[#E0E0DC] bg-[#F5F5F3] px-5 py-4 text-sm leading-6 text-slate-700">
+              This is a working project. It outlines the economic mechanism and empirical strategy while awaiting updated government data.
+            </div>
+
+            <div className="mt-10 max-w-4xl rounded-2xl border border-[#E0E0DC] bg-[#F5F5F3] p-6">
+              <div className="flex items-end justify-between gap-6">
+                <div className="flex-1">
+                  <div className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">
+                    Domestic price
+                  </div>
+                  <div className="mt-3 h-28 rounded-t-xl bg-[#173A8A]" />
+                </div>
+                <div className="flex w-24 flex-col items-center">
+                  <div className="text-xs font-semibold uppercase tracking-[0.16em] text-[#C8102E]">
+                    Tariff wedge
+                  </div>
+                  <div className="mt-3 h-16 w-8 rounded-full bg-[#C8102E]" />
+                </div>
+                <div className="flex-1">
+                  <div className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">
+                    Foreign price
+                  </div>
+                  <div className="mt-3 h-20 rounded-t-xl bg-slate-400" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="border-b border-[#E0E0DC]">
+          <div className="mx-auto max-w-5xl px-6 py-16 lg:px-10">
+            <h2 className="text-2xl font-semibold text-[#173A8A] [font-family:Georgia,'Times_New_Roman',serif]">
+              Why impose tariffs on consumers?
+            </h2>
+            <p className="mt-6 text-lg leading-8 text-slate-700">
+              Consumer tariff enforcement shifts taxation from firms to individuals. In an open-border setting, households exploit price differences across markets. The policy attempts to tax this arbitrage directly.
+            </p>
+            <div className="mt-10 grid gap-6 md:grid-cols-3">
+              <div>
+                <div className="text-lg font-semibold text-[#173A8A] [font-family:Georgia,'Times_New_Roman',serif]">
+                  Raising revenue
+                </div>
+                <p className="mt-3 text-base leading-7 text-slate-700">
+                  The state expands the taxable base by including cross-border consumption.
+                </p>
+              </div>
+              <div>
+                <div className="text-lg font-semibold text-[#173A8A] [font-family:Georgia,'Times_New_Roman',serif]">
+                  Protecting domestic industry
+                </div>
+                <p className="mt-3 text-base leading-7 text-slate-700">
+                  Higher effective prices on imported goods may redirect demand.
+                </p>
+              </div>
+              <div>
+                <div className="text-lg font-semibold text-[#173A8A] [font-family:Georgia,'Times_New_Roman',serif]">
+                  Formalizing transactions
+                </div>
+                <p className="mt-3 text-base leading-7 text-slate-700">
+                  Taxation may reduce informal cross-border purchases if enforceable.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="border-b border-[#E0E0DC] bg-[#FAFAF8]">
+          <div className="mx-auto grid max-w-5xl gap-10 px-6 py-16 lg:grid-cols-[1.05fr_0.95fr] lg:px-10">
+            <div>
+              <h2 className="text-2xl font-semibold text-[#173A8A] [font-family:Georgia,'Times_New_Roman',serif]">
+                The arbitrage decision
+              </h2>
+              <p className="mt-6 text-lg leading-8 text-slate-700">
+                Consumers compare domestic prices with foreign prices adjusted for tariffs and travel costs. Arbitrage occurs only if the price gap exceeds this wedge.
+              </p>
+              <div className="mt-8 text-2xl font-semibold text-[#173A8A] [font-family:Georgia,'Times_New_Roman',serif]">
+                P_d - P_f &gt; τ + c_i
+              </div>
+              <div className="mt-6 space-y-2 text-base leading-7 text-slate-700">
+                <div>P_d = domestic price</div>
+                <div>P_f = foreign price</div>
+                <div>τ = tariff</div>
+                <div>c_i = individual cost</div>
+              </div>
+              <p className="mt-6 text-lg leading-8 text-slate-700">
+                The tariff operates jointly with travel cost and enforcement. Behavior changes only if the total wedge closes the price gap.
+              </p>
+            </div>
+            <ProjectVisualCard title="Price wedge diagram">
+              <div className="space-y-5">
+                <div className="h-px bg-[#E0E0DC]" />
+                <div className="flex items-center gap-4">
+                  <div className="w-28 text-sm text-slate-600">Foreign price</div>
+                  <div className="h-3 flex-1 rounded-full bg-slate-400" />
+                </div>
+                <div className="flex items-center gap-4">
+                  <div className="w-28 text-sm text-slate-600">Tariff + travel</div>
+                  <div className="h-3 w-28 rounded-full bg-[#C8102E]" />
+                </div>
+                <div className="flex items-center gap-4">
+                  <div className="w-28 text-sm text-slate-600">Domestic price</div>
+                  <div className="h-3 flex-1 rounded-full bg-[#173A8A]" />
+                </div>
+              </div>
+            </ProjectVisualCard>
+          </div>
+        </section>
+
+        <section className="border-b border-[#E0E0DC]">
+          <div className="mx-auto grid max-w-5xl gap-10 px-6 py-16 lg:grid-cols-[1.05fr_0.95fr] lg:px-10">
+            <div>
+              <h2 className="text-2xl font-semibold text-[#173A8A] [font-family:Georgia,'Times_New_Roman',serif]">
+                Revenue is not linear
+              </h2>
+              <p className="mt-6 text-lg leading-8 text-slate-700">
+                Higher tariffs increase revenue per transaction but reduce the number of transactions. The net effect depends on behavioral response.
+              </p>
+              <div className="mt-8 text-2xl font-semibold text-[#173A8A] [font-family:Georgia,'Times_New_Roman',serif]">
+                R(τ) = τ × Q(τ)
+              </div>
+              <p className="mt-6 text-lg leading-8 text-slate-700">
+                Revenue depends on elasticity, not just tax rates.
+              </p>
+            </div>
+            <ProjectVisualCard title="Illustrative mechanism (not empirical data)">
+              <svg viewBox="0 0 360 220" className="w-full">
+                <path d="M36 188H330" stroke="#CBD5E1" strokeWidth="2" />
+                <path d="M36 188V26" stroke="#CBD5E1" strokeWidth="2" />
+                <path d="M48 176C96 78 168 24 222 64C264 95 280 136 316 176" fill="none" stroke="#173A8A" strokeWidth="4" />
+                <text x="250" y="44" fill="#C8102E" fontSize="12" fontWeight="600">Revenue</text>
+                <text x="302" y="205" fill="#64748B" fontSize="12">Tariff</text>
+              </svg>
+            </ProjectVisualCard>
+          </div>
+        </section>
+
+        <section className="border-b border-[#E0E0DC] bg-[#FAFAF8]">
+          <div className="mx-auto grid max-w-5xl gap-10 px-6 py-16 lg:grid-cols-[1.05fr_0.95fr] lg:px-10">
+            <div>
+              <h2 className="text-2xl font-semibold text-[#173A8A] [font-family:Georgia,'Times_New_Roman',serif]">
+                Taxation requires monitoring
+              </h2>
+              <p className="mt-6 text-lg leading-8 text-slate-700">
+                Unlike standard tariffs, this policy requires monitoring individual consumers. Enforcement intensity affects compliance and cost.
+              </p>
+              <div className="mt-8 text-2xl font-semibold text-[#173A8A] [font-family:Georgia,'Times_New_Roman',serif]">
+                R_net = τ·Q(τ, e) − C(e)
+              </div>
+              <p className="mt-6 text-lg leading-8 text-slate-700">
+                Enforcement is central to policy effectiveness.
+              </p>
+            </div>
+            <ProjectVisualCard title="Enforcement trade-off visual">
+              <svg viewBox="0 0 360 220" className="w-full">
+                <path d="M36 188H330" stroke="#CBD5E1" strokeWidth="2" />
+                <path d="M36 188V26" stroke="#CBD5E1" strokeWidth="2" />
+                <path d="M46 170C104 126 154 98 320 44" fill="none" stroke="#173A8A" strokeWidth="4" />
+                <path d="M46 54C122 78 196 118 320 176" fill="none" stroke="#C8102E" strokeWidth="4" />
+                <text x="252" y="40" fill="#173A8A" fontSize="12" fontWeight="600">Compliance / revenue</text>
+                <text x="256" y="194" fill="#C8102E" fontSize="12" fontWeight="600">Enforcement cost</text>
+              </svg>
+            </ProjectVisualCard>
+          </div>
+        </section>
+
+        <section className="border-b border-[#E0E0DC]">
+          <div className="mx-auto max-w-5xl px-6 py-16 lg:px-10">
+            <h2 className="text-2xl font-semibold text-[#173A8A] [font-family:Georgia,'Times_New_Roman',serif]">
+              Will domestic firms benefit?
+            </h2>
+            <div className="mt-10 grid gap-8 md:grid-cols-2">
+              <div>
+                <div className="text-lg font-semibold text-[#173A8A] [font-family:Georgia,'Times_New_Roman',serif]">
+                  When it works:
+                </div>
+                <ul className="mt-4 space-y-3 text-base leading-7 text-slate-700">
+                  <li>- Existing domestic supply</li>
+                  <li>- Close substitutes</li>
+                </ul>
+              </div>
+              <div>
+                <div className="text-lg font-semibold text-[#173A8A] [font-family:Georgia,'Times_New_Roman',serif]">
+                  When it fails:
+                </div>
+                <ul className="mt-4 space-y-3 text-base leading-7 text-slate-700">
+                  <li>- No domestic production</li>
+                  <li>- Differentiated goods</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="border-b border-[#E0E0DC] bg-[#FAFAF8]">
+          <div className="mx-auto max-w-5xl px-6 py-16 lg:px-10">
+            <h2 className="text-2xl font-semibold text-[#173A8A] [font-family:Georgia,'Times_New_Roman',serif]">
+              How this would be measured
+            </h2>
+            <p className="mt-6 text-lg leading-8 text-slate-700">
+              Compare border regions to interior regions before and after enforcement.
+            </p>
+            <div className="mt-8 text-2xl font-semibold text-[#173A8A] [font-family:Georgia,'Times_New_Roman',serif]">
+              Y_dt = α + β(Border_d × Post_t) + γ_d + δ_t + ε_dt
+            </div>
+            <div className="mt-8">
+              <div className="text-lg font-semibold text-[#173A8A] [font-family:Georgia,'Times_New_Roman',serif]">
+                Data requirements:
+              </div>
+              <ul className="mt-4 space-y-3 text-base leading-7 text-slate-700">
+                <li>- Customs revenue</li>
+                <li>- Border flows</li>
+                <li>- Price differentials</li>
+                <li>- Household consumption</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <section className="border-b border-[#E0E0DC]">
+          <div className="mx-auto max-w-5xl px-6 py-16 lg:px-10">
+            <h2 className="text-2xl font-semibold text-[#173A8A] [font-family:Georgia,'Times_New_Roman',serif]">
+              Key takeaways
+            </h2>
+            <ul className="mt-8 space-y-3 text-lg leading-8 text-slate-700">
+              <li>- Revenue gains are limited by behavioral response</li>
+              <li>- Enforcement costs are first-order</li>
+              <li>- Long-run adaptation reduces effectiveness</li>
+              <li>- Domestic benefits depend on market structure</li>
+            </ul>
           </div>
         </section>
       </main>
@@ -1294,9 +1587,30 @@ function Homepage({ isMobileMenuOpen, onCloseMobileMenu, onToggleMobileMenu }) {
                 Projects
               </div>
               <div className="mt-8 divide-y divide-[#E0E0DC] border-t border-[#E0E0DC]">
-                <div className="py-6 text-sm leading-6 text-slate-500">
-                  Project work and commissioned research summaries will appear here.
-                </div>
+                <a
+                  href={CONSUMER_TARIFFS_PROJECT_HASH_PATH}
+                  className="group block py-6 transition-colors hover:bg-[#F5F5F3]"
+                >
+                  <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between sm:gap-8">
+                    <div className="max-w-2xl">
+                      <div className="text-xs font-semibold uppercase tracking-[0.22em] text-[#C8102E]">
+                        {CONSUMER_TARIFFS_PROJECT.tag}
+                      </div>
+                      <h3 className="mt-2 text-xl font-semibold text-[#173A8A] [font-family:Georgia,'Times_New_Roman',serif]">
+                        Will consumer tariffs work? (Working Project)
+                      </h3>
+                      <p className="mt-3 text-sm leading-6 text-slate-600 sm:text-base">
+                        A working analysis of cross-border arbitrage, tariff incidence, and enforcement trade-offs.
+                      </p>
+                      <div className="mt-4 text-sm font-medium text-[#173A8A]">
+                        View project →
+                      </div>
+                    </div>
+                    <div className="shrink-0 text-sm text-slate-500">
+                      Saugat Raj Gautam · April 2026
+                    </div>
+                  </div>
+                </a>
                 <div className="py-6 text-sm leading-6 text-slate-500">
                   Additional project briefs are in development.
                 </div>
@@ -1383,6 +1697,7 @@ export default function MetricsNepalHomepage() {
 
   const isPrivateSchoolsPage = matchesPath(PRIVATE_SCHOOLS_PATH);
   const isWhitePaperPage = matchesPath(WHITE_PAPER_PATH);
+  const isConsumerTariffsProjectPage = matchesPath(CONSUMER_TARIFFS_PROJECT_PATH);
 
   if (isPrivateSchoolsPage) {
     return (
@@ -1400,6 +1715,16 @@ export default function MetricsNepalHomepage() {
         activeTab={activeWhitePaperTab}
         isMobileMenuOpen={isMobileMenuOpen}
         onChangeTab={setActiveWhitePaperTab}
+        onCloseMobileMenu={() => setIsMobileMenuOpen(false)}
+        onToggleMobileMenu={() => setIsMobileMenuOpen((open) => !open)}
+      />
+    );
+  }
+
+  if (isConsumerTariffsProjectPage) {
+    return (
+      <ConsumerTariffsProjectPage
+        isMobileMenuOpen={isMobileMenuOpen}
         onCloseMobileMenu={() => setIsMobileMenuOpen(false)}
         onToggleMobileMenu={() => setIsMobileMenuOpen((open) => !open)}
       />
