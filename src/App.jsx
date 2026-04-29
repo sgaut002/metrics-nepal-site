@@ -12,7 +12,7 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-import { BlockMath, InlineMath } from "react-katex";
+import katex from "katex";
 import {
   whitePaperCharts,
   whitePaperHeadlineMetrics,
@@ -556,6 +556,45 @@ function ProjectVisualCard({ title, children }) {
   );
 }
 
+function MathBlock({ children, math, label }) {
+  const source = typeof math === "string" ? math : typeof children === "string" ? children : "";
+  const html = katex.renderToString(source, {
+    throwOnError: false,
+    displayMode: true,
+    strict: false,
+  });
+
+  return (
+    <div className="math-card w-full max-w-[720px] min-w-0 overflow-hidden rounded-[10px] border border-[#E2E2DE] border-l-4 border-l-[#123C7C] bg-[#F8F8F6] px-[22px] py-[18px] box-border">
+      {label ? (
+        <div className="math-label mb-[14px] text-[0.72rem] font-bold uppercase tracking-[0.12em] text-[#B20D18]">
+          {label}
+        </div>
+      ) : null}
+      <div
+        className="math-scroll max-w-full overflow-x-auto text-[#173A8A] [&_.katex-display]:m-0 [&_.katex]:font-['Times_New_Roman',Georgia,serif]"
+        dangerouslySetInnerHTML={{ __html: html }}
+      />
+    </div>
+  );
+}
+
+function InlineMath({ children, math }) {
+  const source = typeof math === "string" ? math : typeof children === "string" ? children : "";
+  const html = katex.renderToString(source, {
+    throwOnError: false,
+    displayMode: false,
+    strict: false,
+  });
+
+  return (
+    <span
+      className="inline-math whitespace-nowrap [&_.katex]:font-['Times_New_Roman',Georgia,serif]"
+      dangerouslySetInnerHTML={{ __html: html }}
+    />
+  );
+}
+
 function EquationCard({
   title,
   math,
@@ -564,20 +603,15 @@ function EquationCard({
   appendixChildren,
 }) {
   return (
-    <div className="equation-card w-full max-w-full min-w-0 overflow-x-auto box-border rounded-lg border border-[#E3E6EB] bg-[#F7F8FA] p-5 sm:p-6 [&_.katex-display]:my-5 [&_.katex-display]:max-w-full [&_.katex-display]:overflow-x-auto [&_.katex-display]:text-center [&_.katex]:font-['Times_New_Roman',Georgia,serif]">
-      <div className="equation-title mb-2 text-xs font-semibold uppercase tracking-[0.12em] text-[#C1121F]">
-        {title}
-      </div>
-      <div className="overflow-x-auto text-[#173A8A]">
-        <BlockMath math={math} />
-      </div>
+    <div className="equation-card w-full max-w-full min-w-0 overflow-x-auto box-border">
+      <MathBlock math={math} label={title} />
       <div className="mt-4 text-base leading-7 text-slate-700">{interpretation}</div>
       {appendixChildren ? (
         <details className="mt-5 rounded-lg border border-[#E3E6EB] bg-white/75 p-4">
           <summary className="cursor-pointer text-sm font-medium text-[#173A8A]">
             {appendixTitle || "Technical appendix"}
           </summary>
-          <div className="mt-4 min-w-0 space-y-4 text-sm leading-6 text-slate-700 [&_.katex-display]:my-4 [&_.katex-display]:max-w-full [&_.katex-display]:overflow-x-auto [&_.katex-display]:text-center [&_.katex]:font-['Times_New_Roman',Georgia,serif]">
+          <div className="mt-4 min-w-0 space-y-4 text-sm leading-6 text-slate-700">
             {appendixChildren}
           </div>
         </details>
