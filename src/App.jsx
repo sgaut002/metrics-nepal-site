@@ -1,4 +1,4 @@
-import { memo, useEffect, useState } from "react";
+import { memo, useEffect, useRef, useState } from "react";
 import "katex/dist/katex.min.css";
 import {
   Bar,
@@ -12,6 +12,7 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
+import renderMathInElement from "katex/contrib/auto-render";
 import { BlockMath, InlineMath } from "react-katex";
 import {
   whitePaperCharts,
@@ -512,7 +513,7 @@ function InsightArticlePage({ isMobileMenuOpen, onCloseMobileMenu, onToggleMobil
         onToggleMobileMenu={onToggleMobileMenu}
       />
 
-      <main>
+      <main ref={projectPageRef}>
         <section className="mx-auto max-w-4xl px-6 py-16 lg:px-10">
           <div className="text-center text-sm font-semibold uppercase tracking-[0.2em] text-red-700">
             Insights
@@ -549,7 +550,9 @@ function ProjectVisualCard({ title, children }) {
       <div className="mt-2 text-base font-semibold text-[#173A8A] [font-family:Georgia,'Times_New_Roman',serif]">
         {title}
       </div>
-      <div className="mt-5">{children}</div>
+      <div className="mt-5 flex h-[220px] items-center justify-center overflow-hidden rounded-lg border border-[#E3E6EB] bg-white p-4 [&_svg]:m-auto [&_svg]:block [&_svg]:h-full [&_svg]:max-h-full [&_svg]:w-full [&_svg]:max-w-full">
+        {children}
+      </div>
     </div>
   );
 }
@@ -562,20 +565,20 @@ function EquationCard({
   appendixChildren,
 }) {
   return (
-    <div className="rounded-2xl border border-[#E0E0DC] bg-[#FAFAF8] p-5 sm:p-6">
-      <div className="text-xs font-semibold uppercase tracking-[0.16em] text-[#C8102E]">
+    <div className="rounded-xl border border-[#E3E6EB] bg-[#F7F8FA] p-5 sm:p-6 [&_.katex-display]:my-5 [&_.katex-display]:max-w-full [&_.katex-display]:overflow-x-auto [&_.katex-display]:text-center [&_.katex]:font-[Georgia,'Times_New_Roman',serif]">
+      <div className="mb-2 text-xs font-semibold uppercase tracking-[0.12em] text-[#C1121F]">
         {title}
       </div>
-      <div className="mt-4 overflow-x-auto text-[#173A8A]">
+      <div className="overflow-x-auto text-[#173A8A]">
         <BlockMath math={math} />
       </div>
-      <p className="mt-4 text-base leading-7 text-slate-700">{interpretation}</p>
+      <div className="mt-4 text-base leading-7 text-slate-700">{interpretation}</div>
       {appendixChildren ? (
-        <details className="mt-5 rounded-xl border border-[#E0E0DC] bg-[#F5F5F3] p-4">
+        <details className="mt-5 rounded-lg border border-[#E3E6EB] bg-white/75 p-4">
           <summary className="cursor-pointer text-sm font-medium text-[#173A8A]">
             {appendixTitle || "Technical appendix"}
           </summary>
-          <div className="mt-4 space-y-4 text-sm leading-6 text-slate-700">
+          <div className="mt-4 space-y-4 text-sm leading-6 text-slate-700 [&_.katex-display]:my-4 [&_.katex-display]:overflow-x-auto [&_.katex-display]:text-center [&_.katex]:font-[Georgia,'Times_New_Roman',serif]">
             {appendixChildren}
           </div>
         </details>
@@ -589,6 +592,20 @@ function ConsumerTariffsProjectPage({
   onCloseMobileMenu,
   onToggleMobileMenu,
 }) {
+  const projectPageRef = useRef(null);
+
+  useEffect(() => {
+    if (!projectPageRef.current) return;
+
+    renderMathInElement(projectPageRef.current, {
+      delimiters: [
+        { left: "$$", right: "$$", display: true },
+        { left: "\\(", right: "\\)", display: false },
+      ],
+      throwOnError: false,
+    });
+  }, []);
+
   return (
     <div className="min-h-screen bg-[#F5F5F3] text-slate-900 [font-family:Inter,ui-sans-serif,system-ui,sans-serif]">
       <SiteHeader
@@ -757,20 +774,20 @@ function ConsumerTariffsProjectPage({
               </div>
             </div>
             <ProjectVisualCard title="Conceptual mechanism — not empirical data">
-              <svg viewBox="0 0 360 230" className="w-full">
-                <rect x="38" y="148" width="120" height="28" rx="4" fill="#173A8A" opacity="0.9" />
-                <rect x="202" y="80" width="120" height="96" rx="4" fill="#E5E7EB" />
-                <rect x="202" y="146" width="120" height="30" rx="4" fill="#173A8A" opacity="0.9" />
-                <rect x="202" y="118" width="120" height="28" rx="4" fill="#C8102E" opacity="0.88" />
-                <rect x="202" y="96" width="120" height="22" rx="4" fill="#94A3B8" opacity="0.8" />
-                <rect x="202" y="80" width="120" height="16" rx="4" fill="#F0B3BD" opacity="0.9" />
-                <path d="M164 162H190" stroke="#64748B" strokeWidth="2" strokeDasharray="4 4" />
-                <text x="38" y="194" fill="#173A8A" fontSize="12" fontWeight="600">Domestic price</text>
-                <text x="202" y="194" fill="#173A8A" fontSize="12" fontWeight="600">Effective cross-border price</text>
-                <text x="214" y="91" fill="#7F1D1D" fontSize="11" fontWeight="600">Expected enforcement cost</text>
-                <text x="214" y="110" fill="#475569" fontSize="11" fontWeight="600">Transaction cost</text>
-                <text x="214" y="133" fill="#C8102E" fontSize="11" fontWeight="600">Tariff liability</text>
-                <text x="214" y="161" fill="#173A8A" fontSize="11" fontWeight="600">Foreign price</text>
+              <svg viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet" className="w-full">
+                <rect x="8" y="58" width="28" height="12" rx="2" fill="#173A8A" opacity="0.92" />
+                <rect x="56" y="26" width="30" height="44" rx="2" fill="#E5E7EB" />
+                <rect x="56" y="56" width="30" height="14" rx="2" fill="#173A8A" opacity="0.92" />
+                <rect x="56" y="43" width="30" height="13" rx="2" fill="#C8102E" opacity="0.88" />
+                <rect x="56" y="33" width="30" height="10" rx="2" fill="#94A3B8" opacity="0.84" />
+                <rect x="56" y="26" width="30" height="7" rx="2" fill="#F0B3BD" opacity="0.92" />
+                <path d="M39 64H52" stroke="#64748B" strokeWidth="1.3" strokeDasharray="2.5 2.5" />
+                <text x="8" y="78" fill="#173A8A" fontSize="4.5" fontWeight="600">Domestic price</text>
+                <text x="56" y="78" fill="#173A8A" fontSize="4.3" fontWeight="600">Effective cross-border price</text>
+                <text x="59" y="31" fill="#7F1D1D" fontSize="3.3" fontWeight="600">Expected enforcement cost</text>
+                <text x="59" y="39" fill="#475569" fontSize="3.3" fontWeight="600">Transaction cost</text>
+                <text x="59" y="49" fill="#C8102E" fontSize="3.3" fontWeight="600">Tariff liability</text>
+                <text x="59" y="64" fill="#173A8A" fontSize="3.3" fontWeight="600">Foreign price</text>
               </svg>
             </ProjectVisualCard>
           </div>
@@ -794,7 +811,7 @@ function ConsumerTariffsProjectPage({
               <EquationCard
                 title="Spatial border-exposure specification"
                 math={String.raw`Y_{id} = \alpha + \tau BorderExposure_d + f(distance_d) + X_i'\beta + \varepsilon_{id}`}
-                interpretation="The coefficient \(\tau\) measures the local border-arbitrage effect after controlling flexibly for distance. The outcome \(Y_{id}\) may be household purchases, domestic retail expenditure, local prices, or reported cross-border buying. This design is useful because border exposure creates spatial variation in arbitrage cost."
+                interpretation={<>The coefficient <InlineMath math={String.raw`\tau`} /> measures the local border-arbitrage effect after controlling flexibly for distance. The outcome <InlineMath math={String.raw`Y_{id}`} /> may be household purchases, domestic retail expenditure, local prices, or reported cross-border buying. This design is useful because border exposure creates spatial variation in arbitrage cost.</>}
                 appendixChildren={
                   <>
                     <p>
@@ -813,19 +830,19 @@ function ConsumerTariffsProjectPage({
               />
             </div>
             <ProjectVisualCard title="Conceptual spatial discontinuity — not empirical data">
-              <svg viewBox="0 0 360 220" className="w-full">
-                <path d="M38 188H330" stroke="#CBD5E1" strokeWidth="2" />
-                <path d="M38 188V28" stroke="#CBD5E1" strokeWidth="2" />
-                <path d="M98 28V188" stroke="#C8102E" strokeWidth="2.5" strokeDasharray="5 5" />
-                <path d="M48 86C70 96 86 108 98 124" fill="none" stroke="#173A8A" strokeWidth="4" />
-                <path d="M98 102C140 124 198 144 314 166" fill="none" stroke="#173A8A" strokeWidth="4" />
-                <circle cx="78" cy="96" r="4" fill="#173A8A" />
-                <circle cx="96" cy="120" r="4" fill="#173A8A" />
-                <circle cx="160" cy="138" r="4" fill="#173A8A" />
-                <circle cx="232" cy="151" r="4" fill="#173A8A" />
-                <text x="104" y="42" fill="#C8102E" fontSize="11" fontWeight="600">Border threshold</text>
-                <text x="220" y="200" fill="#475569" fontSize="11" fontWeight="600">Distance from border</text>
-                <text x="12" y="24" fill="#475569" fontSize="11" fontWeight="600">Outcome</text>
+              <svg viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet" className="w-full">
+                <path d="M10 84H94" stroke="#CBD5E1" strokeWidth="1.2" />
+                <path d="M10 84V12" stroke="#CBD5E1" strokeWidth="1.2" />
+                <path d="M28 12V84" stroke="#C8102E" strokeWidth="1.5" strokeDasharray="3 3" />
+                <path d="M13 38C18 42 22 47 28 55" fill="none" stroke="#173A8A" strokeWidth="2.5" />
+                <path d="M28 46C42 56 58 65 90 74" fill="none" stroke="#173A8A" strokeWidth="2.5" />
+                <circle cx="22" cy="42" r="1.7" fill="#173A8A" />
+                <circle cx="28" cy="55" r="1.7" fill="#173A8A" />
+                <circle cx="46" cy="63" r="1.7" fill="#173A8A" />
+                <circle cx="66" cy="68" r="1.7" fill="#173A8A" />
+                <text x="31" y="18" fill="#C8102E" fontSize="3.4" fontWeight="600">Border threshold</text>
+                <text x="61" y="90" fill="#475569" fontSize="3.4" fontWeight="600">Distance from border</text>
+                <text x="3" y="10" fill="#475569" fontSize="3.4" fontWeight="600">Outcome</text>
               </svg>
             </ProjectVisualCard>
           </div>
@@ -901,15 +918,15 @@ function ConsumerTariffsProjectPage({
               </div>
             </div>
             <ProjectVisualCard title="Conceptual revenue decomposition — not empirical data">
-              <svg viewBox="0 0 360 220" className="w-full">
-                <path d="M36 188H330" stroke="#CBD5E1" strokeWidth="2" />
-                <path d="M36 188V24" stroke="#CBD5E1" strokeWidth="2" />
-                <path d="M54 176L300 52" fill="none" stroke="#C8102E" strokeWidth="4" />
-                <path d="M54 50C130 64 214 108 300 178" fill="none" stroke="#94A3B8" strokeWidth="4" />
-                <path d="M54 154C120 138 180 108 220 90C250 78 278 82 308 116" fill="none" stroke="#173A8A" strokeWidth="4" />
-                <text x="220" y="46" fill="#C8102E" fontSize="12" fontWeight="600">Statutory rate effect</text>
-                <text x="194" y="194" fill="#64748B" fontSize="12" fontWeight="600">Taxable-base erosion</text>
-                <text x="218" y="104" fill="#173A8A" fontSize="12" fontWeight="600">Net revenue response</text>
+              <svg viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet" className="w-full">
+                <path d="M10 84H94" stroke="#CBD5E1" strokeWidth="1.2" />
+                <path d="M10 84V10" stroke="#CBD5E1" strokeWidth="1.2" />
+                <path d="M16 78L82 26" fill="none" stroke="#C8102E" strokeWidth="2.6" />
+                <path d="M16 26C38 30 59 46 84 80" fill="none" stroke="#94A3B8" strokeWidth="2.6" />
+                <path d="M16 70C34 64 50 51 62 42C70 37 78 38 86 52" fill="none" stroke="#173A8A" strokeWidth="2.6" />
+                <text x="60" y="21" fill="#C8102E" fontSize="3.5" fontWeight="600">Statutory rate effect</text>
+                <text x="54" y="90" fill="#64748B" fontSize="3.4" fontWeight="600">Taxable-base erosion</text>
+                <text x="60" y="48" fill="#173A8A" fontSize="3.5" fontWeight="600">Net revenue response</text>
               </svg>
             </ProjectVisualCard>
           </div>
@@ -951,15 +968,15 @@ function ConsumerTariffsProjectPage({
               />
             </div>
             <ProjectVisualCard title="Conceptual enforcement condition — not empirical data">
-              <svg viewBox="0 0 360 220" className="w-full">
-                <path d="M36 188H330" stroke="#CBD5E1" strokeWidth="2" />
-                <path d="M36 188V24" stroke="#CBD5E1" strokeWidth="2" />
-                <path d="M52 160C110 132 172 102 310 46" fill="none" stroke="#173A8A" strokeWidth="4" />
-                <path d="M52 48C120 72 188 108 312 176" fill="none" stroke="#C8102E" strokeWidth="4" />
-                <circle cx="182" cy="112" r="5" fill="#173A8A" />
-                <text x="192" y="108" fill="#173A8A" fontSize="12" fontWeight="600">Efficient enforcement range</text>
-                <text x="176" y="40" fill="#173A8A" fontSize="12" fontWeight="600">Marginal revenue recovered</text>
-                <text x="208" y="194" fill="#C8102E" fontSize="12" fontWeight="600">Marginal enforcement cost</text>
+              <svg viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet" className="w-full">
+                <path d="M10 84H94" stroke="#CBD5E1" strokeWidth="1.2" />
+                <path d="M10 84V10" stroke="#CBD5E1" strokeWidth="1.2" />
+                <path d="M14 70C30 60 48 47 86 22" fill="none" stroke="#173A8A" strokeWidth="2.6" />
+                <path d="M14 24C34 32 53 48 86 76" fill="none" stroke="#C8102E" strokeWidth="2.6" />
+                <circle cx="48" cy="48" r="2" fill="#173A8A" />
+                <text x="52" y="46" fill="#173A8A" fontSize="3.3" fontWeight="600">Efficient enforcement range</text>
+                <text x="50" y="18" fill="#173A8A" fontSize="3.3" fontWeight="600">Marginal revenue recovered</text>
+                <text x="56" y="86" fill="#C8102E" fontSize="3.3" fontWeight="600">Marginal enforcement cost</text>
               </svg>
             </ProjectVisualCard>
           </div>
@@ -1028,7 +1045,7 @@ function ConsumerTariffsProjectPage({
               <EquationCard
                 title="Firm-level domestic response"
                 math={String.raw`Y_{fdt} = \alpha_f + \lambda_t + \beta \left(Exposure_d \times Policy_t\right) + \gamma X_{dt} + \varepsilon_{fdt}`}
-                interpretation="The coefficient \(\beta\) captures whether firms in more exposed districts respond differently after enforcement. This is the empirical test of the domestic-industry channel. Without this, claims about protection remain speculative."
+                interpretation={<>The coefficient <InlineMath math={String.raw`\beta`} /> captures whether firms in more exposed districts respond differently after enforcement. This is the empirical test of the domestic-industry channel. Without this, claims about protection remain speculative.</>}
               />
             </div>
             <div className="mt-8 rounded-2xl border border-[#E0E0DC] bg-[#F5F5F3] p-5">
