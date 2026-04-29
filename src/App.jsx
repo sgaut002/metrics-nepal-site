@@ -1,4 +1,4 @@
-import { memo, useEffect, useRef, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import "katex/dist/katex.min.css";
 import {
   Bar,
@@ -12,7 +12,6 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-import renderMathInElement from "katex/contrib/auto-render";
 import { BlockMath, InlineMath } from "react-katex";
 import {
   whitePaperCharts,
@@ -513,7 +512,7 @@ function InsightArticlePage({ isMobileMenuOpen, onCloseMobileMenu, onToggleMobil
         onToggleMobileMenu={onToggleMobileMenu}
       />
 
-      <main ref={projectPageRef}>
+      <main>
         <section className="mx-auto max-w-4xl px-6 py-16 lg:px-10">
           <div className="text-center text-sm font-semibold uppercase tracking-[0.2em] text-red-700">
             Insights
@@ -543,14 +542,14 @@ function InsightArticlePage({ isMobileMenuOpen, onCloseMobileMenu, onToggleMobil
 
 function ProjectVisualCard({ title, children }) {
   return (
-    <div className="rounded-2xl border border-[#E0E0DC] bg-[#FAFAF8] p-5 sm:p-6">
+    <div className="w-full max-w-full min-w-0 rounded-2xl border border-[#E0E0DC] bg-[#FAFAF8] p-5 sm:p-6">
       <div className="text-xs font-semibold uppercase tracking-[0.18em] text-[#C8102E]">
         Conceptual mechanism
       </div>
       <div className="mt-2 text-base font-semibold text-[#173A8A] [font-family:Georgia,'Times_New_Roman',serif]">
         {title}
       </div>
-      <div className="mt-5 flex h-[220px] items-center justify-center overflow-hidden rounded-lg border border-[#E3E6EB] bg-white p-4 [&_svg]:m-auto [&_svg]:block [&_svg]:h-full [&_svg]:max-h-full [&_svg]:w-full [&_svg]:max-w-full">
+      <div className="graph-card mt-5 w-full max-w-full min-w-0 overflow-hidden rounded-lg border border-[#E3E6EB] bg-white p-4 box-border [&_svg]:block [&_svg]:h-auto [&_svg]:max-w-full [&_svg]:w-full">
         {children}
       </div>
     </div>
@@ -565,8 +564,8 @@ function EquationCard({
   appendixChildren,
 }) {
   return (
-    <div className="rounded-xl border border-[#E3E6EB] bg-[#F7F8FA] p-5 sm:p-6 [&_.katex-display]:my-5 [&_.katex-display]:max-w-full [&_.katex-display]:overflow-x-auto [&_.katex-display]:text-center [&_.katex]:font-[Georgia,'Times_New_Roman',serif]">
-      <div className="mb-2 text-xs font-semibold uppercase tracking-[0.12em] text-[#C1121F]">
+    <div className="equation-card w-full max-w-full min-w-0 overflow-x-auto box-border rounded-lg border border-[#E3E6EB] bg-[#F7F8FA] p-5 sm:p-6 [&_.katex-display]:my-5 [&_.katex-display]:max-w-full [&_.katex-display]:overflow-x-auto [&_.katex-display]:text-center [&_.katex]:font-['Times_New_Roman',Georgia,serif]">
+      <div className="equation-title mb-2 text-xs font-semibold uppercase tracking-[0.12em] text-[#C1121F]">
         {title}
       </div>
       <div className="overflow-x-auto text-[#173A8A]">
@@ -578,7 +577,7 @@ function EquationCard({
           <summary className="cursor-pointer text-sm font-medium text-[#173A8A]">
             {appendixTitle || "Technical appendix"}
           </summary>
-          <div className="mt-4 space-y-4 text-sm leading-6 text-slate-700 [&_.katex-display]:my-4 [&_.katex-display]:overflow-x-auto [&_.katex-display]:text-center [&_.katex]:font-[Georgia,'Times_New_Roman',serif]">
+          <div className="mt-4 min-w-0 space-y-4 text-sm leading-6 text-slate-700 [&_.katex-display]:my-4 [&_.katex-display]:max-w-full [&_.katex-display]:overflow-x-auto [&_.katex-display]:text-center [&_.katex]:font-['Times_New_Roman',Georgia,serif]">
             {appendixChildren}
           </div>
         </details>
@@ -592,20 +591,6 @@ function ConsumerTariffsProjectPage({
   onCloseMobileMenu,
   onToggleMobileMenu,
 }) {
-  const projectPageRef = useRef(null);
-
-  useEffect(() => {
-    if (!projectPageRef.current) return;
-
-    renderMathInElement(projectPageRef.current, {
-      delimiters: [
-        { left: "$$", right: "$$", display: true },
-        { left: "\\(", right: "\\)", display: false },
-      ],
-      throwOnError: false,
-    });
-  }, []);
-
   return (
     <div className="min-h-screen bg-[#F5F5F3] text-slate-900 [font-family:Inter,ui-sans-serif,system-ui,sans-serif]">
       <SiteHeader
@@ -619,7 +604,7 @@ function ConsumerTariffsProjectPage({
 
       <main>
         <section className="border-b border-[#E0E0DC] bg-[#FAFAF8]">
-          <div className="mx-auto max-w-5xl px-6 py-16 lg:px-10 lg:py-20">
+          <div className="project-content mx-auto max-w-[1120px] overflow-x-hidden px-6 py-16 lg:px-10 lg:py-20">
             <div className="text-sm font-semibold uppercase tracking-[0.2em] text-[#C8102E]">
               {CONSUMER_TARIFFS_PROJECT.tag}
             </div>
@@ -669,7 +654,7 @@ function ConsumerTariffsProjectPage({
         </section>
 
         <section className="border-b border-[#E0E0DC]">
-          <div className="mx-auto max-w-5xl px-6 py-16 lg:px-10">
+          <div className="project-content mx-auto max-w-[1120px] overflow-x-hidden px-6 py-16 lg:px-10">
             <h2 className="text-2xl font-semibold text-[#173A8A] [font-family:Georgia,'Times_New_Roman',serif]">
               Literature spine
             </h2>
@@ -725,8 +710,8 @@ function ConsumerTariffsProjectPage({
         </section>
 
         <section className="border-b border-[#E0E0DC] bg-[#FAFAF8]">
-          <div className="mx-auto grid max-w-5xl gap-10 px-6 py-16 lg:grid-cols-[1.05fr_0.95fr] lg:px-10">
-            <div className="space-y-8">
+          <div className="project-section mx-auto grid max-w-[1120px] grid-cols-1 gap-8 overflow-x-hidden px-6 py-16 lg:grid-cols-[minmax(0,1fr)_minmax(280px,420px)] lg:px-10">
+            <div className="min-w-0 space-y-8">
               <div>
                 <h2 className="text-2xl font-semibold text-[#173A8A] [font-family:Georgia,'Times_New_Roman',serif]">
                   Conceptual model: consumer arbitrage under enforcement frictions
@@ -794,8 +779,8 @@ function ConsumerTariffsProjectPage({
         </section>
 
         <section className="border-b border-[#E0E0DC]">
-          <div className="mx-auto grid max-w-5xl gap-10 px-6 py-16 lg:grid-cols-[1.05fr_0.95fr] lg:px-10">
-            <div className="space-y-8">
+          <div className="project-section mx-auto grid max-w-[1120px] grid-cols-1 gap-8 overflow-x-hidden px-6 py-16 lg:grid-cols-[minmax(0,1fr)_minmax(280px,420px)] lg:px-10">
+            <div className="min-w-0 space-y-8">
               <div>
                 <h2 className="text-2xl font-semibold text-[#173A8A] [font-family:Georgia,'Times_New_Roman',serif]">
                   Spatial bunching and border discontinuity
@@ -849,7 +834,7 @@ function ConsumerTariffsProjectPage({
         </section>
 
         <section className="border-b border-[#E0E0DC] bg-[#FAFAF8]">
-          <div className="mx-auto max-w-5xl px-6 py-16 lg:px-10">
+          <div className="project-content mx-auto max-w-[1120px] overflow-x-hidden px-6 py-16 lg:px-10">
             <h2 className="text-2xl font-semibold text-[#173A8A] [font-family:Georgia,'Times_New_Roman',serif]">
               Tax wedge elasticity by product
             </h2>
@@ -858,13 +843,13 @@ function ConsumerTariffsProjectPage({
               the elasticity of arbitrage with respect to the effective tax
               wedge, differentiated by product and distance.
             </p>
-            <div className="mt-8 grid gap-8 lg:grid-cols-[1.05fr_0.95fr]">
+            <div className="mt-8 grid grid-cols-1 gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(280px,420px)]">
               <EquationCard
                 title="Heterogeneous arbitrage response"
                 math={String.raw`A_{igbt} = \beta_1 TaxWedge_{gbt} + \beta_2 Distance_i + \beta_3 \left(TaxWedge_{gbt}\times Distance_i\right) + X_i'\theta + \gamma_g + \lambda_t + \varepsilon_{igbt}`}
                 interpretation="The interaction term tests whether tax wedges matter more for households near the border. A large response near the border and weak response farther inland would support the interpretation that consumer tariffs operate through spatial arbitrage rather than broad domestic demand alone."
               />
-              <div className="rounded-2xl border border-[#E0E0DC] bg-[#F5F5F3] p-5">
+              <div className="min-w-0 rounded-2xl border border-[#E0E0DC] bg-[#F5F5F3] p-5">
                 <div className="text-xs font-semibold uppercase tracking-[0.16em] text-[#C8102E]">
                   Core estimand box
                 </div>
@@ -881,8 +866,8 @@ function ConsumerTariffsProjectPage({
         </section>
 
         <section className="border-b border-[#E0E0DC]">
-          <div className="mx-auto grid max-w-5xl gap-10 px-6 py-16 lg:grid-cols-[1.05fr_0.95fr] lg:px-10">
-            <div className="space-y-8">
+          <div className="project-section mx-auto grid max-w-[1120px] grid-cols-1 gap-8 overflow-x-hidden px-6 py-16 lg:grid-cols-[minmax(0,1fr)_minmax(280px,420px)] lg:px-10">
+            <div className="min-w-0 space-y-8">
               <div>
                 <h2 className="text-2xl font-semibold text-[#173A8A] [font-family:Georgia,'Times_New_Roman',serif]">
                   Revenue, evasion, and taxable-base elasticity
@@ -898,7 +883,7 @@ function ConsumerTariffsProjectPage({
                 math={String.raw`R(\tau,e) = \tau \cdot Q(\tau,e)`}
                 interpretation="If the taxable base is highly elastic, higher tariffs shrink observable purchases through avoidance, informal resale, or substitution. The fiscal question is therefore not whether rates increased, but whether the observable and enforceable base remained large enough."
               />
-              <div className="rounded-2xl border border-[#E0E0DC] bg-[#F5F5F3] p-5">
+              <div className="min-w-0 rounded-2xl border border-[#E0E0DC] bg-[#F5F5F3] p-5">
                 <div className="text-xs font-semibold uppercase tracking-[0.16em] text-[#C8102E]">
                   Taxable-base elasticity
                 </div>
@@ -906,7 +891,7 @@ function ConsumerTariffsProjectPage({
                   <BlockMath math={String.raw`\varepsilon_{Q,\tau} = \frac{\partial \log Q(\tau,e)}{\partial \log \tau}`} />
                 </div>
               </div>
-              <div className="rounded-2xl border border-[#E0E0DC] bg-[#F5F5F3] p-5">
+              <div className="min-w-0 rounded-2xl border border-[#E0E0DC] bg-[#F5F5F3] p-5">
                 <div className="text-xs font-semibold uppercase tracking-[0.16em] text-[#C8102E]">
                   Three estimands
                 </div>
@@ -933,8 +918,8 @@ function ConsumerTariffsProjectPage({
         </section>
 
         <section className="border-b border-[#E0E0DC] bg-[#FAFAF8]">
-          <div className="mx-auto grid max-w-5xl gap-10 px-6 py-16 lg:grid-cols-[1.05fr_0.95fr] lg:px-10">
-            <div className="space-y-8">
+          <div className="project-section mx-auto grid max-w-[1120px] grid-cols-1 gap-8 overflow-x-hidden px-6 py-16 lg:grid-cols-[minmax(0,1fr)_minmax(280px,420px)] lg:px-10">
+            <div className="min-w-0 space-y-8">
               <div>
                 <h2 className="text-2xl font-semibold text-[#173A8A] [font-family:Georgia,'Times_New_Roman',serif]">
                   Enforcement-cost structural model
@@ -983,7 +968,7 @@ function ConsumerTariffsProjectPage({
         </section>
 
         <section className="border-b border-[#E0E0DC]">
-          <div className="mx-auto max-w-5xl px-6 py-16 lg:px-10">
+          <div className="project-content mx-auto max-w-[1120px] overflow-x-hidden px-6 py-16 lg:px-10">
             <h2 className="text-2xl font-semibold text-[#173A8A] [font-family:Georgia,'Times_New_Roman',serif]">
               Partial identification and measurement problem
             </h2>
@@ -1031,7 +1016,7 @@ function ConsumerTariffsProjectPage({
         </section>
 
         <section className="border-b border-[#E0E0DC] bg-[#FAFAF8]">
-          <div className="mx-auto max-w-5xl px-6 py-16 lg:px-10">
+          <div className="project-content mx-auto max-w-[1120px] overflow-x-hidden px-6 py-16 lg:px-10">
             <h2 className="text-2xl font-semibold text-[#173A8A] [font-family:Georgia,'Times_New_Roman',serif]">
               Domestic-firm response and general equilibrium
             </h2>
@@ -1069,7 +1054,7 @@ function ConsumerTariffsProjectPage({
         </section>
 
         <section className="border-b border-[#E0E0DC]">
-          <div className="mx-auto max-w-5xl px-6 py-16 lg:px-10">
+          <div className="project-content mx-auto max-w-[1120px] overflow-x-hidden px-6 py-16 lg:px-10">
             <h2 className="text-2xl font-semibold text-[#173A8A] [font-family:Georgia,'Times_New_Roman',serif]">
               Dynamic evasion game
             </h2>
@@ -1104,7 +1089,7 @@ function ConsumerTariffsProjectPage({
         </section>
 
         <section className="border-b border-[#E0E0DC] bg-[#FAFAF8]">
-          <div className="mx-auto max-w-5xl px-6 py-16 lg:px-10">
+          <div className="project-content mx-auto max-w-[1120px] overflow-x-hidden px-6 py-16 lg:px-10">
             <h2 className="text-2xl font-semibold text-[#173A8A] [font-family:Georgia,'Times_New_Roman',serif]">
               Empirical design
             </h2>
@@ -1120,8 +1105,8 @@ function ConsumerTariffsProjectPage({
                 interpretation="This estimates whether border-exposed districts change differentially after enforcement, relative to less exposed districts, conditional on district fixed effects, time fixed effects, and controls."
               />
             </div>
-            <div className="mt-10 grid gap-8 lg:grid-cols-2">
-              <div className="rounded-2xl border border-[#E0E0DC] bg-[#F5F5F3] p-5">
+            <div className="mt-10 grid grid-cols-1 gap-8 lg:grid-cols-2">
+              <div className="min-w-0 rounded-2xl border border-[#E0E0DC] bg-[#F5F5F3] p-5">
                 <div className="text-xs font-semibold uppercase tracking-[0.16em] text-[#C8102E]">
                   Preferred extensions
                 </div>
@@ -1134,7 +1119,7 @@ function ConsumerTariffsProjectPage({
                   <li>6. Dynamic adaptation over time</li>
                 </ol>
               </div>
-              <div className="rounded-2xl border border-[#E0E0DC] bg-[#F5F5F3] p-5">
+              <div className="min-w-0 rounded-2xl border border-[#E0E0DC] bg-[#F5F5F3] p-5">
                 <div className="text-xs font-semibold uppercase tracking-[0.16em] text-[#C8102E]">
                   Identification concerns
                 </div>
@@ -1164,7 +1149,7 @@ function ConsumerTariffsProjectPage({
         </section>
 
         <section className="border-b border-[#E0E0DC]">
-          <div className="mx-auto max-w-5xl px-6 py-16 lg:px-10">
+          <div className="project-content mx-auto max-w-[1120px] overflow-x-hidden px-6 py-16 lg:px-10">
             <h2 className="text-2xl font-semibold text-[#173A8A] [font-family:Georgia,'Times_New_Roman',serif]">
               Data requirements
             </h2>
@@ -1196,7 +1181,7 @@ function ConsumerTariffsProjectPage({
         </section>
 
         <section className="border-b border-[#E0E0DC] bg-[#FAFAF8]">
-          <div className="mx-auto max-w-5xl px-6 py-16 lg:px-10">
+          <div className="project-content mx-auto max-w-[1120px] overflow-x-hidden px-6 py-16 lg:px-10">
             <h2 className="text-2xl font-semibold text-[#173A8A] [font-family:Georgia,'Times_New_Roman',serif]">
               Working hypotheses
             </h2>
