@@ -1924,7 +1924,7 @@ function Homepage({ isMobileMenuOpen, onCloseMobileMenu, onToggleMobileMenu }) {
             </div>
             <div className="mt-8 grid gap-6 md:grid-cols-2">
               <a
-                href={WHITE_PAPER_HASH_PATH}
+                href={WHITE_PAPER_PATH}
                 className="group overflow-hidden rounded-2xl border border-[#E0E0DC] bg-[#FAFAF8] transition-colors hover:border-red-200 hover:bg-[#FAFAF8]"
               >
                 <div className="border-b border-blue-900/10 bg-[linear-gradient(135deg,#142b5f_0%,#203f86_55%,#b04646_100%)] p-5 text-white sm:p-6">
@@ -1960,7 +1960,7 @@ function Homepage({ isMobileMenuOpen, onCloseMobileMenu, onToggleMobileMenu }) {
               </a>
 
               <a
-                href={PRIVATE_SCHOOLS_HASH_PATH}
+                href={PRIVATE_SCHOOLS_PATH}
                 className="group overflow-hidden rounded-2xl border border-[#E0E0DC] bg-[#FAFAF8] transition-colors hover:border-red-200 hover:bg-[#FAFAF8]"
               >
                 <div className="aspect-[16/10] overflow-hidden border-b border-[#E0E0DC] bg-[#F5F5F3]">
@@ -1995,7 +1995,7 @@ function Homepage({ isMobileMenuOpen, onCloseMobileMenu, onToggleMobileMenu }) {
               </div>
               <div className="mt-8 divide-y divide-[#E0E0DC] border-t border-[#E0E0DC]">
                 <a
-                  href={CONSUMER_TARIFFS_PROJECT_HASH_PATH}
+                  href={CONSUMER_TARIFFS_PROJECT_PATH}
                   className="group block py-6 transition-colors hover:bg-[#F5F5F3]"
                 >
                   <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between sm:gap-8">
