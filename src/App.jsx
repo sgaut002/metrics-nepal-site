@@ -550,6 +550,9 @@ function ArticleChartCard({
           className={`article-chart-visual relative h-[280px] w-full min-w-0 overflow-hidden rounded-xl border border-[#E3E6EB] bg-[#FAFAF8] p-4 md:h-[320px] ${noteFirstOnDesktop ? 'md:order-2' : ''}`.trim()}
         >
           {visual}
+          <div className="pointer-events-none absolute bottom-[6px] right-[10px] text-[11px] font-medium text-[rgba(15,23,42,0.45)]">
+            © Metrics Nepal
+          </div>
         </div>
         <div
           className={`article-chart-note min-w-0 text-[0.95rem] leading-[1.6] text-slate-700 ${noteFirstOnDesktop ? 'md:order-1' : ''}`.trim()}
