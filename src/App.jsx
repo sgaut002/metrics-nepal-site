@@ -37,47 +37,20 @@ const CONSUMER_TARIFFS_PROJECT_HASH_PATH = `#${CONSUMER_TARIFFS_PROJECT_PATH}`;
 
 const PRIVATE_SCHOOLS_ARTICLE = {
   title: 'Are private schools really “better”?',
-  content: [
-    {
-      type: "p",
-      text: 'There’s a persistent narrative in Nepal that private schools are “better” than public or as we better know them, “government schools”. This is generally linked to visible educational outcomes - SEE pass rates, language proficiency, and standardized testing. But is this reflecting private schools or the students attending them?',
-    },
-    {
-      type: "img",
-      src: "/insights-private-schools-1.png",
-      alt: "Private vs public school performance chart",
-    },
-    {
-      type: "p",
-      text: "When you see graphs like above - we reinforce our logic - private students make up a much higher portion of the highest achievers even though they’re a smaller portion of the total student pool. This leads many of us to conclude that the “level” of education in private schools is simply higher. Here is where our logic is flawed.",
-    },
-    {
-      type: "p",
-      text: "That logic would’ve stood if all students were randomized and divided into public and private school groups randomly. However, that’s not the case. We’ve repeatedly seen families with higher incomes, stronger educational backgrounds, and urban access enroll their children into private schools at a higher rate. These factors combined might independently affect student performance - outside of school choice.",
-    },
-    {
-      type: "img",
-      src: "/insights-private-schools-2.png",
-      alt: "Student background differences chart",
-    },
-    {
-      type: "p",
-      text: "This shows the observational gap largely reflects selection bias rather than school driven outcomes. Once we start digging a little bit deeper - we realize this isn’t binary either. There isn’t a single quality standard of a public or a private school. A private school in Achham won’t be the same as a private school in Pokhara, and a public school in Bajura won’t be the same as a public school in Kathmandu. The most visible examples are found in public school performances in dense urban centers compared to rural private schools.",
-    },
-    {
-      type: "img",
-      src: "/insights-private-schools-3.png",
-      alt: "School quality variation chart",
-    },
-    {
-      type: "p",
-      text: "This heterogeneity in schools, along with our previous understanding of student backgrounds leads us to fundamentally question assumptions we made at the beginning - the apparent “better” stature of private schools is now much less clear. When we make observational correlations, we overstate the value of any single factor, disregarding several other mechanisms.",
-    },
-    {
-      type: "p",
-      text: "The relevant question is not whether a school is public or private, but how much value it adds given the students it serves. Policies and decisions based solely on sectoral comparisons risk misidentifying the problem. Improving educational outcomes requires focusing on measurable quality and student-level progress, rather than broad institutional categories.",
-    },
-  ],
+  subtitle: "A question of selection, signaling, and school-market equilibrium.",
+  note:
+    "This is a working analytical note. The empirical examples below are illustrative while we await cleaner public microdata on household characteristics, school choice, fees, and learning outcomes in Nepal.",
+};
+
+const PRIVATE_SCHOOLS_GAP_DATA = [
+  { label: "Raw gap", value: 1.0 },
+  { label: "Household-adjusted", value: 0.55 },
+  { label: "Value-added adjusted", value: 0.25 },
+];
+
+const PRIVATE_SCHOOLS_DISTRIBUTION = {
+  public: [-0.35, -0.22, -0.1, 0.0, 0.12, 0.25, 0.38],
+  private: [-0.15, 0.0, 0.1, 0.22, 0.35, 0.48, 0.62],
 };
 
 const WHITE_PAPER_TITLE = "What’s in the Government’s White Paper?";
@@ -532,6 +505,114 @@ function SiteHeader({
   );
 }
 
+function InsightSection({ title, children }) {
+  return (
+    <section className="space-y-6 border-t border-[#E0E0DC] pt-10">
+      <h2 className="text-2xl font-semibold text-[#173A8A] [font-family:Georgia,'Times_New_Roman',serif]">
+        {title}
+      </h2>
+      <div className="space-y-6 text-lg leading-8 text-slate-700">{children}</div>
+    </section>
+  );
+}
+
+function InsightGraphCard({ title, children, caption }) {
+  return (
+    <div className="rounded-2xl border border-[#E3E6EB] bg-[#FAFAF8] p-5">
+      <div className="text-xs font-semibold uppercase tracking-[0.16em] text-[#B20D18]">
+        Illustrative exhibit
+      </div>
+      <h3 className="mt-2 text-lg font-semibold text-[#173A8A] [font-family:Georgia,'Times_New_Roman',serif]">
+        {title}
+      </h3>
+      <div className="mt-4 h-[300px] rounded-xl border border-[#E3E6EB] bg-white p-4">
+        {children}
+      </div>
+      <p className="mt-4 text-sm leading-6 text-slate-600">{caption}</p>
+    </div>
+  );
+}
+
+function PrivateSchoolsGapChart() {
+  return (
+    <ResponsiveContainer width="100%" height="100%">
+      <BarChart
+        data={PRIVATE_SCHOOLS_GAP_DATA}
+        margin={{ top: 8, right: 12, bottom: 18, left: 8 }}
+        barCategoryGap="28%"
+      >
+        <CartesianGrid stroke="#E2E8F0" strokeDasharray="3 4" vertical={false} />
+        <XAxis
+          dataKey="label"
+          tick={{ fill: "#475569", fontSize: 12 }}
+          axisLine={false}
+          tickLine={false}
+          interval={0}
+          height={48}
+        />
+        <YAxis
+          tick={{ fill: "#475569", fontSize: 12 }}
+          axisLine={false}
+          tickLine={false}
+          domain={[0, 1.1]}
+          label={{
+            value: "Relative private-school advantage",
+            angle: -90,
+            position: "insideLeft",
+            style: { fill: "#475569", fontSize: 12 },
+          }}
+        />
+        <Bar dataKey="value" fill="#173A8A" radius={[10, 10, 0, 0]}>
+          <LabelList
+            dataKey="value"
+            position="top"
+            formatter={(value) => value.toFixed(2)}
+            style={{ fill: "#0f172a", fontSize: 12, fontWeight: 600 }}
+          />
+        </Bar>
+      </BarChart>
+    </ResponsiveContainer>
+  );
+}
+
+function PrivateSchoolsDistributionChart() {
+  const width = 100;
+  const height = 100;
+  const min = -0.4;
+  const max = 0.7;
+  const xFor = (value) => 14 + ((value - min) / (max - min)) * 72;
+  const publicY = 34;
+  const privateY = 66;
+
+  return (
+    <svg viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Illustrative overlap in public and private school value-added distributions">
+      <line x1="14" y1="18" x2="14" y2="84" stroke="#CBD5E1" strokeWidth="0.5" />
+      <line x1="14" y1="50" x2="92" y2="50" stroke="#CBD5E1" strokeWidth="0.5" />
+      <line x1="14" y1="84" x2="92" y2="84" stroke="#94A3B8" strokeWidth="0.6" />
+      {[-0.4, -0.2, 0, 0.2, 0.4, 0.6].map((tick) => (
+        <g key={tick}>
+          <line x1={xFor(tick)} y1="82" x2={xFor(tick)} y2="86" stroke="#64748B" strokeWidth="0.5" />
+          <text x={xFor(tick)} y="92" textAnchor="middle" fontSize="3.1" fill="#475569">
+            {tick}
+          </text>
+        </g>
+      ))}
+      <text x="4" y={publicY + 1} fontSize="4" fill="#475569">Public</text>
+      <text x="4" y={privateY + 1} fontSize="4" fill="#475569">Private</text>
+      <text x="53" y="98" textAnchor="middle" fontSize="3.3" fill="#475569">
+        Estimated school value-added
+      </text>
+      {PRIVATE_SCHOOLS_DISTRIBUTION.public.map((value, index) => (
+        <circle key={`pub-${index}`} cx={xFor(value)} cy={publicY} r="2.1" fill="#B04646" opacity="0.88" />
+      ))}
+      {PRIVATE_SCHOOLS_DISTRIBUTION.private.map((value, index) => (
+        <circle key={`priv-${index}`} cx={xFor(value)} cy={privateY} r="2.1" fill="#173A8A" opacity="0.88" />
+      ))}
+      <text x="69" y="15" fontSize="3.2" fill="#64748B">Illustrative only</text>
+    </svg>
+  );
+}
+
 function InsightArticlePage({ isMobileMenuOpen, onCloseMobileMenu, onToggleMobileMenu }) {
   return (
     <div className="min-h-screen bg-[#F5F5F3] text-slate-900 [font-family:Inter,ui-sans-serif,system-ui,sans-serif]">
@@ -552,19 +633,159 @@ function InsightArticlePage({ isMobileMenuOpen, onCloseMobileMenu, onToggleMobil
           <h1 className="mt-4 text-center text-3xl font-semibold text-[#173A8A] sm:text-4xl [font-family:Georgia,'Times_New_Roman',serif]">
             {PRIVATE_SCHOOLS_ARTICLE.title}
           </h1>
-          <div className="mt-10 space-y-6 text-lg leading-8 text-slate-700">
-            {PRIVATE_SCHOOLS_ARTICLE.content.map((block, index) =>
-              block.type === "img" ? (
-                <img
-                  key={`${block.src}-${index}`}
-                  src={block.src}
-                  alt={block.alt}
-                  className="w-full rounded-2xl border border-blue-900/10 bg-white shadow-sm"
-                />
-              ) : (
-                <p key={`${block.text}-${index}`}>{block.text}</p>
-              )
-            )}
+          <p className="mt-4 text-center text-lg italic leading-8 text-slate-600 [font-family:Georgia,'Times_New_Roman',serif]">
+            {PRIVATE_SCHOOLS_ARTICLE.subtitle}
+          </p>
+
+          <div className="mt-10 space-y-10 text-lg leading-8 text-slate-700">
+            <div className="rounded-xl border border-[#E3E6EB] bg-[#FAFAF8] px-5 py-4 text-base leading-7 text-slate-700">
+              {PRIVATE_SCHOOLS_ARTICLE.note}
+            </div>
+
+            <div className="space-y-6">
+              <p>
+                There is a persistent belief in Nepal that private schools are simply better than government schools. The observed performance gap is usually taken at face value: private students do better on visible outcomes, so private schools must offer better teaching. But that observed gap is not itself an answer. It is an equilibrium outcome shaped by household selection, school signaling, peer composition, and state policy.
+              </p>
+              <p>
+                Private schools may genuinely add value. Yet the observed premium can also reflect which households select into private schooling, which peer groups students enter, and which visible markers parents use when true instructional quality is imperfectly observed. What looks like a clean sectoral ranking may therefore bundle together several mechanisms that matter for policy in very different ways.
+              </p>
+            </div>
+
+            <EquationCard
+              title="Observed private-school premium"
+              math={String.raw`ObservedPrivatePremium = SchoolValueAdded + SelectionEffect + PeerEffect + SignalingEffect`}
+              interpretation="Private schools may genuinely add value, but the observed gap also reflects which households select into private schooling, the peer groups students enter, and the signals parents use when true school quality is imperfectly observed."
+            />
+
+            <InsightSection title="Econometric framing">
+              <p>
+                A simple private-school dummy does not resolve the core identification problem. It measures the raw gap, but it does not distinguish school quality from household sorting.
+              </p>
+              <EquationCard
+                title="Naive model"
+                math={String.raw`Y_i = \alpha + \beta Private_i + \varepsilon_i`}
+                interpretation="This estimates the raw private-school gap but cannot separate school quality from household sorting."
+              />
+              <p>
+                A more serious specification conditions on pre-treatment household characteristics and local constraints on school choice.
+              </p>
+              <EquationCard
+                title="Selection-adjusted model"
+                math={String.raw`Y_i = \alpha + \beta Private_i + X_i'\gamma + \varepsilon_i`}
+                interpretation={
+                  <>
+                    Here <InlineMath math={String.raw`X_i`} /> includes household income or wealth, parental education, urban or rural status, baseline achievement where available, caste or ethnicity where ethically and legally appropriate, distance to school, and other pre-treatment characteristics.
+                  </>
+                }
+              />
+              <p>
+                The question then becomes whether private schooling predicts learning after accounting for where the child started.
+              </p>
+              <EquationCard
+                title="Value-added version"
+                math={String.raw`Y_{i,t} = \alpha + \beta Private_i + \rho Y_{i,t-1} + X_i'\gamma + \varepsilon_{it}`}
+                interpretation="This asks whether private schooling predicts learning after accounting for where the child started."
+              />
+              <p>
+                School-level heterogeneity matters as much as the average sector gap.
+              </p>
+              <EquationCard
+                title="School-level heterogeneity"
+                math={String.raw`Y_{is} = \alpha + \theta_s + X_i'\gamma + \varepsilon_{is}`}
+                interpretation="This separates sector-level comparisons from school-specific differences in performance."
+              />
+              <EquationCard
+                title="School effect decomposition"
+                math={String.raw`\theta_s = \delta Private_s + \eta_s`}
+                interpretation="This separates “private on average” from “which specific schools add value.” Some private schools may outperform public schools; some may not. The policy-relevant object is the distribution of school value-added, not only the mean difference."
+              />
+            </InsightSection>
+
+            <InsightGraphCard
+              title="Naive gap vs selection-adjusted gap"
+              caption="A raw private-school premium can shrink once household background and baseline achievement are included. The remaining gap is closer to a value-added interpretation, though still not automatically causal."
+            >
+              <PrivateSchoolsGapChart />
+            </InsightGraphCard>
+
+            <InsightSection title="Private schooling as a signaling and sorting equilibrium">
+              <p>
+                Household school choice is itself an equilibrium object. Families do not observe true school quality directly. They infer it from visible signals, budget constraints, neighborhood access, and expected peer groups.
+              </p>
+              <EquationCard
+                title="Household school choice"
+                math={String.raw`Private_i = 1\{E[U_i^P \mid S_s, X_i] > E[U_i^G \mid X_i]\}`}
+                interpretation="This means Private_i is not an exogenous treatment. It is the outcome of a household-school-state interaction."
+              />
+              <div className="rounded-xl border border-[#E3E6EB] bg-[#FAFAF8] p-5 text-base leading-7 text-slate-700">
+                <div className="font-medium text-[#173A8A]">Definitions</div>
+                <ul className="mt-3 space-y-2">
+                  <li><InlineMath math={String.raw`U_i^P`} />: expected utility from private schooling</li>
+                  <li><InlineMath math={String.raw`U_i^G`} />: expected utility from government/public schooling</li>
+                  <li><InlineMath math={String.raw`S_s`} />: school-level signals observed by parents</li>
+                  <li><InlineMath math={String.raw`X_i`} />: household/student characteristics</li>
+                </ul>
+              </div>
+              <EquationCard
+                title="Observed school signals"
+                math={String.raw`S_s = \{fees,\ English\ medium,\ exam\ results,\ uniforms,\ infrastructure,\ reputation\}`}
+                interpretation="Parents do not directly observe true instructional quality. They observe signals. Schools may therefore compete not only on actual teaching quality but also on visible markers of quality."
+              />
+              <p>
+                This creates a signaling game. In some cases, high-quality schools separate themselves through credible performance; in others, low-quality schools mimic the same visible signals, creating a pooling equilibrium.
+              </p>
+            </InsightSection>
+
+            <InsightGraphCard
+              title="School quality is a distribution, not a sector label"
+              caption="The policy-relevant question is not only whether the average private school performs better, but how much overlap exists between public and private school quality."
+            >
+              <PrivateSchoolsDistributionChart />
+            </InsightGraphCard>
+
+            <div className="rounded-xl border border-[#E3E6EB] bg-[#FAFAF8] p-5 text-base leading-7 text-slate-700">
+              <div className="text-sm font-semibold uppercase tracking-[0.16em] text-[#B20D18]">
+                Strategic interaction
+              </div>
+              <div className="mt-3 text-[#173A8A]">
+                Households choose schools → Schools choose quality, signals, and fees → State chooses regulation and public investment → equilibrium determines enrollment, peer composition, and observed outcomes.
+              </div>
+            </div>
+
+            <InsightSection title="Why public policy changes the equilibrium">
+              <p>
+                The state is also a strategic player. Public investment, teacher accountability, transparent school-level data, subsidy rules, and regulation alter both household demand and private-school supply.
+              </p>
+              <p>
+                Stronger public schools can change the outside option for households and force private schools to compete on real value-added rather than only branding.
+              </p>
+              <p>
+                The goal is not to declare public or private schools universally better. The goal is to identify:
+              </p>
+              <ol className="list-decimal space-y-2 pl-5 text-base leading-7 marker:text-slate-500">
+                <li>how much of the private-school gap is selection,</li>
+                <li>how much is true school value-added,</li>
+                <li>how much is peer sorting,</li>
+                <li>how much is signaling and reputation.</li>
+              </ol>
+            </InsightSection>
+
+            <InsightSection title="Selected literature">
+              <div className="rounded-xl border border-[#E3E6EB] bg-[#FAFAF8] p-5 text-base leading-7 text-slate-700">
+                <ul className="space-y-3">
+                  <li>Amrit Thapa, <em>Public and private school performance in Nepal: an analysis using the SLC examination</em></li>
+                  <li>Day Ashley et al. / DFID-ODI review, <em>The role and impact of private schools in developing countries</em></li>
+                  <li>Andrabi, Bau, Das, and Khwaja / LEAPS-related work on school value-added and heterogeneity in Pakistan</li>
+                  <li>Hastings and Weinstein, <em>Information, School Choice, and Academic Achievement</em></li>
+                  <li>OECD, <em>Balancing School Choice and Equity</em></li>
+                  <li>Dinerstein, Neilson, and Otero on public provision and private school market responses</li>
+                </ul>
+              </div>
+            </InsightSection>
+
+            <div className="rounded-xl border border-[#E3E6EB] bg-[#FAFAF8] px-5 py-4 text-lg leading-8 text-slate-700">
+              Private schools may be better in some cases. But the observed gap is not itself the answer. It is the object to be decomposed. For Nepal, the more useful question is how much of the private-school premium comes from school value-added, how much from household sorting, how much from peer effects, and how much from signals that parents interpret as quality.
+            </div>
           </div>
         </section>
       </main>
