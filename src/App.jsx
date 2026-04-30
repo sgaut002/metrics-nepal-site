@@ -518,14 +518,14 @@ function InsightSection({ title, children }) {
 
 function InsightGraphCard({ title, children, caption }) {
   return (
-    <div className="rounded-2xl border border-[#E3E6EB] bg-[#FAFAF8] p-5">
+    <div className="overflow-hidden rounded-2xl border border-[#E3E6EB] bg-[#FAFAF8] p-5">
       <div className="text-xs font-semibold uppercase tracking-[0.16em] text-[#B20D18]">
         Illustrative exhibit
       </div>
       <h3 className="mt-2 text-lg font-semibold text-[#173A8A] [font-family:Georgia,'Times_New_Roman',serif]">
         {title}
       </h3>
-      <div className="mt-4 h-[300px] rounded-xl border border-[#E3E6EB] bg-white p-4">
+      <div className="mt-4 h-[320px] overflow-hidden rounded-xl border border-[#E3E6EB] bg-white p-4">
         {children}
       </div>
       <p className="mt-4 text-sm leading-6 text-slate-600">{caption}</p>
@@ -534,61 +534,67 @@ function InsightGraphCard({ title, children, caption }) {
 }
 
 function PrivateSchoolsGapChart() {
+  const maxValue = Math.max(...PRIVATE_SCHOOLS_GAP_DATA.map((item) => item.value));
+  const chartLeft = 16;
+  const chartRight = 92;
+  const chartBottom = 82;
+  const chartTop = 18;
+  const slot = (chartRight - chartLeft) / PRIVATE_SCHOOLS_GAP_DATA.length;
+
   return (
-    <ResponsiveContainer width="100%" height="100%">
-      <BarChart
-        data={PRIVATE_SCHOOLS_GAP_DATA}
-        margin={{ top: 8, right: 12, bottom: 18, left: 8 }}
-        barCategoryGap="28%"
-      >
-        <CartesianGrid stroke="#E2E8F0" strokeDasharray="3 4" vertical={false} />
-        <XAxis
-          dataKey="label"
-          tick={{ fill: "#475569", fontSize: 12 }}
-          axisLine={false}
-          tickLine={false}
-          interval={0}
-          height={48}
-        />
-        <YAxis
-          tick={{ fill: "#475569", fontSize: 12 }}
-          axisLine={false}
-          tickLine={false}
-          domain={[0, 1.1]}
-          label={{
-            value: "Relative private-school advantage",
-            angle: -90,
-            position: "insideLeft",
-            style: { fill: "#475569", fontSize: 12 },
-          }}
-        />
-        <Bar dataKey="value" fill="#173A8A" radius={[10, 10, 0, 0]}>
-          <LabelList
-            dataKey="value"
-            position="top"
-            formatter={(value) => value.toFixed(2)}
-            style={{ fill: "#0f172a", fontSize: 12, fontWeight: 600 }}
-          />
-        </Bar>
-      </BarChart>
-    </ResponsiveContainer>
+    <svg viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Illustrative decomposition of the private-school gap">
+      {[0, 0.25, 0.5, 0.75, 1].map((tick) => {
+        const y = chartBottom - ((tick / maxValue) * (chartBottom - chartTop));
+        return (
+          <g key={tick}>
+            <line x1={chartLeft} y1={y} x2={chartRight} y2={y} stroke="#E2E8F0" strokeWidth="0.5" strokeDasharray="1.5 2.5" />
+            <text x="10" y={y + 1.5} textAnchor="middle" fontSize="3.2" fill="#475569">
+              {tick.toFixed(2)}
+            </text>
+          </g>
+        );
+      })}
+      <line x1={chartLeft} y1={chartTop} x2={chartLeft} y2={chartBottom} stroke="#94A3B8" strokeWidth="0.6" />
+      <line x1={chartLeft} y1={chartBottom} x2={chartRight} y2={chartBottom} stroke="#94A3B8" strokeWidth="0.6" />
+      <text x="4.5" y="50" transform="rotate(-90 4.5 50)" fontSize="3.2" fill="#475569">
+        Relative private-school advantage
+      </text>
+      {PRIVATE_SCHOOLS_GAP_DATA.map((item, index) => {
+        const barWidth = 10;
+        const x = chartLeft + slot * index + (slot - barWidth) / 2;
+        const barHeight = (item.value / maxValue) * (chartBottom - chartTop);
+        const y = chartBottom - barHeight;
+        return (
+          <g key={item.label}>
+            <rect x={x} y={y} width={barWidth} height={barHeight} rx="2.4" fill={index === 0 ? "#173A8A" : index === 1 ? "#5F6B7A" : "#B04646"} />
+            <text x={x + barWidth / 2} y={y - 2.5} textAnchor="middle" fontSize="3.4" fontWeight="700" fill="#0f172a">
+              {item.value.toFixed(2)}
+            </text>
+            <text x={x + barWidth / 2} y="90" textAnchor="middle" fontSize="3.1" fill="#475569">
+              {item.label}
+            </text>
+          </g>
+        );
+      })}
+      <text x="68" y="12" fontSize="3.1" fill="#64748B">
+        Illustrative only
+      </text>
+    </svg>
   );
 }
 
 function PrivateSchoolsDistributionChart() {
-  const width = 100;
-  const height = 100;
   const min = -0.4;
   const max = 0.7;
-  const xFor = (value) => 14 + ((value - min) / (max - min)) * 72;
-  const publicY = 34;
+  const xFor = (value) => 18 + ((value - min) / (max - min)) * 68;
+  const publicY = 36;
   const privateY = 66;
 
   return (
     <svg viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Illustrative overlap in public and private school value-added distributions">
-      <line x1="14" y1="18" x2="14" y2="84" stroke="#CBD5E1" strokeWidth="0.5" />
-      <line x1="14" y1="50" x2="92" y2="50" stroke="#CBD5E1" strokeWidth="0.5" />
-      <line x1="14" y1="84" x2="92" y2="84" stroke="#94A3B8" strokeWidth="0.6" />
+      <line x1="18" y1="18" x2="18" y2="84" stroke="#CBD5E1" strokeWidth="0.5" />
+      <line x1="18" y1="50" x2="92" y2="50" stroke="#CBD5E1" strokeWidth="0.5" />
+      <line x1="18" y1="84" x2="92" y2="84" stroke="#94A3B8" strokeWidth="0.6" />
       {[-0.4, -0.2, 0, 0.2, 0.4, 0.6].map((tick) => (
         <g key={tick}>
           <line x1={xFor(tick)} y1="82" x2={xFor(tick)} y2="86" stroke="#64748B" strokeWidth="0.5" />
@@ -597,9 +603,9 @@ function PrivateSchoolsDistributionChart() {
           </text>
         </g>
       ))}
-      <text x="4" y={publicY + 1} fontSize="4" fill="#475569">Public</text>
-      <text x="4" y={privateY + 1} fontSize="4" fill="#475569">Private</text>
-      <text x="53" y="98" textAnchor="middle" fontSize="3.3" fill="#475569">
+      <text x="6" y={publicY + 1} fontSize="4" fill="#475569">Public</text>
+      <text x="6" y={privateY + 1} fontSize="4" fill="#475569">Private</text>
+      <text x="55" y="98" textAnchor="middle" fontSize="3.3" fill="#475569">
         Estimated school value-added
       </text>
       {PRIVATE_SCHOOLS_DISTRIBUTION.public.map((value, index) => (
@@ -656,6 +662,20 @@ function InsightArticlePage({ isMobileMenuOpen, onCloseMobileMenu, onToggleMobil
               math={String.raw`ObservedPrivatePremium = SchoolValueAdded + SelectionEffect + PeerEffect + SignalingEffect`}
               interpretation="Private schools may genuinely add value, but the observed gap also reflects which households select into private schooling, the peer groups students enter, and the signals parents use when true school quality is imperfectly observed."
             />
+
+            <InsightSection title="The observed gap: what the data shows">
+              <p>
+                The raw gap in SEE pass rates between private and public schools is the starting point of the debate. Private-school students appear to perform better on average. The question is whether this reflects differences in school quality, or differences in the students and households that select into each system.
+              </p>
+              <img
+                src="/insights-private-schools-1.png"
+                alt="SEE pass rate comparison between private and public schools"
+                className="w-full overflow-hidden rounded-2xl border border-[#E3E6EB] bg-white shadow-sm"
+              />
+              <p>
+                This observed gap is real. But it is not, by itself, an estimate of school quality.
+              </p>
+            </InsightSection>
 
             <InsightSection title="Econometric framing">
               <p>
