@@ -897,7 +897,7 @@ function InsightArticlePage({ isMobileMenuOpen, onCloseMobileMenu, onToggleMobil
               note={
                 <div className="space-y-3">
                   <p>
-                    This chart keeps the same conceptual decomposition while giving the visual a stable rendering box on desktop and mobile.
+                    This decomposition tracks how the private-school premium changes once household background and prior achievement are included.
                   </p>
                   <p className="text-sm leading-6 text-slate-600">
                     Illustrative decomposition, not estimated Nepal results.
@@ -930,7 +930,7 @@ function InsightArticlePage({ isMobileMenuOpen, onCloseMobileMenu, onToggleMobil
               note={
                 <div className="space-y-3">
                   <p>
-                    The pattern here is meant to show variation rather than a single sector-wide effect. Families with different resources face different school choices, and those choices can produce different returns.
+                    This shows variation rather than a single sector-wide effect. Families with different resources face different school choices, and those choices produce different returns.
                   </p>
                 </div>
               }
@@ -971,7 +971,7 @@ function InsightArticlePage({ isMobileMenuOpen, onCloseMobileMenu, onToggleMobil
               note={
                 <div className="space-y-3">
                   <p>
-                    The visual is meant to show overlap, not a clean sector ranking. Some public schools outperform weaker private schools, and some private schools do add more value.
+                    This shows overlap, not a clean sector ranking. Some public schools outperform weaker private schools, and some private schools add more value.
                   </p>
                   <p className="text-sm leading-6 text-slate-600">
                     The policy-relevant object is the spread of school quality within each sector, not only the mean difference between them.
