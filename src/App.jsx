@@ -911,6 +911,9 @@ function InsightArticlePage({ isMobileMenuOpen, onCloseMobileMenu, onToggleMobil
                 interpretation="This estimates the raw private-school gap but cannot separate school quality from household sorting."
               />
               <p>
+                In plain terms, this compares outcomes between students in private and public schools. But it treats school choice as if it were random, which it is not.
+              </p>
+              <p>
                 A more serious specification conditions on pre-treatment household characteristics and local constraints on school choice.
               </p>
               <EquationCard
@@ -922,6 +925,9 @@ function InsightArticlePage({ isMobileMenuOpen, onCloseMobileMenu, onToggleMobil
                   </>
                 }
               />
+              <p>
+                This moves closer to a fair comparison by accounting for observable differences across students. But it still cannot fully separate school quality from the underlying characteristics of the households choosing those schools.
+              </p>
               <p>
                 Importantly, selection into private schools is unlikely to be random. Higher-income households, more educated parents, and students with stronger prior performance are more likely to enroll in private schools. This tends to bias simple comparisons upward, making private schools appear more effective than they may be in terms of value-added alone.
               </p>
@@ -997,6 +1003,9 @@ function InsightArticlePage({ isMobileMenuOpen, onCloseMobileMenu, onToggleMobil
             <InsightSection title="Private schooling as a signaling and sorting equilibrium">
               <p>
                 Household school choice is itself an equilibrium object. Families do not observe true school quality directly. They infer it from visible signals, budget constraints, neighborhood access, and expected peer groups.
+              </p>
+              <p>
+                From a practical perspective, parents are not choosing between “public” and “private” in the abstract. They are choosing between specific schools based on signals they can observe — fees, language of instruction, exam results, and reputation. Schools respond to these signals, and over time this interaction shapes the entire education market.
               </p>
               <EquationCard
                 title="Household school choice"
@@ -1077,6 +1086,10 @@ function InsightArticlePage({ isMobileMenuOpen, onCloseMobileMenu, onToggleMobil
                 </ul>
               </div>
             </InsightSection>
+
+            <p>
+              For decision-makers, the distinction matters. A higher observed performance in private schools does not automatically imply that expanding private provision will improve outcomes. The observed gap reflects both school quality and who attends those schools.
+            </p>
 
             <div className="rounded-xl border border-[#E3E6EB] bg-[#FAFAF8] px-5 py-4 text-lg leading-8 text-slate-700">
               Private schools may be better in some cases. But the observed gap is not itself the answer. It is the object to be decomposed. For Nepal, the more useful question is how much of the private-school premium comes from school value-added, how much from household sorting, how much from peer effects, and how much from signals that parents interpret as quality.
