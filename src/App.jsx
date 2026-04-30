@@ -2321,7 +2321,7 @@ function Homepage({ isMobileMenuOpen, onCloseMobileMenu, onToggleMobileMenu }) {
               >
                 <div className="aspect-[16/10] overflow-hidden border-b border-[#E0E0DC] bg-[#F5F5F3]">
                   <img
-                    src="/insights-private-schools-1.png"
+                    src="/private-schools-exhibit-card.svg"
                     alt="Are private schools really better?"
                     className="h-full w-full object-cover transition duration-300 group-hover:scale-[1.02]"
                   />
@@ -2335,7 +2335,7 @@ function Homepage({ isMobileMenuOpen, onCloseMobileMenu, onToggleMobileMenu }) {
                     {PRIVATE_SCHOOLS_ARTICLE.title}
                   </h3>
                   <p className="text-sm leading-6 text-slate-600 sm:text-base">
-                    Read the full analysis.
+                    A working note on how selection, signaling, and sorting shape the private-school gap.
                   </p>
                 </div>
               </a>

@@ -1,0 +1,36 @@
+<svg width="1200" height="750" viewBox="0 0 1200 750" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="750" fill="#F5F5F3"/>
+  <rect x="56" y="54" width="1088" height="642" rx="32" fill="#FAFAF8" stroke="#E0E0DC" stroke-width="2"/>
+  <text x="96" y="122" fill="#B20D18" font-family="Inter, Arial, sans-serif" font-size="24" font-weight="700" letter-spacing="4.8">ILLUSTRATIVE EXHIBIT</text>
+  <text x="96" y="170" fill="#173A8A" font-family="Georgia, 'Times New Roman', serif" font-size="44" font-weight="700">Naive gap vs selection-adjusted gap</text>
+  <text x="96" y="210" fill="#475569" font-family="Inter, Arial, sans-serif" font-size="24">Relative private-school advantage after adjusting for selection.</text>
+
+  <line x1="144" y1="578" x2="1014" y2="578" stroke="#94A3B8" stroke-width="3"/>
+  <line x1="144" y1="270" x2="144" y2="578" stroke="#94A3B8" stroke-width="3"/>
+
+  <line x1="144" y1="501" x2="1014" y2="501" stroke="#E2E8F0" stroke-width="2" stroke-dasharray="6 8"/>
+  <line x1="144" y1="424" x2="1014" y2="424" stroke="#E2E8F0" stroke-width="2" stroke-dasharray="6 8"/>
+  <line x1="144" y1="347" x2="1014" y2="347" stroke="#E2E8F0" stroke-width="2" stroke-dasharray="6 8"/>
+  <line x1="144" y1="270" x2="1014" y2="270" stroke="#E2E8F0" stroke-width="2" stroke-dasharray="6 8"/>
+
+  <text x="90" y="585" fill="#475569" font-family="Inter, Arial, sans-serif" font-size="18">0.00</text>
+  <text x="90" y="508" fill="#475569" font-family="Inter, Arial, sans-serif" font-size="18">0.25</text>
+  <text x="90" y="431" fill="#475569" font-family="Inter, Arial, sans-serif" font-size="18">0.50</text>
+  <text x="90" y="354" fill="#475569" font-family="Inter, Arial, sans-serif" font-size="18">0.75</text>
+  <text x="90" y="277" fill="#475569" font-family="Inter, Arial, sans-serif" font-size="18">1.00</text>
+
+  <rect x="246" y="270" width="128" height="308" rx="18" fill="#173A8A"/>
+  <rect x="512" y="408" width="128" height="170" rx="18" fill="#5F6B7A"/>
+  <rect x="778" y="501" width="128" height="77" rx="18" fill="#B04646"/>
+
+  <text x="310" y="245" text-anchor="middle" fill="#0F172A" font-family="Inter, Arial, sans-serif" font-size="26" font-weight="700">1.00</text>
+  <text x="576" y="383" text-anchor="middle" fill="#0F172A" font-family="Inter, Arial, sans-serif" font-size="26" font-weight="700">0.55</text>
+  <text x="842" y="476" text-anchor="middle" fill="#0F172A" font-family="Inter, Arial, sans-serif" font-size="26" font-weight="700">0.25</text>
+
+  <text x="310" y="624" text-anchor="middle" fill="#475569" font-family="Inter, Arial, sans-serif" font-size="21">Raw gap</text>
+  <text x="576" y="624" text-anchor="middle" fill="#475569" font-family="Inter, Arial, sans-serif" font-size="21">Household-adjusted</text>
+  <text x="842" y="624" text-anchor="middle" fill="#475569" font-family="Inter, Arial, sans-serif" font-size="21">Value-added adjusted</text>
+
+  <text x="34" y="452" transform="rotate(-90 34 452)" fill="#475569" font-family="Inter, Arial, sans-serif" font-size="20">Relative private-school advantage</text>
+  <text x="920" y="124" fill="#64748B" font-family="Inter, Arial, sans-serif" font-size="20">Illustrative only</text>
+</svg>
