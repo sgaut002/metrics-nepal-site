@@ -7,8 +7,12 @@ import {
   CartesianGrid,
   LabelList,
   Legend,
+  Line,
+  LineChart,
   ResponsiveContainer,
   ReferenceLine,
+  Scatter,
+  ScatterChart,
   Tooltip,
   XAxis,
   YAxis,
@@ -60,6 +64,21 @@ const PRIVATE_SCHOOLS_HETEROGENEITY_DATA = [
   { x: "Middle", value: 0.35 },
   { x: "Upper-middle", value: 0.45 },
   { x: "High income", value: 0.5 },
+];
+
+const PRIVATE_SCHOOLS_DISTRIBUTION_POINTS = [
+  ...PRIVATE_SCHOOLS_DISTRIBUTION.public.map((value, index) => ({
+    id: `public-${index}`,
+    sector: "Public",
+    value,
+    y: 1,
+  })),
+  ...PRIVATE_SCHOOLS_DISTRIBUTION.private.map((value, index) => ({
+    id: `private-${index}`,
+    sector: "Private",
+    value,
+    y: 2,
+  })),
 ];
 
 const WHITE_PAPER_TITLE = "What’s in the Government’s White Paper?";
@@ -675,107 +694,106 @@ function PrivateSchoolsGapChart() {
 }
 
 function PrivateSchoolsDistributionChart() {
-  const min = -0.4;
-  const max = 0.7;
-  const xFor = (value) => 18 + ((value - min) / (max - min)) * 68;
-  const publicY = 34;
-  const privateY = 66;
-
   return (
-    <svg
-      viewBox="0 0 100 100"
-      preserveAspectRatio="xMidYMid meet"
-      role="img"
-      aria-label="Illustrative overlap in public and private school value-added distributions"
-      className="block h-full w-full max-w-full"
-    >
-      <line x1="18" y1="16" x2="18" y2="82" stroke={FIGURE_GRID} strokeWidth="0.6" />
-      <line x1="18" y1="82" x2="92" y2="82" stroke={FIGURE_NEUTRAL} strokeWidth="0.7" />
-      {[-0.4, -0.2, 0, 0.2, 0.4, 0.6].map((tick) => (
-        <g key={tick}>
-          <line x1={xFor(tick)} y1="80" x2={xFor(tick)} y2="84" stroke={FIGURE_NEUTRAL} strokeWidth="0.5" />
-          <text x={xFor(tick)} y="89" textAnchor="middle" fontSize="3.1" fill={FIGURE_NEUTRAL}>
-            {tick}
-          </text>
-        </g>
-      ))}
-      <line x1="18" y1={publicY} x2="92" y2={publicY} stroke={FIGURE_GRID} strokeWidth="0.5" strokeDasharray="2 3" />
-      <line x1="18" y1={privateY} x2="92" y2={privateY} stroke={FIGURE_GRID} strokeWidth="0.5" strokeDasharray="2 3" />
-      <text x="7" y={publicY + 1} fontSize="3.7" fill={FIGURE_NEUTRAL}>Public</text>
-      <text x="7" y={privateY + 1} fontSize="3.7" fill={FIGURE_NEUTRAL}>Private</text>
-      <text x="55" y="96" textAnchor="middle" fontSize="3.2" fill={FIGURE_NEUTRAL}>
-        Estimated school value-added
-      </text>
-      {PRIVATE_SCHOOLS_DISTRIBUTION.public.map((value, index) => (
-        <circle key={`pub-${index}`} cx={xFor(value)} cy={publicY} r="2.25" fill={FIGURE_SECONDARY} opacity="0.88" />
-      ))}
-      {PRIVATE_SCHOOLS_DISTRIBUTION.private.map((value, index) => (
-        <circle key={`priv-${index}`} cx={xFor(value)} cy={privateY} r="2.25" fill={FIGURE_PRIMARY} opacity="0.88" />
-      ))}
-      <text x="70" y="12" fontSize="3.1" fill={FIGURE_NEUTRAL}>Illustrative only</text>
-    </svg>
+    <ResponsiveContainer width="100%" height="100%">
+      <ScatterChart margin={{ top: 18, right: 20, bottom: 22, left: 18 }}>
+        <CartesianGrid stroke={FIGURE_GRID} strokeDasharray="3 3" vertical={false} />
+        <XAxis
+          type="number"
+          dataKey="value"
+          domain={[-0.4, 0.7]}
+          tick={{ fill: FIGURE_NEUTRAL, fontSize: 12 }}
+          axisLine={false}
+          tickLine={false}
+          tickCount={6}
+          label={{ value: "Estimated school value-added", position: "insideBottom", offset: -10, fill: FIGURE_NEUTRAL, fontSize: 12 }}
+        />
+        <YAxis
+          type="number"
+          dataKey="y"
+          domain={[0.5, 2.5]}
+          ticks={[1, 2]}
+          tickFormatter={(value) => (value === 1 ? "Public" : "Private")}
+          tick={{ fill: FIGURE_NEUTRAL, fontSize: 12 }}
+          axisLine={false}
+          tickLine={false}
+          width={54}
+        />
+        <Tooltip
+          cursor={{ stroke: "rgba(15, 23, 42, 0.16)", strokeDasharray: "3 3" }}
+          content={({ active, payload }) => {
+            if (!active || !payload?.length) return null;
+            const point = payload[0].payload;
+            return (
+              <div className="rounded-xl border border-[#E3E6EB] bg-white px-3 py-2 text-sm shadow-lg">
+                <div className="font-medium text-slate-900">Sector: {point.sector.toLowerCase()}</div>
+                <div className="mt-1 text-slate-600">
+                  Estimated value-added: {Number(point.value).toFixed(2)}
+                </div>
+              </div>
+            );
+          }}
+        />
+        <Scatter
+          data={PRIVATE_SCHOOLS_DISTRIBUTION_POINTS.filter((point) => point.sector === "Public")}
+          fill={FIGURE_SECONDARY}
+        />
+        <Scatter
+          data={PRIVATE_SCHOOLS_DISTRIBUTION_POINTS.filter((point) => point.sector === "Private")}
+          fill={FIGURE_PRIMARY}
+        />
+      </ScatterChart>
+    </ResponsiveContainer>
   );
 }
 
 function PrivateSchoolsHeterogeneityChart() {
-  const maxValue = 0.55;
-  const minValue = 0;
-  const points = PRIVATE_SCHOOLS_HETEROGENEITY_DATA.map((item, index) => {
-    const x = 16 + index * 17;
-    const y = 82 - (((item.value - minValue) / (maxValue - minValue)) * 56);
-    return { ...item, x, y };
-  });
-  const path = points
-    .map((point, index) => `${index === 0 ? "M" : "L"} ${point.x} ${point.y}`)
-    .join(" ");
-
   return (
-    <svg
-      viewBox="0 0 100 100"
-      preserveAspectRatio="xMidYMid meet"
-      role="img"
-      aria-label="Estimated private-school effect by household economic status"
-      className="block h-full w-full max-w-full"
-    >
-      {[0.1, 0.2, 0.3, 0.4, 0.5].map((tick) => {
-        const y = 82 - (((tick - minValue) / (maxValue - minValue)) * 56);
-        return (
-          <g key={tick}>
-            <line x1="14" y1={y} x2="92" y2={y} stroke={FIGURE_GRID} strokeWidth="0.5" />
-            <text x="9" y={y + 1.5} textAnchor="middle" fontSize="3" fill={FIGURE_NEUTRAL}>
-              {tick.toFixed(2)}
-            </text>
-          </g>
-        );
-      })}
-      <line x1="14" y1="24" x2="14" y2="82" stroke={FIGURE_NEUTRAL} strokeWidth="0.6" />
-      <line x1="14" y1="82" x2="92" y2="82" stroke={FIGURE_NEUTRAL} strokeWidth="0.6" />
-      <text x="4.5" y="50" transform="rotate(-90 4.5 50)" fontSize="3" fill={FIGURE_NEUTRAL}>
-        Estimated private-school effect
-      </text>
-      <text x="53" y="96" textAnchor="middle" fontSize="3" fill={FIGURE_NEUTRAL}>
-        Household economic status (proxy)
-      </text>
-
-      <path d={path} fill="none" stroke={FIGURE_PRIMARY} strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
-
-      {points.map((point) => (
-        <g key={point.x}>
-          <circle cx={point.x} cy={point.y} r="2.1" fill={FIGURE_SECONDARY} stroke="#FAFAF8" strokeWidth="0.8" />
-          <text x={point.x} y="89" textAnchor="middle" fontSize="2.8" fill={FIGURE_NEUTRAL}>
-            {point.x === 16
-              ? "Low"
-              : point.x === 33
-                ? "Lower-mid"
-                : point.x === 50
-                  ? "Middle"
-                  : point.x === 67
-                    ? "Upper-mid"
-              : "High"}
-          </text>
-        </g>
-      ))}
-    </svg>
+    <ResponsiveContainer width="100%" height="100%">
+      <LineChart data={PRIVATE_SCHOOLS_HETEROGENEITY_DATA} margin={{ top: 18, right: 20, left: 8, bottom: 24 }}>
+        <CartesianGrid stroke={FIGURE_GRID} vertical={false} />
+        <XAxis
+          dataKey="x"
+          tick={{ fill: FIGURE_NEUTRAL, fontSize: 11 }}
+          axisLine={false}
+          tickLine={false}
+          interval={0}
+          height={38}
+          label={{ value: "Household economic status (proxy)", position: "insideBottom", offset: -8, fill: FIGURE_NEUTRAL, fontSize: 12 }}
+        />
+        <YAxis
+          domain={[0, 0.55]}
+          tick={{ fill: FIGURE_NEUTRAL, fontSize: 12 }}
+          axisLine={false}
+          tickLine={false}
+          tickFormatter={(value) => value.toFixed(2)}
+          label={{ value: "Estimated private-school effect", angle: -90, position: "insideLeft", fill: FIGURE_NEUTRAL, fontSize: 12, offset: 0 }}
+        />
+        <Tooltip
+          cursor={{ stroke: "rgba(15, 23, 42, 0.16)", strokeDasharray: "3 3" }}
+          content={({ active, payload }) => {
+            if (!active || !payload?.length) return null;
+            const point = payload[0].payload;
+            return (
+              <div className="rounded-xl border border-[#E3E6EB] bg-white px-3 py-2 text-sm shadow-lg">
+                <div className="font-medium text-slate-900">Household group: {point.x}</div>
+                <div className="mt-1 text-slate-600">
+                  Estimated private-school effect: {Number(point.value).toFixed(2)}
+                </div>
+              </div>
+            );
+          }}
+        />
+        <Line
+          type="monotone"
+          dataKey="value"
+          stroke={FIGURE_PRIMARY}
+          strokeWidth={2.5}
+          dot={{ r: 4, fill: FIGURE_SECONDARY, stroke: "#FAFAF8", strokeWidth: 1 }}
+          activeDot={{ r: 5, fill: FIGURE_PRIMARY, stroke: "#FAFAF8", strokeWidth: 1 }}
+        />
+      </LineChart>
+    </ResponsiveContainer>
   );
 }
 
@@ -1074,6 +1092,15 @@ function InsightArticlePage({ isMobileMenuOpen, onCloseMobileMenu, onToggleMobil
               </ol>
             </InsightSection>
 
+            <InsightSection title="What this means">
+              <p>
+                Private schools may perform better in some cases. But the observed gap is not itself the answer. It is the object to be decomposed.
+              </p>
+              <p>
+                For Nepal, the useful question is how much of the private-school premium comes from school value-added, how much from household sorting, how much from peer effects, and how much from signals that parents interpret as quality.
+              </p>
+            </InsightSection>
+
             <InsightSection title="Selected literature">
               <div className="rounded-xl border border-[#E3E6EB] bg-[#FAFAF8] p-5 text-base leading-7 text-slate-700">
                 <ul className="space-y-3">
@@ -1086,14 +1113,6 @@ function InsightArticlePage({ isMobileMenuOpen, onCloseMobileMenu, onToggleMobil
                 </ul>
               </div>
             </InsightSection>
-
-            <p>
-              For decision-makers, the distinction matters. A higher observed performance in private schools does not automatically imply that expanding private provision will improve outcomes. The observed gap reflects both school quality and who attends those schools.
-            </p>
-
-            <div className="rounded-xl border border-[#E3E6EB] bg-[#FAFAF8] px-5 py-4 text-lg leading-8 text-slate-700">
-              Private schools may be better in some cases. But the observed gap is not itself the answer. It is the object to be decomposed. For Nepal, the more useful question is how much of the private-school premium comes from school value-added, how much from household sorting, how much from peer effects, and how much from signals that parents interpret as quality.
-            </div>
           </div>
         </section>
       </main>
