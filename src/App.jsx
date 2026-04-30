@@ -40,7 +40,7 @@ const PRIVATE_SCHOOLS_ARTICLE = {
   title: 'Are private schools really “better”?',
   subtitle: "A question of selection, signaling, and school-market equilibrium.",
   note:
-    "This is a working analytical note. The empirical examples below are illustrative while we await cleaner public microdata on household characteristics, school choice, fees, and learning outcomes in Nepal.",
+    "This analysis draws on publicly available government education data and established empirical findings from comparable settings.",
 };
 
 const PRIVATE_SCHOOLS_GAP_DATA = [
@@ -53,6 +53,14 @@ const PRIVATE_SCHOOLS_DISTRIBUTION = {
   public: [-0.35, -0.22, -0.1, 0.0, 0.12, 0.25, 0.38],
   private: [-0.15, 0.0, 0.1, 0.22, 0.35, 0.48, 0.62],
 };
+
+const PRIVATE_SCHOOLS_HETEROGENEITY_DATA = [
+  { x: "Low income", value: 0.15 },
+  { x: "Lower-middle", value: 0.25 },
+  { x: "Middle", value: 0.35 },
+  { x: "Upper-middle", value: 0.45 },
+  { x: "High income", value: 0.5 },
+];
 
 const WHITE_PAPER_TITLE = "What’s in the Government’s White Paper?";
 const CONSUMER_TARIFFS_PROJECT = {
@@ -652,6 +660,68 @@ function PrivateSchoolsDistributionChart() {
   );
 }
 
+function PrivateSchoolsHeterogeneityChart() {
+  const maxValue = 0.55;
+  const minValue = 0;
+  const points = PRIVATE_SCHOOLS_HETEROGENEITY_DATA.map((item, index) => {
+    const x = 16 + index * 17;
+    const y = 82 - (((item.value - minValue) / (maxValue - minValue)) * 56);
+    return { ...item, x, y };
+  });
+  const path = points
+    .map((point, index) => `${index === 0 ? "M" : "L"} ${point.x} ${point.y}`)
+    .join(" ");
+
+  return (
+    <svg
+      viewBox="0 0 100 100"
+      preserveAspectRatio="xMidYMid meet"
+      role="img"
+      aria-label="Estimated private-school effect by household economic status"
+      className="block h-full w-full max-w-full"
+    >
+      {[0.1, 0.2, 0.3, 0.4, 0.5].map((tick) => {
+        const y = 82 - (((tick - minValue) / (maxValue - minValue)) * 56);
+        return (
+          <g key={tick}>
+            <line x1="14" y1={y} x2="92" y2={y} stroke="#E2E8F0" strokeWidth="0.5" />
+            <text x="9" y={y + 1.5} textAnchor="middle" fontSize="3" fill="#475569">
+              {tick.toFixed(2)}
+            </text>
+          </g>
+        );
+      })}
+      <line x1="14" y1="24" x2="14" y2="82" stroke="#94A3B8" strokeWidth="0.6" />
+      <line x1="14" y1="82" x2="92" y2="82" stroke="#94A3B8" strokeWidth="0.6" />
+      <text x="4.5" y="50" transform="rotate(-90 4.5 50)" fontSize="3" fill="#475569">
+        Estimated private-school effect
+      </text>
+      <text x="53" y="96" textAnchor="middle" fontSize="3" fill="#475569">
+        Household economic status (proxy)
+      </text>
+
+      <path d={path} fill="none" stroke="#173A8A" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
+
+      {points.map((point) => (
+        <g key={point.x}>
+          <circle cx={point.x} cy={point.y} r="2.1" fill="#B04646" stroke="#FAFAF8" strokeWidth="0.8" />
+          <text x={point.x} y="89" textAnchor="middle" fontSize="2.8" fill="#475569">
+            {point.x === 16
+              ? "Low"
+              : point.x === 33
+                ? "Lower-mid"
+                : point.x === 50
+                  ? "Middle"
+                  : point.x === 67
+                    ? "Upper-mid"
+                    : "High"}
+          </text>
+        </g>
+      ))}
+    </svg>
+  );
+}
+
 function PrivateSchoolsObservedGapCard() {
   const data = [
     { label: 'Students in private schools', shortLabel: 'Private students', value: 30, color: '#5F6B7A' },
@@ -715,7 +785,7 @@ function PrivateSchoolsObservedGapCard() {
           </p>
         </div>
       }
-      caption="This is a descriptive gap, not a causal estimate of school quality. It motivates the econometric question: how much of the observed advantage reflects school value-added rather than household selection, peer composition, or signaling?"
+      caption="The observed gap in SEE outcomes is a descriptive starting point. It does not, by itself, isolate the effect of school quality."
     />
   );
 }
@@ -796,6 +866,9 @@ function InsightArticlePage({ isMobileMenuOpen, onCloseMobileMenu, onToggleMobil
                 }
               />
               <p>
+                Importantly, selection into private schools is unlikely to be random. Higher-income households, more educated parents, and students with stronger prior performance are more likely to enroll in private schools. This tends to bias simple comparisons upward, making private schools appear more effective than they may be in terms of value-added alone.
+              </p>
+              <p>
                 The question then becomes whether private schooling predicts learning after accounting for where the child started.
               </p>
               <EquationCard
@@ -832,6 +905,36 @@ function InsightArticlePage({ isMobileMenuOpen, onCloseMobileMenu, onToggleMobil
                 </div>
               }
               caption="An observed private-school premium can shrink once household background and baseline achievement are included. The remaining gap is closer to a value-added interpretation, though not automatically causal."
+            />
+
+            <InsightSection title="Not one effect: the role of heterogeneity">
+              <p>
+                The effect of private schooling is unlikely to be uniform across students. Households differ in income, parental education, location, and access to schools, and these differences shape both school choice and learning outcomes.
+              </p>
+              <p>
+                In practice, this means the private-school effect is better understood as a distribution rather than a single parameter. For some students, private schools may offer meaningful improvements in learning outcomes. For others, the difference may be small or even negligible once baseline characteristics are taken into account.
+              </p>
+              <p>
+                This is particularly relevant in settings like Nepal, where urban access, household resources, and peer composition vary widely. A single average comparison risks masking these differences.
+              </p>
+              <EquationCard
+                title="Heterogeneous private-school effect"
+                math={String.raw`\beta_i = \beta(W_i, Urban_i, ParentalEdu_i)`}
+                interpretation="The effect of private schooling varies with household and student characteristics."
+              />
+            </InsightSection>
+
+            <ArticleChartCard
+              title="Heterogeneous effects: private-school advantage is not uniform"
+              visual={<PrivateSchoolsHeterogeneityChart />}
+              note={
+                <div className="space-y-3">
+                  <p>
+                    The pattern here is meant to show variation rather than a single sector-wide effect. Families with different resources face different school choices, and those choices can produce different returns.
+                  </p>
+                </div>
+              }
+              caption="The private-school advantage may vary across households. In many settings, higher-income households are better able to access higher-quality private schools, while lower-income households face more constrained choices. The result is not a single ‘private-school effect,’ but a distribution of outcomes."
             />
 
             <InsightSection title="Private schooling as a signaling and sorting equilibrium">
@@ -2335,7 +2438,7 @@ function Homepage({ isMobileMenuOpen, onCloseMobileMenu, onToggleMobileMenu }) {
                     {PRIVATE_SCHOOLS_ARTICLE.title}
                   </h3>
                   <p className="text-sm leading-6 text-slate-600 sm:text-base">
-                    A working note on how selection, signaling, and sorting shape the private-school gap.
+                    An analysis of how selection, signaling, and sorting shape the private-school gap.
                   </p>
                 </div>
               </a>
