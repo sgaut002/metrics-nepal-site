@@ -78,7 +78,11 @@ const WHITE_PAPER_DISCLAIMER =
 const WHITE_PAPER_SUBTITLE =
   "A complementary data brief of the Government of Nepal’s recent white paper. The key numbers—reframed for clarity, context, and quick reading.";
 const WHITE_PAPER_TAB_ORDER = Object.keys(whitePaperCharts);
-const CHART_COLORS = ["#18356d", "#b04646", "#5f6b7a", "#d48657"];
+const FIGURE_PRIMARY = "#1d4ed8";
+const FIGURE_SECONDARY = "#dc2626";
+const FIGURE_NEUTRAL = "rgba(15, 23, 42, 0.65)";
+const FIGURE_GRID = "rgba(15, 23, 42, 0.08)";
+const CHART_COLORS = [FIGURE_PRIMARY, FIGURE_SECONDARY, FIGURE_NEUTRAL];
 
 function cleanArtifacts(text) {
   return text
@@ -525,6 +529,78 @@ function InsightSection({ title, children }) {
   );
 }
 
+function FigureCopyright() {
+  return (
+    <div className="pointer-events-none absolute bottom-[6px] right-[10px] text-[11px] font-medium text-[rgba(15,23,42,0.45)]">
+      © Metrics Nepal
+    </div>
+  );
+}
+
+function MnFigure({
+  title,
+  subtitle,
+  caption,
+  chart,
+  aside,
+  eyebrow,
+  noteFirstOnDesktop = false,
+  chartHeightClassName = "h-[260px] md:h-[320px]",
+  bodyClassName = "",
+  chartClassName = "",
+  figureClassName = "",
+}) {
+  const hasAside = Boolean(aside);
+
+  return (
+    <figure
+      className={`mn-figure my-9 w-full rounded-[18px] border border-[rgba(15,23,42,0.08)] bg-white p-5 shadow-[0_12px_32px_rgba(15,23,42,0.06)] ${figureClassName}`.trim()}
+    >
+      <div className="mn-figure-header">
+        {eyebrow ? (
+          <div className="text-xs font-semibold uppercase tracking-[0.16em] text-[#B20D18]">
+            {eyebrow}
+          </div>
+        ) : null}
+        <h3 className="mn-figure-title mt-2 text-[1.05rem] font-semibold text-[#0f172a] [font-family:Georgia,'Times_New_Roman',serif]">
+          {title}
+        </h3>
+        {subtitle ? (
+          <p className="mn-figure-subtitle mt-[2px] text-[0.9rem] leading-6 text-[rgba(15,23,42,0.6)]">
+            {subtitle}
+          </p>
+        ) : null}
+      </div>
+
+      <div
+        className={`mn-figure-body mt-3 grid items-start gap-5 ${
+          hasAside ? "md:grid-cols-[minmax(0,1.4fr)_minmax(260px,0.8fr)]" : "grid-cols-1"
+        } ${bodyClassName}`.trim()}
+      >
+        <div
+          className={`mn-figure-chart relative mt-3 w-full min-w-0 overflow-hidden rounded-xl border border-[rgba(15,23,42,0.08)] bg-[#FAFAF8] p-4 ${chartHeightClassName} ${noteFirstOnDesktop ? "md:order-2" : ""} ${chartClassName}`.trim()}
+        >
+          {chart}
+          <FigureCopyright />
+        </div>
+        {hasAside ? (
+          <div
+            className={`min-w-0 text-[0.95rem] leading-[1.6] text-slate-700 ${noteFirstOnDesktop ? "md:order-1" : ""}`.trim()}
+          >
+            {aside}
+          </div>
+        ) : null}
+      </div>
+
+      {caption ? (
+        <figcaption className="mn-figure-caption mt-[0.85rem] text-[0.9rem] leading-[1.5] text-[rgba(15,23,42,0.7)]">
+          {caption}
+        </figcaption>
+      ) : null}
+    </figure>
+  );
+}
+
 function ArticleChartCard({
   title,
   description,
@@ -534,37 +610,15 @@ function ArticleChartCard({
   noteFirstOnDesktop = false,
 }) {
   return (
-    <figure className="my-8 w-full max-w-full overflow-hidden rounded-[18px] border border-[rgba(15,23,42,0.10)] bg-white p-5 shadow-[0_10px_30px_rgba(15,23,42,0.06)] md:p-5">
-      <div className="article-chart-header">
-        <div className="text-xs font-semibold uppercase tracking-[0.16em] text-[#B20D18]">
-          Illustrative exhibit
-        </div>
-        <h3 className="mt-2 text-lg font-semibold text-[#173A8A] [font-family:Georgia,'Times_New_Roman',serif]">
-          {title}
-        </h3>
-        {description ? <p className="mt-2 text-sm leading-6 text-slate-600">{description}</p> : null}
-      </div>
-
-      <div className="article-chart-body mt-5 grid items-start gap-5 md:grid-cols-[minmax(0,1.4fr)_minmax(260px,0.8fr)]">
-        <div
-          className={`article-chart-visual relative h-[280px] w-full min-w-0 overflow-hidden rounded-xl border border-[#E3E6EB] bg-[#FAFAF8] p-4 md:h-[320px] ${noteFirstOnDesktop ? 'md:order-2' : ''}`.trim()}
-        >
-          {visual}
-          <div className="pointer-events-none absolute bottom-[6px] right-[10px] text-[11px] font-medium text-[rgba(15,23,42,0.45)]">
-            © Metrics Nepal
-          </div>
-        </div>
-        <div
-          className={`article-chart-note min-w-0 text-[0.95rem] leading-[1.6] text-slate-700 ${noteFirstOnDesktop ? 'md:order-1' : ''}`.trim()}
-        >
-          {note}
-        </div>
-      </div>
-
-      <figcaption className="mt-4 text-[0.9rem] leading-[1.5] text-[rgba(15,23,42,0.68)]">
-        {caption}
-      </figcaption>
-    </figure>
+    <MnFigure
+      title={title}
+      subtitle={description}
+      caption={caption}
+      chart={visual}
+      aside={note}
+      eyebrow="Illustrative exhibit"
+      noteFirstOnDesktop={noteFirstOnDesktop}
+    />
   );
 }
 
@@ -577,21 +631,21 @@ function PrivateSchoolsGapChart() {
         margin={{ top: 18, right: 24, left: 28, bottom: 18 }}
         barCategoryGap="26%"
       >
-        <CartesianGrid stroke="#E2E8F0" strokeDasharray="3 3" horizontal={false} />
+        <CartesianGrid stroke={FIGURE_GRID} strokeDasharray="3 3" horizontal={false} />
         <XAxis
           type="number"
           domain={[0, 1.1]}
-          tick={{ fill: '#475569', fontSize: 12 }}
+          tick={{ fill: FIGURE_NEUTRAL, fontSize: 12 }}
           axisLine={false}
           tickLine={false}
           tickFormatter={(value) => value.toFixed(2)}
-          label={{ value: 'Relative private-school advantage', position: 'insideBottom', offset: -8, fill: '#475569', fontSize: 12 }}
+          label={{ value: 'Relative private-school advantage', position: 'insideBottom', offset: -8, fill: FIGURE_NEUTRAL, fontSize: 12 }}
         />
         <YAxis
           type="category"
           dataKey="label"
           width={126}
-          tick={{ fill: '#475569', fontSize: 12 }}
+          tick={{ fill: FIGURE_NEUTRAL, fontSize: 12 }}
           axisLine={false}
           tickLine={false}
           interval={0}
@@ -605,7 +659,7 @@ function PrivateSchoolsGapChart() {
           {PRIVATE_SCHOOLS_GAP_DATA.map((item, index) => (
             <Cell
               key={item.label}
-              fill={index === 0 ? '#173A8A' : index === 1 ? '#5F6B7A' : '#B04646'}
+              fill={index === 0 ? FIGURE_PRIMARY : index === 1 ? FIGURE_SECONDARY : FIGURE_NEUTRAL}
             />
           ))}
           <LabelList
@@ -635,30 +689,30 @@ function PrivateSchoolsDistributionChart() {
       aria-label="Illustrative overlap in public and private school value-added distributions"
       className="block h-full w-full max-w-full"
     >
-      <line x1="18" y1="16" x2="18" y2="82" stroke="#CBD5E1" strokeWidth="0.6" />
-      <line x1="18" y1="82" x2="92" y2="82" stroke="#94A3B8" strokeWidth="0.7" />
+      <line x1="18" y1="16" x2="18" y2="82" stroke={FIGURE_GRID} strokeWidth="0.6" />
+      <line x1="18" y1="82" x2="92" y2="82" stroke={FIGURE_NEUTRAL} strokeWidth="0.7" />
       {[-0.4, -0.2, 0, 0.2, 0.4, 0.6].map((tick) => (
         <g key={tick}>
-          <line x1={xFor(tick)} y1="80" x2={xFor(tick)} y2="84" stroke="#64748B" strokeWidth="0.5" />
-          <text x={xFor(tick)} y="89" textAnchor="middle" fontSize="3.1" fill="#475569">
+          <line x1={xFor(tick)} y1="80" x2={xFor(tick)} y2="84" stroke={FIGURE_NEUTRAL} strokeWidth="0.5" />
+          <text x={xFor(tick)} y="89" textAnchor="middle" fontSize="3.1" fill={FIGURE_NEUTRAL}>
             {tick}
           </text>
         </g>
       ))}
-      <line x1="18" y1={publicY} x2="92" y2={publicY} stroke="#E2E8F0" strokeWidth="0.5" strokeDasharray="2 3" />
-      <line x1="18" y1={privateY} x2="92" y2={privateY} stroke="#E2E8F0" strokeWidth="0.5" strokeDasharray="2 3" />
-      <text x="7" y={publicY + 1} fontSize="3.7" fill="#475569">Public</text>
-      <text x="7" y={privateY + 1} fontSize="3.7" fill="#475569">Private</text>
-      <text x="55" y="96" textAnchor="middle" fontSize="3.2" fill="#475569">
+      <line x1="18" y1={publicY} x2="92" y2={publicY} stroke={FIGURE_GRID} strokeWidth="0.5" strokeDasharray="2 3" />
+      <line x1="18" y1={privateY} x2="92" y2={privateY} stroke={FIGURE_GRID} strokeWidth="0.5" strokeDasharray="2 3" />
+      <text x="7" y={publicY + 1} fontSize="3.7" fill={FIGURE_NEUTRAL}>Public</text>
+      <text x="7" y={privateY + 1} fontSize="3.7" fill={FIGURE_NEUTRAL}>Private</text>
+      <text x="55" y="96" textAnchor="middle" fontSize="3.2" fill={FIGURE_NEUTRAL}>
         Estimated school value-added
       </text>
       {PRIVATE_SCHOOLS_DISTRIBUTION.public.map((value, index) => (
-        <circle key={`pub-${index}`} cx={xFor(value)} cy={publicY} r="2.25" fill="#B04646" opacity="0.88" />
+        <circle key={`pub-${index}`} cx={xFor(value)} cy={publicY} r="2.25" fill={FIGURE_SECONDARY} opacity="0.88" />
       ))}
       {PRIVATE_SCHOOLS_DISTRIBUTION.private.map((value, index) => (
-        <circle key={`priv-${index}`} cx={xFor(value)} cy={privateY} r="2.25" fill="#173A8A" opacity="0.88" />
+        <circle key={`priv-${index}`} cx={xFor(value)} cy={privateY} r="2.25" fill={FIGURE_PRIMARY} opacity="0.88" />
       ))}
-      <text x="70" y="12" fontSize="3.1" fill="#64748B">Illustrative only</text>
+      <text x="70" y="12" fontSize="3.1" fill={FIGURE_NEUTRAL}>Illustrative only</text>
     </svg>
   );
 }
@@ -687,28 +741,28 @@ function PrivateSchoolsHeterogeneityChart() {
         const y = 82 - (((tick - minValue) / (maxValue - minValue)) * 56);
         return (
           <g key={tick}>
-            <line x1="14" y1={y} x2="92" y2={y} stroke="#E2E8F0" strokeWidth="0.5" />
-            <text x="9" y={y + 1.5} textAnchor="middle" fontSize="3" fill="#475569">
+            <line x1="14" y1={y} x2="92" y2={y} stroke={FIGURE_GRID} strokeWidth="0.5" />
+            <text x="9" y={y + 1.5} textAnchor="middle" fontSize="3" fill={FIGURE_NEUTRAL}>
               {tick.toFixed(2)}
             </text>
           </g>
         );
       })}
-      <line x1="14" y1="24" x2="14" y2="82" stroke="#94A3B8" strokeWidth="0.6" />
-      <line x1="14" y1="82" x2="92" y2="82" stroke="#94A3B8" strokeWidth="0.6" />
-      <text x="4.5" y="50" transform="rotate(-90 4.5 50)" fontSize="3" fill="#475569">
+      <line x1="14" y1="24" x2="14" y2="82" stroke={FIGURE_NEUTRAL} strokeWidth="0.6" />
+      <line x1="14" y1="82" x2="92" y2="82" stroke={FIGURE_NEUTRAL} strokeWidth="0.6" />
+      <text x="4.5" y="50" transform="rotate(-90 4.5 50)" fontSize="3" fill={FIGURE_NEUTRAL}>
         Estimated private-school effect
       </text>
-      <text x="53" y="96" textAnchor="middle" fontSize="3" fill="#475569">
+      <text x="53" y="96" textAnchor="middle" fontSize="3" fill={FIGURE_NEUTRAL}>
         Household economic status (proxy)
       </text>
 
-      <path d={path} fill="none" stroke="#173A8A" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
+      <path d={path} fill="none" stroke={FIGURE_PRIMARY} strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
 
       {points.map((point) => (
         <g key={point.x}>
-          <circle cx={point.x} cy={point.y} r="2.1" fill="#B04646" stroke="#FAFAF8" strokeWidth="0.8" />
-          <text x={point.x} y="89" textAnchor="middle" fontSize="2.8" fill="#475569">
+          <circle cx={point.x} cy={point.y} r="2.1" fill={FIGURE_SECONDARY} stroke="#FAFAF8" strokeWidth="0.8" />
+          <text x={point.x} y="89" textAnchor="middle" fontSize="2.8" fill={FIGURE_NEUTRAL}>
             {point.x === 16
               ? "Low"
               : point.x === 33
@@ -717,7 +771,7 @@ function PrivateSchoolsHeterogeneityChart() {
                   ? "Middle"
                   : point.x === 67
                     ? "Upper-mid"
-                    : "High"}
+              : "High"}
           </text>
         </g>
       ))}
@@ -727,8 +781,8 @@ function PrivateSchoolsHeterogeneityChart() {
 
 function PrivateSchoolsObservedGapCard() {
   const data = [
-    { label: 'Students in private schools', shortLabel: 'Private students', value: 30, color: '#5F6B7A' },
-    { label: 'Top SEE grades in private schools', shortLabel: 'Top SEE grades', value: 90, color: '#173A8A' },
+    { label: 'Students in private schools', shortLabel: 'Private students', value: 30, color: FIGURE_SECONDARY },
+    { label: 'Top SEE grades in private schools', shortLabel: 'Top SEE grades', value: 90, color: FIGURE_PRIMARY },
   ];
 
   return (
@@ -738,20 +792,20 @@ function PrivateSchoolsObservedGapCard() {
       visual={
         <ResponsiveContainer width="100%" height="100%">
           <BarChart data={data} margin={{ top: 24, right: 16, left: 8, bottom: 36 }} barCategoryGap="34%">
-            <CartesianGrid stroke="#E2E8F0" strokeDasharray="3 3" vertical={false} />
+            <CartesianGrid stroke={FIGURE_GRID} strokeDasharray="3 3" vertical={false} />
             <XAxis
               dataKey="shortLabel"
-              tick={{ fill: '#475569', fontSize: 12 }}
+              tick={{ fill: FIGURE_NEUTRAL, fontSize: 12 }}
               axisLine={false}
               tickLine={false}
               interval={0}
             />
             <YAxis
               domain={[0, 100]}
-              tick={{ fill: '#475569', fontSize: 12 }}
+              tick={{ fill: FIGURE_NEUTRAL, fontSize: 12 }}
               axisLine={false}
               tickLine={false}
-              label={{ value: 'Share (%)', angle: -90, position: 'insideLeft', fill: '#475569', fontSize: 12, offset: 0 }}
+              label={{ value: 'Share (%)', angle: -90, position: 'insideLeft', fill: FIGURE_NEUTRAL, fontSize: 12, offset: 0 }}
             />
             <Tooltip
               formatter={(value) => `${value}%`}
@@ -1036,17 +1090,16 @@ function InsightArticlePage({ isMobileMenuOpen, onCloseMobileMenu, onToggleMobil
 
 function ProjectVisualCard({ title, children }) {
   return (
-    <div className="w-full max-w-full min-w-0 rounded-2xl border border-[#E0E0DC] bg-[#FAFAF8] p-5 sm:p-6">
-      <div className="text-xs font-semibold uppercase tracking-[0.18em] text-[#C8102E]">
-        Conceptual mechanism
-      </div>
-      <div className="mt-2 text-base font-semibold text-[#173A8A] [font-family:Georgia,'Times_New_Roman',serif]">
-        {title}
-      </div>
-      <div className="graph-card mt-5 w-full max-w-full min-w-0 overflow-hidden rounded-lg border border-[#E3E6EB] bg-white p-4 box-border [&_svg]:block [&_svg]:h-auto [&_svg]:max-w-full [&_svg]:w-full">
-        {children}
-      </div>
-    </div>
+    <MnFigure
+      title={title}
+      eyebrow="Conceptual mechanism"
+      chart={
+        <div className="graph-card h-full w-full min-w-0 [&_svg]:block [&_svg]:h-full [&_svg]:max-w-full [&_svg]:w-full">
+          {children}
+        </div>
+      }
+      chartClassName="p-0"
+    />
   );
 }
 
@@ -2076,29 +2129,22 @@ function WhitePaperChartGraphic({ chart }) {
 
 function ChartCard({ title, description, source, children, note }) {
   return (
-    <article className="relative rounded-3xl border border-slate-200 bg-white p-5 shadow-[0_16px_40px_rgba(15,23,42,0.06)] sm:p-6">
-      <div className="flex flex-col gap-2">
-        <div className="text-xs font-semibold uppercase tracking-[0.22em] text-red-700">
-          Data Exhibit
+    <MnFigure
+      title={title}
+      subtitle={description}
+      eyebrow="Data exhibit"
+      chart={children}
+      chartHeightClassName="min-h-[260px] h-auto md:min-h-[320px]"
+      figureClassName="shadow-[0_16px_40px_rgba(15,23,42,0.06)]"
+      caption={
+        <div className="space-y-3">
+          {note ? <p className="text-sm leading-6 text-slate-500">{note}</p> : null}
+          <div className="border-t border-slate-200 pt-4 text-xs leading-5 text-slate-500">
+            {source}
+          </div>
         </div>
-        <h3 className="text-xl font-semibold text-blue-950">{title}</h3>
-        <p className="text-sm leading-6 text-slate-600">{description}</p>
-      </div>
-
-      <div className="mt-6 h-px bg-slate-200" />
-
-      {children}
-
-      {note ? <p className="mt-4 text-sm leading-6 text-slate-500">{note}</p> : null}
-
-      <div className="mt-6 text-right text-xs font-medium text-slate-500 opacity-65">
-        © Metrics Nepal
-      </div>
-
-      <div className="mt-3 border-t border-slate-200 pt-4 text-xs leading-5 text-slate-500">
-        {source}
-      </div>
-    </article>
+      }
+    />
   );
 }
 
