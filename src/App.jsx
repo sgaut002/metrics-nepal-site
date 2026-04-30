@@ -619,6 +619,86 @@ function PrivateSchoolsDistributionChart() {
   );
 }
 
+function PrivateSchoolsObservedGapCard() {
+  const data = [
+    { label: "Students in private schools", value: 30, color: "#5F6B7A" },
+    { label: "Top SEE grades in private schools", value: 90, color: "#173A8A" },
+  ];
+  const chartLeft = 14;
+  const chartRight = 90;
+  const chartTop = 18;
+  const chartBottom = 82;
+  const barWidth = 18;
+  const gap = 18;
+  const maxValue = 100;
+
+  return (
+    <div className="overflow-hidden rounded-2xl border border-[#E3E6EB] bg-[#FAFAF8] p-5 shadow-sm">
+      <div className="grid gap-6 md:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] md:items-center">
+        <div className="min-w-0 space-y-4">
+          <MathBlock
+            label="Observed comparison"
+            math={String.raw`E[Y_i \mid Private_i = 1] > E[Y_i \mid Private_i = 0]`}
+          />
+          <MathBlock
+            label="Naive model"
+            math={String.raw`Y_i = \alpha + \beta Private_i + \varepsilon_i`}
+          />
+          <p className="text-sm leading-6 text-slate-600">
+            Raw comparison: the observed gap before adjusting for selection.
+          </p>
+        </div>
+
+        <div className="min-w-0 rounded-xl border border-[#E3E6EB] bg-white p-4">
+          <div className="text-center text-sm font-semibold leading-6 text-[#173A8A] [font-family:Georgia,'Times_New_Roman',serif]">
+            Private schools are overrepresented among top SEE grades
+          </div>
+          <div className="mt-4 h-[240px]">
+            <svg viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Private schools are overrepresented among top SEE grades">
+              {[0, 25, 50, 75, 100].map((tick) => {
+                const y = chartBottom - ((tick / maxValue) * (chartBottom - chartTop));
+                return (
+                  <g key={tick}>
+                    <line x1={chartLeft} y1={y} x2={chartRight} y2={y} stroke="#E2E8F0" strokeWidth="0.5" strokeDasharray="1.5 2.5" />
+                    <text x="8.5" y={y + 1.5} textAnchor="middle" fontSize="3.2" fill="#475569">
+                      {tick}
+                    </text>
+                  </g>
+                );
+              })}
+              <line x1={chartLeft} y1={chartTop} x2={chartLeft} y2={chartBottom} stroke="#94A3B8" strokeWidth="0.6" />
+              <line x1={chartLeft} y1={chartBottom} x2={chartRight} y2={chartBottom} stroke="#94A3B8" strokeWidth="0.6" />
+              <text x="4.5" y="50" transform="rotate(-90 4.5 50)" fontSize="3.2" fill="#475569">
+                Share (%)
+              </text>
+              {data.map((item, index) => {
+                const x = 28 + index * (barWidth + gap);
+                const barHeight = (item.value / maxValue) * (chartBottom - chartTop);
+                const y = chartBottom - barHeight;
+                return (
+                  <g key={item.label}>
+                    <rect x={x} y={y} width={barWidth} height={barHeight} rx="2.4" fill={item.color} />
+                    <text x={x + barWidth / 2} y={y - 2.5} textAnchor="middle" fontSize="3.8" fontWeight="700" fill="#0f172a">
+                      {item.value}%
+                    </text>
+                    <text x={x + barWidth / 2} y="89" textAnchor="middle" fontSize="3.1" fill="#475569">
+                      {index === 0 ? "Private students" : "Top SEE grades"}
+                    </text>
+                  </g>
+                );
+              })}
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <p className="mt-5 text-sm leading-6 text-slate-600">
+        The gap is descriptive, not causal. It motivates the econometric question: how much of the private-school advantage reflects school value-added rather than household selection, peer composition, or signaling?
+      </p>
+    </div>
+  );
+}
+
 function InsightArticlePage({ isMobileMenuOpen, onCloseMobileMenu, onToggleMobileMenu }) {
   return (
     <div className="min-h-screen bg-[#F5F5F3] text-slate-900 [font-family:Inter,ui-sans-serif,system-ui,sans-serif]">
@@ -667,11 +747,7 @@ function InsightArticlePage({ isMobileMenuOpen, onCloseMobileMenu, onToggleMobil
               <p>
                 The raw gap in SEE pass rates between private and public schools is the starting point of the debate. Private-school students appear to perform better on average. The question is whether this reflects differences in school quality, or differences in the students and households that select into each system.
               </p>
-              <img
-                src="/insights-private-schools-1.png"
-                alt="SEE pass rate comparison between private and public schools"
-                className="w-full overflow-hidden rounded-2xl border border-[#E3E6EB] bg-white shadow-sm"
-              />
+              <PrivateSchoolsObservedGapCard />
               <p>
                 This observed gap is real. But it is not, by itself, an estimate of school quality.
               </p>
